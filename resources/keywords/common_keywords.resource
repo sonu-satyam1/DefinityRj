@@ -15,14 +15,24 @@ Wait Till Element Visible
     [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
     Wait Until Element Is Visible    ${LOCATOR}    ${TIMEOUT}
 
+Wait Till Element Disappear
+    [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
+    Wait Until Page Does Not Contain Element    ${LOCATOR}    ${TIMEOUT}
+
 Wait Till Element Enabled
     [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
     Wait Until Element Is Enabled    ${LOCATOR}    ${TIMEOUT}
 
 Wait For Spinner To Disappear
-    [Arguments]    ${SPINNER_LOCATOR}    ${TIMEOUT}=${LONG_TIMEOUT}
+    [Arguments]    ${PAGE_LOADER}    ${TIMEOUT}=${LONG_TIMEOUT}
     Run Keyword And Ignore Error
-    ...    Wait Until Element Is Not Visible    ${SPINNER_LOCATOR}    ${TIMEOUT}
+    ...    Wait Until Element Is Not Visible    ${PAGE_LOADER}    ${TIMEOUT}
+
+Get Text Safely
+    [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
+    Wait Till Element Visible    ${LOCATOR}    ${TIMEOUT}
+    ${text}=    Get Text    ${LOCATOR}
+    [Return]    ${text}
 
 Input Text Safely
     [Arguments]    ${LOCATOR}    ${TEXT}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
@@ -41,3 +51,7 @@ Wait And Click With Retry
     ...    ${RETRY_COUNT}
     ...    ${POLLING_INTERVAL}
     ...    Click Element Safely    ${LOCATOR}
+
+Click Outside To Close Popup
+    Wait Till Element Disappear    ${PAGE_LOADER}    30s
+    Click Element    xpath=//body

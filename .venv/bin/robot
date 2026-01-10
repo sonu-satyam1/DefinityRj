@@ -1,4 +1,4 @@
-#!/home/costrategix/PycharmProjects/PythonProject2/.venv/bin/python3.11
+#!/home/costrategix/PycharmProjects/DefinityRj/.venv/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys

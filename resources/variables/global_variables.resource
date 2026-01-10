@@ -5,3 +5,4 @@ ${SHORT_TIMEOUT}       5s
 ${POLLING_INTERVAL}    500ms
 ${RETRY_COUNT}         3
 ${BROWSER}             chrome
+${PAGE_LOADER}        xpath=//div[contains(@class,"page-loader")]
