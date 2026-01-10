@@ -9,5 +9,5 @@ if conflicts - `git pull origin main --rebase`
 
 
 #### for env wise execution
-`robot --variablefile resources/variables/environment/qa2.py test.robot`
+`robot --variablefile resources/variables/environment/qa2.py  resources/resource.robot`
 
