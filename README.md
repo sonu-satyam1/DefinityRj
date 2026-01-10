@@ -8,3 +8,6 @@ to add remote first time and required only once- `git remote add origin https://
 if conflicts - `git pull origin main --rebase`
 
 
+#### for env wise execution
+`robot --variablefile resources/variables/environment/qa2.py test.robot`
+
