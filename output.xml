@@ -1,31 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.1 (Python 3.12.3 on linux)" generated="2026-01-10T14:37:32.527872" rpa="false" schemaversion="5">
-<suite id="s1" name="Resource" source="/home/costrategix/PycharmProjects/DefinityRj/resources/resource.robot">
-<test id="s1-t1" name="Open Example" line="5">
+<robot generator="Robot 7.4.1 (Python 3.12.3 on linux)" generated="2026-01-10T16:02:23.500145" rpa="false" schemaversion="5">
+<suite id="s1" name="Login" source="/home/costrategix/PycharmProjects/DefinityRj/tests/LoginPage/login.robot">
+<test id="s1-t1" name="Login To HCS Portal" line="7">
+<kw name="Login To Portal" owner="login">
+<kw name="Open Browser And Maximize" owner="common_keywords">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2026-01-10T14:37:32.608215" level="INFO">Opening browser 'chrome' to base url 'https://costrategi-security-qa2.internal-definitywfs.com/signin'.</msg>
-<arg>${HCS_URL}</arg>
-<arg>chrome</arg>
+<msg time="2026-01-10T16:02:23.581272" level="INFO">Opening browser 'chrome' to base url 'https://costrategi-security-qa2.internal-definitywfs.com/signin'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER_NAME}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2026-01-10T14:37:32.608049" elapsed="5.542101"/>
+<status status="PASS" start="2026-01-10T16:02:23.581113" elapsed="2.128145"/>
 </kw>
 <kw name="Maximize Browser Window" owner="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2026-01-10T14:37:38.150492" elapsed="0.019772"/>
+<status status="PASS" start="2026-01-10T16:02:25.709632" elapsed="0.014504"/>
 </kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2026-01-10T14:37:41.171153" level="INFO">Slept 3 seconds.</msg>
-<arg>3s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2026-01-10T14:37:38.170524" elapsed="3.000981"/>
+<arg>${PORTAL['url']}</arg>
+<status status="PASS" start="2026-01-10T16:02:23.580457" elapsed="2.143785"/>
 </kw>
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-01-10T16:02:25.724662" elapsed="0.020179"/>
+</kw>
+<arg>${SIGN_IN_HEADER}</arg>
+<status status="PASS" start="2026-01-10T16:02:25.724397" elapsed="0.020575"/>
+</kw>
+<kw name="Input Text Safely" owner="common_keywords">
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-01-10T16:02:25.746233" elapsed="0.015165"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-01-10T16:02:25.745916" elapsed="0.015612"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-10T16:02:25.761662" elapsed="0.031851"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-01-10T16:02:25.793955" level="INFO">Typing text 'rajitha.patragolla+1@costrategix.com' into text field 'xpath://input[@name='emailAddress']'.</msg>
+<arg>${LOCATOR}</arg>
+<arg>${TEXT}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-10T16:02:25.793685" elapsed="0.135824"/>
+</kw>
+<arg>${EMAIL_TEXTBOX}</arg>
+<arg>${PORTAL['user']}</arg>
+<status status="PASS" start="2026-01-10T16:02:25.745169" elapsed="0.184488"/>
+</kw>
+<kw name="Input Text Safely" owner="common_keywords">
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-01-10T16:02:25.930992" elapsed="0.013848"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-01-10T16:02:25.930666" elapsed="0.014295"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-10T16:02:25.945107" elapsed="0.021060"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-01-10T16:02:25.966512" level="INFO">Typing text 'Test@123' into text field 'xpath://input[@name='password']'.</msg>
+<arg>${LOCATOR}</arg>
+<arg>${TEXT}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-10T16:02:25.966309" elapsed="0.067193"/>
+</kw>
+<arg>${PASSWORD_TEXTBOX}</arg>
+<arg>${PORTAL['pass']}</arg>
+<status status="PASS" start="2026-01-10T16:02:25.929876" elapsed="0.103717"/>
+</kw>
+<kw name="Wait And Click With Retry" owner="common_keywords">
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<kw name="Click Element Safely" owner="common_keywords">
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-01-10T16:02:26.034811" elapsed="0.017587"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-01-10T16:02:26.034639" elapsed="0.017886"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-01-10T16:02:26.052903" level="INFO">Clicking element 'xpath://button[@type='submit']'.</msg>
+<arg>${LOCATOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-10T16:02:26.052666" elapsed="0.052879"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<status status="PASS" start="2026-01-10T16:02:26.034429" elapsed="0.071364"/>
+</kw>
+<arg>${RETRY_COUNT}</arg>
+<arg>${POLLING_INTERVAL}</arg>
+<arg>Click Element Safely</arg>
+<arg>${LOCATOR}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="PASS" start="2026-01-10T16:02:26.033987" elapsed="0.071970"/>
+</kw>
+<arg>${SIGN_IN_BTN}</arg>
+<status status="PASS" start="2026-01-10T16:02:26.033737" elapsed="0.072394"/>
+</kw>
+<arg>${HCS}</arg>
+<status status="PASS" start="2026-01-10T16:02:23.580195" elapsed="2.526078"/>
+</kw>
+<kw name="Close Browser Safely" owner="common_keywords" type="TEARDOWN">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
 <kw name="Close Browser" owner="SeleniumLibrary">
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2026-01-10T14:37:41.172050" elapsed="0.078123"/>
+<status status="PASS" start="2026-01-10T16:02:26.108393" elapsed="0.072640"/>
 </kw>
-<status status="PASS" start="2026-01-10T14:37:32.607440" elapsed="8.642994"/>
+<arg>Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-01-10T16:02:26.107640" elapsed="0.073477"/>
+</kw>
+<status status="PASS" start="2026-01-10T16:02:26.106957" elapsed="0.074213"/>
+</kw>
+<status status="PASS" start="2026-01-10T16:02:23.579805" elapsed="2.601442"/>
 </test>
-<status status="PASS" start="2026-01-10T14:37:32.531960" elapsed="8.718899"/>
+<status status="PASS" start="2026-01-10T16:02:23.503868" elapsed="2.677718"/>
 </suite>
 <statistics>
 <total>
@@ -34,7 +143,7 @@
 <tag>
 </tag>
 <suite>
-<stat name="Resource" id="s1" pass="1" fail="0" skip="0">Resource</stat>
+<stat name="Login" id="s1" pass="1" fail="0" skip="0">Login</stat>
 </suite>
 </statistics>
 <errors>
