@@ -1,64 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.1 (Python 3.11.14 on linux)" generated="2026-01-10T17:15:51.782714" rpa="false" schemaversion="5">
-<suite id="s1" name="DefinityRj" source="/home/costrategix/PycharmProjects/DefinityRj">
-<suite id="s1-s1" name="Resources" source="/home/costrategix/PycharmProjects/DefinityRj/resources">
-<suite id="s1-s1-s1" name="Resource" source="/home/costrategix/PycharmProjects/DefinityRj/resources/resource.robot">
-<test id="s1-s1-s1-t1" name="open the browser with specified url" line="5">
-<error>
-<msg time="2026-01-10T17:15:51.883942" level="FAIL">Setting 'Arguments' is not allowed with tests or tasks.</msg>
-<value>[Arguments]</value>
-<status status="FAIL" start="2026-01-10T17:15:51.883905" elapsed="0.000077">Setting 'Arguments' is not allowed with tests or tasks.</status>
-</error>
+<robot generator="Robot 7.4.1 (Python 3.11.14 on linux)" generated="2026-01-13T14:30:33.135026" rpa="false" schemaversion="5">
+<suite id="s1" name="Login" source="/home/costrategix/PycharmProjects/DefinityRj/tests/LoginPage/login.robot">
+<test id="s1-t1" name="Login To HCS Portal" line="7">
+<kw name="Login To Portal" owner="login">
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Open Portal And Login To HCS" owner="portal_keywords">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<arg>${HCS_URL}</arg>
+<msg time="2026-01-13T14:30:33.210257" level="INFO">Opening browser 'chrome' to base url 'https://costrategi-security-qa2.internal-definitywfs.com/signin'.</msg>
+<arg>${PORTAL['url']}</arg>
 <arg>chrome</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="NOT RUN" start="2026-01-10T17:15:51.884444" elapsed="0.000034"/>
+<status status="PASS" start="2026-01-13T14:30:33.209887" elapsed="2.687997"/>
 </kw>
 <kw name="Maximize Browser Window" owner="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="NOT RUN" start="2026-01-10T17:15:51.884556" elapsed="0.000019"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<arg>3s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="NOT RUN" start="2026-01-10T17:15:51.884631" elapsed="0.000017"/>
-</kw>
-<status status="FAIL" start="2026-01-10T17:15:51.883713" elapsed="0.001031">Setting 'Arguments' is not allowed with tests or tasks.</status>
-</test>
-<status status="FAIL" start="2026-01-10T17:15:51.802227" elapsed="0.082718"/>
-</suite>
-<status status="FAIL" start="2026-01-10T17:15:51.801663" elapsed="0.083548"/>
-</suite>
-<suite id="s1-s2" name="Tests" source="/home/costrategix/PycharmProjects/DefinityRj/tests">
-<suite id="s1-s2-s1" name="LoginPage" source="/home/costrategix/PycharmProjects/DefinityRj/tests/LoginPage">
-<suite id="s1-s2-s1-s1" name="Login" source="/home/costrategix/PycharmProjects/DefinityRj/tests/LoginPage/login.robot">
-<test id="s1-s2-s1-s1-t1" name="Login To HCS Portal" line="7">
-<kw name="Login To Portal" owner="login">
-<kw name="Open Browser And Maximize" owner="common_keywords">
-<kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2026-01-10T17:15:51.891528" level="INFO">Opening browser 'chrome' to base url 'https://costrategi-security-qa2.internal-definitywfs.com/signin'.</msg>
-<arg>${URL}</arg>
-<arg>${BROWSER_NAME}</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2026-01-10T17:15:51.891364" elapsed="3.424062"/>
-</kw>
-<kw name="Maximize Browser Window" owner="SeleniumLibrary">
-<doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.315664" elapsed="0.016405"/>
-</kw>
-<arg>${PORTAL['url']}</arg>
-<status status="PASS" start="2026-01-10T17:15:51.890936" elapsed="3.441269"/>
+<status status="PASS" start="2026-01-13T14:30:35.898163" elapsed="0.016136"/>
 </kw>
 <kw name="Wait Till Element Visible" owner="common_keywords">
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.333187" elapsed="0.028976"/>
+<status status="PASS" start="2026-01-13T14:30:35.914955" elapsed="0.036244"/>
 </kw>
-<arg>${SIGN_IN_HEADER}</arg>
-<status status="PASS" start="2026-01-10T17:15:55.332632" elapsed="0.029688"/>
+<arg>${HEADER_SIGNIN}</arg>
+<arg>50s</arg>
+<status status="PASS" start="2026-01-13T14:30:35.914562" elapsed="0.036763"/>
 </kw>
 <kw name="Input Text Safely" owner="common_keywords">
 <kw name="Wait Till Element Visible" owner="common_keywords">
@@ -66,27 +33,27 @@
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.363749" elapsed="0.015146"/>
+<status status="PASS" start="2026-01-13T14:30:35.952329" elapsed="0.015828"/>
 </kw>
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
-<status status="PASS" start="2026-01-10T17:15:55.363401" elapsed="0.015624"/>
+<status status="PASS" start="2026-01-13T14:30:35.952108" elapsed="0.016220"/>
 </kw>
 <kw name="Clear Element Text" owner="SeleniumLibrary">
 <arg>${LOCATOR}</arg>
 <doc>Clears the value of the text-input-element identified by ``locator``.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.379178" elapsed="0.034689"/>
+<status status="PASS" start="2026-01-13T14:30:35.968512" elapsed="0.029149"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2026-01-10T17:15:55.414346" level="INFO">Typing text 'rajitha.patragolla+1@costrategix.com' into text field 'xpath://input[@name='emailAddress']'.</msg>
+<msg time="2026-01-13T14:30:35.998126" level="INFO">Typing text 'rajitha.patragolla+1@costrategix.com' into text field 'xpath://input[@name='emailAddress']'.</msg>
 <arg>${LOCATOR}</arg>
 <arg>${TEXT}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.414072" elapsed="0.152463"/>
+<status status="PASS" start="2026-01-13T14:30:35.997845" elapsed="0.129765"/>
 </kw>
-<arg>${EMAIL_TEXTBOX}</arg>
+<arg>${INPUT_EMAIL_ADDRESS}</arg>
 <arg>${PORTAL['user']}</arg>
-<status status="PASS" start="2026-01-10T17:15:55.362591" elapsed="0.204067"/>
+<status status="PASS" start="2026-01-13T14:30:35.951511" elapsed="0.176239"/>
 </kw>
 <kw name="Input Text Safely" owner="common_keywords">
 <kw name="Wait Till Element Visible" owner="common_keywords">
@@ -94,102 +61,476 @@
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.567871" elapsed="0.012778"/>
+<status status="PASS" start="2026-01-13T14:30:36.129080" elapsed="0.015741"/>
 </kw>
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
-<status status="PASS" start="2026-01-10T17:15:55.567563" elapsed="0.013179"/>
+<status status="PASS" start="2026-01-13T14:30:36.128736" elapsed="0.016211"/>
 </kw>
 <kw name="Clear Element Text" owner="SeleniumLibrary">
 <arg>${LOCATOR}</arg>
 <doc>Clears the value of the text-input-element identified by ``locator``.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.580852" elapsed="0.021284"/>
+<status status="PASS" start="2026-01-13T14:30:36.145184" elapsed="0.020282"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2026-01-10T17:15:55.602620" level="INFO">Typing text 'Test@123' into text field 'xpath://input[@name='password']'.</msg>
+<msg time="2026-01-13T14:30:36.165932" level="INFO">Typing text 'Test@123' into text field 'xpath://input[@name='password']'.</msg>
 <arg>${LOCATOR}</arg>
 <arg>${TEXT}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.602339" elapsed="0.063292"/>
+<status status="PASS" start="2026-01-13T14:30:36.165661" elapsed="0.066441"/>
 </kw>
-<arg>${PASSWORD_TEXTBOX}</arg>
+<arg>${INPUT_PASSWORD}</arg>
 <arg>${PORTAL['pass']}</arg>
-<status status="PASS" start="2026-01-10T17:15:55.566863" elapsed="0.098921"/>
+<status status="PASS" start="2026-01-13T14:30:36.127952" elapsed="0.104285"/>
 </kw>
-<kw name="Wait And Click With Retry" owner="common_keywords">
-<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-01-13T14:30:36.232880" elapsed="0.020356"/>
+</kw>
+<arg>${BUTTON_LOGIN}</arg>
+<arg>50s</arg>
+<status status="PASS" start="2026-01-13T14:30:36.232465" elapsed="0.020910"/>
+</kw>
 <kw name="Click Element Safely" owner="common_keywords">
 <kw name="Wait Till Element Enabled" owner="common_keywords">
 <kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
 <doc>Waits until the element ``locator`` is enabled.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.667254" elapsed="0.015661"/>
+<status status="PASS" start="2026-01-13T14:30:36.254350" elapsed="0.020963"/>
 </kw>
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
-<status status="PASS" start="2026-01-10T17:15:55.667053" elapsed="0.015988"/>
+<status status="PASS" start="2026-01-13T14:30:36.253979" elapsed="0.021482"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2026-01-10T17:15:55.683509" level="INFO">Clicking element 'xpath://button[@type='submit']'.</msg>
+<msg time="2026-01-13T14:30:36.276046" level="INFO">Clicking element 'xpath://button[@type='submit']'.</msg>
 <arg>${LOCATOR}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.683187" elapsed="0.061687"/>
+<status status="PASS" start="2026-01-13T14:30:36.275649" elapsed="0.069879"/>
 </kw>
-<arg>${LOCATOR}</arg>
-<status status="PASS" start="2026-01-10T17:15:55.666709" elapsed="0.078501"/>
+<arg>${BUTTON_LOGIN}</arg>
+<status status="PASS" start="2026-01-13T14:30:36.253585" elapsed="0.092214"/>
 </kw>
-<arg>${RETRY_COUNT}</arg>
-<arg>${POLLING_INTERVAL}</arg>
-<arg>Click Element Safely</arg>
-<arg>${LOCATOR}</arg>
-<doc>Runs the specified keyword and retries if it fails.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.666279" elapsed="0.079156"/>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-01-13T14:30:41.347378" level="INFO">Slept 5 seconds.</msg>
+<arg>5 sec</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-01-13T14:30:36.346110" elapsed="5.001570"/>
 </kw>
-<arg>${SIGN_IN_BTN}</arg>
-<status status="PASS" start="2026-01-10T17:15:55.666023" elapsed="0.079617"/>
+<arg>${PORTAL}</arg>
+<status status="PASS" start="2026-01-13T14:30:33.209698" elapsed="8.138213"/>
 </kw>
+<arg>'${PORTAL_NAME}' == 'HCS'</arg>
+<arg>Open Portal And Login To HCS</arg>
+<arg>${PORTAL}</arg>
+<arg>ELSE IF</arg>
+<arg>'${PORTAL_NAME}' == 'VMS'</arg>
+<arg>Open Portal And Login To VMS</arg>
+<arg>${PORTAL}</arg>
+<arg>ELSE IF</arg>
+<arg>'${PORTAL_NAME}' == 'MYDEF'</arg>
+<arg>Open Portal And Login To MYDEF</arg>
+<arg>${PORTAL}</arg>
+<arg>ELSE</arg>
+<arg>Fail</arg>
+<arg>Unsupported portal: ${PORTAL_NAME}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-01-13T14:30:33.209282" elapsed="8.138783"/>
+</kw>
+<arg>HCS</arg>
 <arg>${HCS}</arg>
-<status status="PASS" start="2026-01-10T17:15:51.890695" elapsed="3.855106"/>
+<status status="PASS" start="2026-01-13T14:30:33.208817" elapsed="8.139418"/>
 </kw>
 <kw name="Close Browser Safely" owner="common_keywords" type="TEARDOWN">
 <kw name="Run Keyword And Ignore Error" owner="BuiltIn">
 <kw name="Close Browser" owner="SeleniumLibrary">
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.747546" elapsed="0.058314"/>
+<status status="PASS" start="2026-01-13T14:30:41.350217" elapsed="0.057309"/>
 </kw>
 <arg>Close Browser</arg>
 <doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
-<status status="PASS" start="2026-01-10T17:15:55.746785" elapsed="0.059188"/>
+<status status="PASS" start="2026-01-13T14:30:41.349568" elapsed="0.058066"/>
 </kw>
-<status status="PASS" start="2026-01-10T17:15:55.746424" elapsed="0.059627"/>
+<status status="PASS" start="2026-01-13T14:30:41.348974" elapsed="0.058739"/>
 </kw>
-<status status="PASS" start="2026-01-10T17:15:51.890412" elapsed="3.915697"/>
+<status status="PASS" start="2026-01-13T14:30:33.208420" elapsed="8.199397"/>
 </test>
-<status status="PASS" start="2026-01-10T17:15:51.886484" elapsed="3.919987"/>
-</suite>
-<status status="PASS" start="2026-01-10T17:15:51.886017" elapsed="3.921083"/>
-</suite>
-<status status="PASS" start="2026-01-10T17:15:51.885361" elapsed="3.922152"/>
-</suite>
-<status status="FAIL" start="2026-01-10T17:15:51.786169" elapsed="4.021759"/>
+<test id="s1-t2" name="Login To MYDEF Portal" line="10">
+<kw name="Login To Portal" owner="login">
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Open Portal And Login To myDef" owner="portal_keywords">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-01-13T14:30:41.410332" level="INFO">Opening browser 'chrome' to base url 'https://defcostrategimydefqa2st.z20.web.core.windows.net'.</msg>
+<arg>${PORTAL['url']}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-01-13T14:30:41.409792" elapsed="8.629382"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-01-13T14:30:50.039363" elapsed="0.016969"/>
+</kw>
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-01-13T14:30:50.056930" elapsed="0.023634"/>
+</kw>
+<arg>${HEADER_LETS_GET_STARTED}</arg>
+<arg>50s</arg>
+<status status="PASS" start="2026-01-13T14:30:50.056572" elapsed="0.024193"/>
+</kw>
+<kw name="Input Text Safely" owner="common_keywords">
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-01-13T14:30:50.082006" elapsed="0.021216"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-01-13T14:30:50.081726" elapsed="0.021614"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-13T14:30:50.103586" elapsed="0.032195"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-01-13T14:30:50.136266" level="INFO">Typing text 'TestAutomationUser@mailinator.com' into text field 'xpath://label[normalize-space()='Email Address']/following::input[1]'.</msg>
+<arg>${LOCATOR}</arg>
+<arg>${TEXT}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-13T14:30:50.135975" elapsed="0.129456"/>
+</kw>
+<arg>${INPUT_EMAIL_BY_LABEL}</arg>
+<arg>${PORTAL['user']}</arg>
+<status status="PASS" start="2026-01-13T14:30:50.080990" elapsed="0.184563"/>
+</kw>
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-01-13T14:30:50.266111" elapsed="0.021516"/>
+</kw>
+<arg>${BUTTON_FIND_ACCOUNT}</arg>
+<arg>50s</arg>
+<status status="PASS" start="2026-01-13T14:30:50.265742" elapsed="0.022006"/>
+</kw>
+<kw name="Click Element Safely" owner="common_keywords">
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-01-13T14:30:50.288637" elapsed="0.016014"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-01-13T14:30:50.288327" elapsed="0.016450"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-01-13T14:30:50.305220" level="INFO">Clicking element 'xpath://button[normalize-space()='Find Account']'.</msg>
+<arg>${LOCATOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-13T14:30:50.304922" elapsed="0.056104"/>
+</kw>
+<arg>${BUTTON_FIND_ACCOUNT}</arg>
+<status status="PASS" start="2026-01-13T14:30:50.287943" elapsed="0.073219"/>
+</kw>
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-01-13T14:30:50.361771" elapsed="1.509505"/>
+</kw>
+<arg>${HEADER_SIGNIN_MYDEF}</arg>
+<arg>50s</arg>
+<status status="PASS" start="2026-01-13T14:30:50.361370" elapsed="1.510063"/>
+</kw>
+<kw name="Input Text Safely" owner="common_keywords">
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-01-13T14:30:51.873244" elapsed="0.032708"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-01-13T14:30:51.872818" elapsed="0.033285"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-13T14:30:51.906272" elapsed="0.037261"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-01-13T14:30:51.944265" level="INFO">Typing text 'Test@123' into text field 'xpath://input[@type='password']'.</msg>
+<arg>${LOCATOR}</arg>
+<arg>${TEXT}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-13T14:30:51.943791" elapsed="0.104408"/>
+</kw>
+<arg>${INPUT_PASSWORD_MYDEF}</arg>
+<arg>${PORTAL['pass']}</arg>
+<status status="PASS" start="2026-01-13T14:30:51.871702" elapsed="0.176616"/>
+</kw>
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-01-13T14:30:52.048907" elapsed="0.015757"/>
+</kw>
+<arg>${BUTTON_LOGIN}</arg>
+<arg>50s</arg>
+<status status="PASS" start="2026-01-13T14:30:52.048534" elapsed="0.016244"/>
+</kw>
+<kw name="Click Element Safely" owner="common_keywords">
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-01-13T14:30:52.065592" elapsed="0.012773"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-01-13T14:30:52.065305" elapsed="0.013178"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-01-13T14:30:52.078852" level="INFO">Clicking element 'xpath://button[@type='submit']'.</msg>
+<arg>${LOCATOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-13T14:30:52.078624" elapsed="0.048487"/>
+</kw>
+<arg>${BUTTON_LOGIN}</arg>
+<status status="PASS" start="2026-01-13T14:30:52.064952" elapsed="0.062312"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-01-13T14:30:57.128004" level="INFO">Slept 5 seconds.</msg>
+<arg>5 sec</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-01-13T14:30:52.127452" elapsed="5.000932"/>
+</kw>
+<arg>${PORTAL}</arg>
+<status status="PASS" start="2026-01-13T14:30:41.409520" elapsed="15.719154"/>
+</kw>
+<arg>'${PORTAL_NAME}' == 'HCS'</arg>
+<arg>Open Portal And Login To HCS</arg>
+<arg>${PORTAL}</arg>
+<arg>ELSE IF</arg>
+<arg>'${PORTAL_NAME}' == 'VMS'</arg>
+<arg>Open Portal And Login To VMS</arg>
+<arg>${PORTAL}</arg>
+<arg>ELSE IF</arg>
+<arg>'${PORTAL_NAME}' == 'MYDEF'</arg>
+<arg>Open Portal And Login To MYDEF</arg>
+<arg>${PORTAL}</arg>
+<arg>ELSE</arg>
+<arg>Fail</arg>
+<arg>Unsupported portal: ${PORTAL_NAME}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-01-13T14:30:41.408825" elapsed="15.720093"/>
+</kw>
+<arg>MYDEF</arg>
+<arg>${MYDEF}</arg>
+<status status="PASS" start="2026-01-13T14:30:41.408504" elapsed="15.720723"/>
+</kw>
+<kw name="Close Browser Safely" owner="common_keywords" type="TEARDOWN">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-01-13T14:30:57.131348" elapsed="0.059006"/>
+</kw>
+<arg>Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-01-13T14:30:57.130806" elapsed="0.059660"/>
+</kw>
+<status status="PASS" start="2026-01-13T14:30:57.130010" elapsed="0.060535"/>
+</kw>
+<status status="PASS" start="2026-01-13T14:30:41.408122" elapsed="15.782524"/>
+</test>
+<test id="s1-t3" name="Login To VMS Portal" line="13">
+<kw name="Login To Portal" owner="login">
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Open Portal And Login To Vms" owner="portal_keywords">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-01-13T14:30:57.193133" level="INFO">Opening browser 'chrome' to base url 'https://security-qa2.internal-definitywfs.com/signin'.</msg>
+<arg>${PORTAL['url']}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-01-13T14:30:57.192619" elapsed="2.464320"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-01-13T14:30:59.657150" elapsed="0.018968"/>
+</kw>
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-01-13T14:30:59.676694" elapsed="0.022921"/>
+</kw>
+<arg>${HEADER_SIGNIN}</arg>
+<arg>50s</arg>
+<status status="PASS" start="2026-01-13T14:30:59.676352" elapsed="0.023386"/>
+</kw>
+<kw name="Input Text Safely" owner="common_keywords">
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-01-13T14:30:59.714947" elapsed="0.014400"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-01-13T14:30:59.700706" elapsed="0.028861"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-13T14:30:59.729730" elapsed="0.028409"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-01-13T14:30:59.758604" level="INFO">Typing text 'testingcostrategix17+130@gmail.com' into text field 'xpath://input[@name='emailAddress']'.</msg>
+<arg>${LOCATOR}</arg>
+<arg>${TEXT}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-13T14:30:59.758327" elapsed="0.163512"/>
+</kw>
+<arg>${INPUT_EMAIL_ADDRESS}</arg>
+<arg>${PORTAL['user']}</arg>
+<status status="PASS" start="2026-01-13T14:30:59.699930" elapsed="0.222031"/>
+</kw>
+<kw name="Input Text Safely" owner="common_keywords">
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-01-13T14:30:59.923231" elapsed="0.014362"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-01-13T14:30:59.922913" elapsed="0.014802"/>
+</kw>
+<kw name="Clear Element Text" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<doc>Clears the value of the text-input-element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-13T14:30:59.937853" elapsed="0.018932"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-01-13T14:30:59.957259" level="INFO">Typing text 'Test@123' into text field 'xpath://input[@name='password']'.</msg>
+<arg>${LOCATOR}</arg>
+<arg>${TEXT}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-13T14:30:59.956977" elapsed="0.056879"/>
+</kw>
+<arg>${INPUT_PASSWORD}</arg>
+<arg>${PORTAL['pass']}</arg>
+<status status="PASS" start="2026-01-13T14:30:59.922190" elapsed="0.091802"/>
+</kw>
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-01-13T14:31:00.014548" elapsed="0.020081"/>
+</kw>
+<arg>${BUTTON_LOGIN}</arg>
+<arg>50s</arg>
+<status status="PASS" start="2026-01-13T14:31:00.014206" elapsed="0.020543"/>
+</kw>
+<kw name="Click Element Safely" owner="common_keywords">
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-01-13T14:31:00.035630" elapsed="0.014206"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-01-13T14:31:00.035329" elapsed="0.014634"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-01-13T14:31:00.050369" level="INFO">Clicking element 'xpath://button[@type='submit']'.</msg>
+<arg>${LOCATOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-01-13T14:31:00.050128" elapsed="0.042528"/>
+</kw>
+<arg>${BUTTON_LOGIN}</arg>
+<status status="PASS" start="2026-01-13T14:31:00.034953" elapsed="0.057833"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-01-13T14:31:05.093520" level="INFO">Slept 5 seconds.</msg>
+<arg>5 sec</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-01-13T14:31:00.092937" elapsed="5.000894"/>
+</kw>
+<arg>${PORTAL}</arg>
+<status status="PASS" start="2026-01-13T14:30:57.192333" elapsed="7.901811"/>
+</kw>
+<arg>'${PORTAL_NAME}' == 'HCS'</arg>
+<arg>Open Portal And Login To HCS</arg>
+<arg>${PORTAL}</arg>
+<arg>ELSE IF</arg>
+<arg>'${PORTAL_NAME}' == 'VMS'</arg>
+<arg>Open Portal And Login To VMS</arg>
+<arg>${PORTAL}</arg>
+<arg>ELSE IF</arg>
+<arg>'${PORTAL_NAME}' == 'MYDEF'</arg>
+<arg>Open Portal And Login To MYDEF</arg>
+<arg>${PORTAL}</arg>
+<arg>ELSE</arg>
+<arg>Fail</arg>
+<arg>Unsupported portal: ${PORTAL_NAME}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-01-13T14:30:57.191643" elapsed="7.902675"/>
+</kw>
+<arg>VMS</arg>
+<arg>${VMS}</arg>
+<status status="PASS" start="2026-01-13T14:30:57.191328" elapsed="7.903229"/>
+</kw>
+<kw name="Close Browser Safely" owner="common_keywords" type="TEARDOWN">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-01-13T14:31:05.097308" elapsed="0.057838"/>
+</kw>
+<arg>Close Browser</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-01-13T14:31:05.096459" elapsed="0.058793"/>
+</kw>
+<status status="PASS" start="2026-01-13T14:31:05.095451" elapsed="0.059879"/>
+</kw>
+<status status="PASS" start="2026-01-13T14:30:57.190927" elapsed="7.964499"/>
+</test>
+<status status="PASS" start="2026-01-13T14:30:33.135807" elapsed="32.020063"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="1" skip="0">All Tests</stat>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat name="DefinityRj" id="s1" pass="1" fail="1" skip="0">DefinityRj</stat>
-<stat name="Resources" id="s1-s1" pass="0" fail="1" skip="0">DefinityRj.Resources</stat>
-<stat name="Resource" id="s1-s1-s1" pass="0" fail="1" skip="0">DefinityRj.Resources.Resource</stat>
-<stat name="Tests" id="s1-s2" pass="1" fail="0" skip="0">DefinityRj.Tests</stat>
-<stat name="LoginPage" id="s1-s2-s1" pass="1" fail="0" skip="0">DefinityRj.Tests.LoginPage</stat>
-<stat name="Login" id="s1-s2-s1-s1" pass="1" fail="0" skip="0">DefinityRj.Tests.LoginPage.Login</stat>
+<stat name="Login" id="s1" pass="3" fail="0" skip="0">Login</stat>
 </suite>
 </statistics>
 <errors>
-<msg time="2026-01-10T17:15:51.889035" level="WARN">Error in file '/home/costrategix/PycharmProjects/DefinityRj/resources/keywords/common_keywords.resource' on line 35: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-01-13T14:30:33.206976" level="WARN">Error in file '/home/costrategix/PycharmProjects/DefinityRj/resources/keywords/common_keywords.resource' on line 35: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
 </errors>
 </robot>

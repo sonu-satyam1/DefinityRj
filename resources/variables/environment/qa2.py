@@ -17,5 +17,3 @@ VMS = {
     "user": "testingcostrategix17+130@gmail.com",
     "pass": "Test@123"
 }
-
-BROWSER = "chrome"

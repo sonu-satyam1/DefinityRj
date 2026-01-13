@@ -6,3 +6,4 @@ ${POLLING_INTERVAL}    500ms
 ${RETRY_COUNT}         3
 ${BROWSER}             chrome
 ${PAGE_LOADER}        xpath=//div[contains(@class,"page-loader")]
+${TEST_ENV}            qa2

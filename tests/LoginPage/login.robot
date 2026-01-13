@@ -5,4 +5,10 @@ Test Teardown    Close Browser Safely
 
 *** Test Cases ***
 Login To HCS Portal
-    Login To Portal    ${HCS}
+    Login To Portal    HCS    ${HCS}
+
+Login To MYDEF Portal
+    Login To Portal    MYDEF    ${MYDEF}
+
+Login To VMS Portal
+    Login To Portal    VMS    ${VMS}

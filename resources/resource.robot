@@ -1,5 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
+Library    variables/
 
 *** Test Cases ***
 open the browser with specified url
