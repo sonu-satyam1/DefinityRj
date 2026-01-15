@@ -1,6 +1,7 @@
 *** Settings ***
 Library     SeleniumLibrary
 Resource    ../variables/global_variables.resource
+Resource    ../errors/common_assertions.resource
 
 *** Keywords ***
 Open Browser And Maximize
@@ -34,6 +35,12 @@ Get Text Safely
     ${text}=    Get Text    ${LOCATOR}
     [Return]    ${text}
 
+Get Element Count Safely
+    [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
+    Wait Till Element Visible    ${LOCATOR}    ${TIMEOUT}
+    ${count}=    Get Element Count    ${LOCATOR}
+    [Return]    ${count}
+
 Input Text Safely
     [Arguments]    ${LOCATOR}    ${TEXT}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
     Wait Till Element Visible    ${LOCATOR}    ${TIMEOUT}
@@ -45,6 +52,11 @@ Click Element Safely
     Wait Till Element Enabled    ${LOCATOR}    ${TIMEOUT}
     Click Element                ${LOCATOR}
 
+Scroll to View Element
+    [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
+    Wait Till Element Visible    ${LOCATOR}    ${TIMEOUT}
+    Scroll Element Into View    ${LOCATOR}
+
 Wait And Click With Retry
     [Arguments]    ${LOCATOR}
     Wait Until Keyword Succeeds
@@ -55,3 +67,69 @@ Wait And Click With Retry
 Click Outside To Close Popup
     Wait Till Element Disappear    ${PAGE_LOADER}    30s
     Click Element    xpath=//body
+
+Verify Current Tab Is Active
+    [Arguments]    ${TAB_NAME}
+    ${locator}=    Set Variable    xpath=//li[@role='tab' and @aria-selected='true']//span[normalize-space()='${TAB_NAME}']
+    Wait Till Element Visible    ${locator}    30s
+
+Verify Current Section Is Active
+    [Arguments]    ${SECTION_NAME}
+    ${locator}=    Set Variable    xpath=//div[contains(@class,'analytics-card') and contains(@class,'active')]//h2[normalize-space()='${SECTION_NAME}']
+    Wait Till Element Visible    ${locator}    30s
+    
+Verify Page Title
+    [Arguments]    ${expected_title}    ${TIMEOUT}=30s
+    ${locator}=    Set Variable    xpath://h1[normalize-space()='${expected_title}']
+    Wait Until Element Is Visible    ${locator}    ${TIMEOUT}
+    Element Text Should Be    ${locator}    ${expected_title}
+
+Scroll To Column Header
+    [Arguments]    ${COLUMN_NAME}
+
+    ${header}=    Set Variable
+    ...    xpath=//th//span[@class='k-column-title' and normalize-space()='${COLUMN_NAME}']
+
+    Wait Until Keyword Succeeds    5x    2s
+    ...    Scroll Element Into View    ${header}
+
+    Wait Till Element Visible    ${header}    10s
+
+
+#Get Column Index By Name
+#    [Arguments]    ${COLUMN_NAME}
+#    ${header}=    Set Variable
+#    ...    xpath=//th//span[@class='k-column-title' and normalize-space()='${COLUMN_NAME}']
+#    Log    ${header}
+#    Scroll to View Element    xpath://th[.//span[text()='${COLUMN_NAME}']]
+#
+#    ${index}=    Get Element Attribute
+#    ...    xpath=//th[.//span[normalize-space()='${COLUMN_NAME}']]
+#    ...    aria-colindex
+#
+#    Should Not Be Empty    ${index}    Column '${COLUMN_NAME}' not found in grid
+#    [Return]    ${index}
+
+
+#Get Column Index By Name
+#    [Arguments]    ${COLUMN_NAME}
+#    Wait Till Element Disappear    ${PAGE_LOADER}    30s
+#
+#    @{headers}=    Get WebElements    xpath=//th//span[@class='k-column-title']
+#
+#    ${col_index}=    Set Variable    -1
+#
+#    FOR    ${i}    ${h}    IN ENUMERATE    @{headers}
+#        ${text}=    Get Text    ${h}
+#        IF    '${text}' == '${COLUMN_NAME}'
+#            ${col_index}=    Evaluate    ${i} + 1
+#            EXIT FOR LOOP
+#        END
+#    END
+#
+#    Run Keyword If    ${col_index} == -1
+#    ...    Fail    Column '${COLUMN_NAME}' not found
+#
+#    [Return]    ${col_index}
+#
+#

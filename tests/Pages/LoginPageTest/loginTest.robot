@@ -1,6 +1,6 @@
 *** Settings ***
-Resource    ../../resources/pages/LoginPage/login.resource
-Variables   ../../resources/variables/environment/qa2.py
+Resource    ../../../resources/pages/Login/loginPage.resource
+Variables   ../../../resources/variables/environment/qa2.py
 Test Teardown    Close Browser Safely
 
 *** Test Cases ***

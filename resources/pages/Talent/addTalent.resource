@@ -1,6 +1,6 @@
 *** Settings ***
 Resource    ../../keywords/common_keywords.resource
-Resource    ../../errors/common_assertions.robot
+Resource    ../../errors/common_assertions.resource
 Library    ../../../libs/test_data_generator.py
 
 *** Variables ***

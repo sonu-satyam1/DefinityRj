@@ -13,3 +13,6 @@ Login To Portal
     ...    Open Portal And Login To MYDEF    ${PORTAL}
     ...    ELSE
     ...    Fail    Unsupported portal: ${PORTAL_NAME}
+
+Verify Sign in Page Title
+    Verify Page Title    Sign in
