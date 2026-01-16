@@ -11,6 +11,13 @@ Login To HCS Portal
     Login To Portal    HCS    ${HCS}
     Select Navigation Option    Jobs
     Verify Job Order Administration Page Title
-    Click Element    xpath://h1
-    Get Column Index By Name    Cost Center
+    Verify Table Has Column    Job Details
+    Show All Columns From Menu Filter
+    Verify Table Has Column    Shift
+    Enable Column From Filter Menu    Hiring Manager
+    Verify Table Has Column    Hiring Manager
+    ${index}=    Get Grid Column Index   Cost Center
+    Log    ${index}
+
+
     
