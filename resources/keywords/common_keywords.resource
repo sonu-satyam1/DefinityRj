@@ -120,3 +120,29 @@ Enable Column From Filter Menu
     Sleep    1s
     Press Keys    NONE    ESC
 
+From Dropdown Verify or Select an Option
+    [Arguments]    ${DROPDOWN_LOCATOR}    ${OPTIONS_TEXT_LOCATOR}    ${OPTION_TEXT}    ${ACTION}=select
+
+    Wait Till Element Visible    ${DROPDOWN_LOCATOR}    50s
+    Click Element Safely        ${DROPDOWN_LOCATOR}
+
+    Wait Till Element Visible    ${OPTIONS_TEXT_LOCATOR}    50s
+    @{elements}=    Get WebElements    ${OPTIONS_TEXT_LOCATOR}
+
+    ${found}=    Set Variable    False
+
+    FOR    ${el}    IN    @{elements}
+        ${txt}=    Get Text    ${el}
+        ${txt}=    Evaluate    '${txt}'.strip()
+        IF    '${txt}'.lower() == '${OPTION_TEXT}'.lower()
+            ${found}=    Set Variable    True
+            IF    '${ACTION}' == 'select'
+                Wait Till Element Enabled    ${el}    50s
+                Click Element    ${el}
+            END
+            EXIT FOR LOOP
+        END
+    END
+
+    Run Keyword Unless    ${found}
+    ...    Fail    Option '${OPTION_TEXT}' not found in dropdown.

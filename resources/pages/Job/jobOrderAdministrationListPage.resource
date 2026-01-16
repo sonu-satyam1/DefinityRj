@@ -7,7 +7,7 @@ Resource    ../../errors/common_assertions.resource
 *** Variables ***
 ${HEADER_JOB_ORDER_ADMINISTRATION}    xpath://h1[normalize-space()='Job Order Administration']
 ${ADD_NEW_JOB_BTN}                    xpath://button[.//span[normalize-space(.)='Add New Job']]
-${ADD_NEW_JOB_DPDWN}                  xpath://div[contains(@class,'k-split-button') and .//span[normalize-space(.)='Add New Job']]//span[contains(@class,'k-svg-i-caret-alt-down')]
+${ADD_NEW_JOB_DROPDOWN_LOCATOR}                  xpath://div[contains(@class,'k-split-button') and .//span[text()='Add New Job']]//span[contains(@class,'k-svg-i-caret-alt-down')]
 ${ADD_NEW_JOB_OPTIONS}                xpath://ul[contains(@id,'accessibility-id')]//li
 ${SELECT_TEMPLATE_WINDOW_TITLE}       xpath://span[normalize-space(.)='Select a Template']
 ${SIDE_PANEL_TITLE}                   xpath://div[contains(@class,'slide-pane-job-details')]//h2
@@ -22,4 +22,7 @@ ${SHOW_ALL_BTN}                       xpath://button[.//span[normalize-space(.)=
 Verify Job Order Administration Page Title
     Verify Page Title    Job Order Administration
 
-
+Select Add New Job From Template Option
+    Sleep    5s
+    Wait Till Element Visible   ${ADD_NEW_JOB_DROPDOWN_LOCATOR}    50s
+    From Dropdown Verify or Select an Option    ${ADD_NEW_JOB_DROPDOWN_LOCATOR}    ${ADD_NEW_JOB_OPTIONS}    Add New Job Order From Template    select
