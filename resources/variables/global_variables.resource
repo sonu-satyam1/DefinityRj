@@ -1,11 +1,11 @@
 *** Variables ***
-${DEFAULT_TIMEOUT}             15s
-${LONG_TIMEOUT}                30s
+${DEFAULT_TIMEOUT}             30s
+${LONG_TIMEOUT}                80s
 ${SHORT_TIMEOUT}               5s
 ${POLLING_INTERVAL}            500ms
 ${RETRY_COUNT}                 3
 ${BROWSER}                     chrome
-${PAGE_LOADER}                 xpath://div[contains(@class,"page-loader")]
+${PAGE_LOADER}                 xpath://div[contains(@class,'vm-loading-wrapper') and contains(@class,'page-loader')]
 ${TEST_ENV}                    qa2
 ${TABLE_HEADER_TITLES}         xpath://table[contains(@class,'k-grid-header-table')]//th//span[@class='k-column-title']
 ${TABLE_ROWS}                  xpath://div[contains(@class,'k-grid-content')]//tr

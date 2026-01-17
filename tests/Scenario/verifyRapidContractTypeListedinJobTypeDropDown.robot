@@ -19,4 +19,16 @@ Validate Rapid Contract Option listed in JobType DropDown While Creating New Job
     Click Feature Menu Option    Jobs
     Verify Job Order Administration Page Title
     Select Add New Job From Template Option
+    Verify Select a Template Window Title
+    Select Random Template from LastUsed
+    Verify Create a Job Order Page Title
+    Verify Rapid Contract Job Type is Present
 
+Validate Rapid Contract Option listed in JobType DropDown While Creating New Job by Copying Existing Job
+    Login To Portal    HCS    ${HCS}
+    Click Feature Menu Option    Jobs
+    Verify Job Order Administration Page Title
+    Open Job Details By Selecting Right Side Panel Header of Selected Random Job
+    Select Copy Job Option From Details
+    Verify Create a Job Order Page Title
+    Verify Rapid Contract Job Type is Present

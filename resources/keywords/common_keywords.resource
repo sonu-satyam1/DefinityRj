@@ -1,19 +1,31 @@
 *** Settings ***
 Library     SeleniumLibrary
+Library    Collections
 Resource    ../variables/global_variables.resource
 Resource    ../errors/common_assertions.resource
 
 *** Keywords ***
+Wait For Page Loader To Disappear
+    [Arguments]    ${TIMEOUT}=${LONG_TIMEOUT}
+    Run Keyword And Ignore Error
+    ...    Wait Until Element Is Not Visible    ${PAGE_LOADER}    ${TIMEOUT}
+
+Wait For Page Ready
+    [Arguments]    ${TIMEOUT}=${LONG_TIMEOUT}
+    Wait For Page Loader To Disappear    ${TIMEOUT}
+
 Open Browser And Maximize
     [Arguments]    ${URL}    ${BROWSER_NAME}=${BROWSER}
     Open Browser    ${URL}    ${BROWSER_NAME}
     Maximize Browser Window
+    Wait For Page Ready
 
 Close Browser Safely
     Run Keyword And Ignore Error    Close Browser
 
 Wait Till Element Visible
     [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
+    Wait For Page Ready
     Wait Until Element Is Visible    ${LOCATOR}    ${TIMEOUT}
 
 Wait Till Element Disappear
@@ -22,6 +34,7 @@ Wait Till Element Disappear
 
 Wait Till Element Enabled
     [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
+    Wait For Page Ready
     Wait Until Element Is Enabled    ${LOCATOR}    ${TIMEOUT}
 
 Wait For Spinner To Disappear
@@ -33,13 +46,13 @@ Get Text Safely
     [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
     Wait Till Element Visible    ${LOCATOR}    ${TIMEOUT}
     ${text}=    Get Text    ${LOCATOR}
-    [Return]    ${text}
+    RETURN    ${text}
 
 Get Element Count Safely
     [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
     Wait Till Element Visible    ${LOCATOR}    ${TIMEOUT}
     ${count}=    Get Element Count    ${LOCATOR}
-    [Return]    ${count}
+    RETURN    ${count}
 
 Input Text Safely
     [Arguments]    ${LOCATOR}    ${TEXT}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
@@ -61,7 +74,7 @@ Wait And Click With Retry
     ...    Click Element Safely    ${LOCATOR}
 
 Click Outside To Close Popup
-    Wait Till Element Disappear    ${PAGE_LOADER}    30s
+    Wait For Page Ready
     Click Element    xpath=//body
 
 Verify Current Tab Is Active
@@ -80,30 +93,50 @@ Verify Page Title
     Wait Until Element Is Visible    ${LOCATOR}    ${TIMEOUT}
     Element Text Should Be    ${LOCATOR}    ${expected_title}
 
+#just want to confirm text exists anywhere
+Verify Text Is Visible
+    [Arguments]    ${EXPECTED_TEXT}    ${TIMEOUT}=30s
+    Wait For Page Ready
+    Wait Until Page Contains    ${EXPECTED_TEXT}    ${TIMEOUT}
+
+#exact match node
+Verify Exact Text Is Visible
+    [Arguments]    ${EXPECTED_TEXT}    ${TIMEOUT}=30s
+    ${LOCATOR}=    Set Variable
+    ...    xpath=//*[normalize-space()='${EXPECTED_TEXT}']
+    Wait Till Element Visible    ${LOCATOR}    ${TIMEOUT}
+
+#validating popup titles
+Verify Dialog Header Text
+    [Arguments]    ${EXPECTED_TEXT}    ${TIMEOUT}=30s
+    ${LOCATOR}=    Set Variable
+    ...    xpath=//span[contains(@class,'k-dialog-title') and normalize-space()='${EXPECTED_TEXT}']
+    Wait Till Element Visible    ${LOCATOR}    ${TIMEOUT}
+
 Scroll to View Element
     [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
+    Wait For Page Ready
     Wait Till Element Visible    ${LOCATOR}    50s
     Scroll Element Into View    ${LOCATOR}
 
 Verify Table Has Column
     [Arguments]    ${column_name}
-    Sleep    5s
+    Wait For Page Ready
     Page Should Contain Element
     ...    xpath=//th//span[@class='k-column-title' and normalize-space()='${column_name}']
 
 Show All Columns From Menu Filter
     [Arguments]    ${TIMEOUT}=30s
-    Wait Till Element Visible    ${FILTER_MENU_BTN}    50s
-    Click Element Safely        ${FILTER_MENU_BTN}
+    Wait And Click With Retry    ${FILTER_MENU_BTN}
     Wait Till Element Visible    ${FILTER_MENU_PANEL}    50s
     Click Element Safely    ${SHOW_ALL_BTN}
-    Sleep    3s
+    Wait For Page Ready
     Press Keys    NONE    ESC
+    Wait For Page Ready
 
 Enable Column From Filter Menu
     [Arguments]    ${column_name}    ${TIMEOUT}=30s
-    Wait Till Element Visible    ${FILTER_MENU_BTN}    50s
-    Click Element Safely       ${FILTER_MENU_BTN}
+    Wait And Click With Retry    ${FILTER_MENU_BTN}
     Wait Till Element Visible    ${FILTER_MENU_PANEL}    ${TIMEOUT}
 
     Input Text Safely    ${FILTER_SEARCH_INPUT}    ${column_name}
@@ -119,16 +152,15 @@ Enable Column From Filter Menu
 
     Sleep    1s
     Press Keys    NONE    ESC
+    Wait For Page Ready
 
 From Dropdown Verify or Select an Option
     [Arguments]    ${DROPDOWN_LOCATOR}    ${OPTIONS_TEXT_LOCATOR}    ${OPTION_TEXT}    ${ACTION}=select
 
-    Wait Till Element Visible    ${DROPDOWN_LOCATOR}    50s
-    Click Element Safely        ${DROPDOWN_LOCATOR}
-
+    Wait And Click With Retry    ${DROPDOWN_LOCATOR}
     Wait Till Element Visible    ${OPTIONS_TEXT_LOCATOR}    50s
-    @{elements}=    Get WebElements    ${OPTIONS_TEXT_LOCATOR}
 
+    @{elements}=    Get WebElements    ${OPTIONS_TEXT_LOCATOR}
     ${found}=    Set Variable    False
 
     FOR    ${el}    IN    @{elements}
@@ -139,10 +171,34 @@ From Dropdown Verify or Select an Option
             IF    '${ACTION}' == 'select'
                 Wait Till Element Enabled    ${el}    50s
                 Click Element    ${el}
+                Wait For Page Ready
             END
             EXIT FOR LOOP
         END
     END
 
-    Run Keyword Unless    ${found}
-    ...    Fail    Option '${OPTION_TEXT}' not found in dropdown.
+    IF    not ${found}
+        Fail    Option '${OPTION_TEXT}' not found in dropdown.
+    END
+
+Select Random Element And Return Index And Text
+    [Arguments]    ${ELEMENTS_LOCATOR}    ${CLICK}=False    ${TIMEOUT}=60s
+
+    Wait Until Element Is Visible    ${ELEMENTS_LOCATOR}    ${TIMEOUT}
+    @{elements}=    Get WebElements    ${ELEMENTS_LOCATOR}
+
+    ${count}=    Get Length    ${elements}
+    Run Keyword If    ${count} == 0
+    ...    Fail    No elements found using locator: ${ELEMENTS_LOCATOR}
+
+    ${index}=    Evaluate    random.randint(0, ${count}-1)    modules=random
+    ${element}=  Get From List    ${elements}    ${index}
+
+    Scroll Element Into View    ${element}
+    ${text}=    Get Text    ${element}
+
+    Run Keyword If    '${CLICK}'=='True'    Click Element    ${element}
+
+    ${one_based_index}=    Evaluate    ${index} + 1
+
+    RETURN    ${one_based_index}    ${text}
