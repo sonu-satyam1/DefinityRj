@@ -248,3 +248,40 @@ Verify All Rows In Column Have Element
 
     Log    All rows under '${HEADER_TEXT}' contain required element
 
+Search And Select First Result By Column
+    [Arguments]
+    ...    ${SEARCH_BOX}
+    ...    ${SEARCH_TEXT}
+    ...    ${HEADER_TITLES_LOCATOR}
+    ...    ${HEADER_TEXT}
+    ...    ${ROWS_XPATH}
+    ...    ${NO_RECORDS_TEXT}
+
+    Wait For Page Ready
+
+    Input Text Safely    ${SEARCH_BOX}    ${SEARCH_TEXT}
+    Sleep    2s
+    Wait For Page Ready
+
+    # ---- Check No Records ----
+    ${no_rec}=    Run Keyword And Return Status
+    ...    Page Should Contain    ${NO_RECORDS_TEXT}
+
+    IF    ${no_rec}
+        Fail    No records available for search text: ${SEARCH_TEXT}
+    END
+
+    # ---- Get Column Index ----
+    ${col_index}=    Get Column Index By Header Text
+    ...    ${HEADER_TITLES_LOCATOR}
+    ...    ${HEADER_TEXT}
+
+    # ---- Click First Row Cell Under That Column ----
+    ${cell_locator}=    Set Variable
+    ...    xpath=(${ROWS_XPATH})[1]/td[${col_index}]//*[self::a or self::span or self::button or self::div]
+
+    Wait Till Element Visible    ${cell_locator}    30s
+    Scroll Element Into View     ${cell_locator}
+    Click Element Safely         ${cell_locator}
+
+    Log    Clicked first result under column '${HEADER_TEXT}' for '${SEARCH_TEXT}'
