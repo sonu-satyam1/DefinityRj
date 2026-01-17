@@ -202,3 +202,49 @@ Select Random Element And Return Index And Text
     ${one_based_index}=    Evaluate    ${index} + 1
 
     RETURN    ${one_based_index}    ${text}
+
+Get Column Index By Header Text
+    [Arguments]    ${HEADER_TITLES_LOCATOR}    ${HEADER_TEXT}
+    Wait Till Element Visible    ${HEADER_TITLES_LOCATOR}    50s
+    @{headers}=    Get WebElements    ${HEADER_TITLES_LOCATOR}
+
+    ${index}=    Set Variable    0
+
+    FOR    ${h}    IN    @{headers}
+        ${index}=    Evaluate    ${index} + 1
+        ${txt}=    Get Text    ${h}
+        ${txt}=    Evaluate    '${txt}'.strip()
+        IF    '${txt}'.lower() == '${HEADER_TEXT}'.lower()
+            RETURN    ${index}
+        END
+    END
+
+    Fail    Header '${HEADER_TEXT}' not found
+
+Verify All Rows In Column Have Element
+    [Arguments]
+    ...    ${HEADER_TITLES_LOCATOR}
+    ...    ${HEADER_TEXT}
+    ...    ${ROWS_XPATH}
+    ...    ${CELL_ELEMENT_XPATH}
+
+    Wait For Page Ready
+
+    ${col_index}=    Get Column Index By Header Text
+    ...    ${HEADER_TITLES_LOCATOR}
+    ...    ${HEADER_TEXT}
+
+    @{rows}=    Get WebElements    xpath=${ROWS_XPATH}
+    ${row_count}=    Get Length    ${rows}
+
+    FOR    ${i}    IN RANGE    1    ${row_count}+1
+        ${count}=    Get Element Count
+        ...    xpath=(${ROWS_XPATH})[${i}]/td[${col_index}]${CELL_ELEMENT_XPATH}
+
+        IF    ${count} == 0
+            Fail    Element not found in row ${i} under column '${HEADER_TEXT}'
+        END
+    END
+
+    Log    All rows under '${HEADER_TEXT}' contain required element
+
