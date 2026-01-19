@@ -66,5 +66,8 @@
     ],
     "Weekly": [],
     "Consecutive Days": []
-  }
+  },
+  "NORMAL_JOB_FLOW_JOB": "5216 - TestSkill_20251128_1650 - TestLocation_20251128_1650 - Days (05:49 - 15:49)",
+  "FROM_TEMPLATE_FLOW_JOB": "5218 - TestSkill_20251128_1650 - TestLocation_20251128_1650 - Days (05:49 - 15:49)",
+  "COPY_EXIST_FLOW_JOB": "5217 - TestSkill_20251128_1650 - TestLocation_20251128_1650 - Days (05:49 - 15:49)"
 }

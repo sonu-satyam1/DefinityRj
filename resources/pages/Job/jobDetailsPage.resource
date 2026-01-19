@@ -50,6 +50,13 @@ Store Created Job Name
     Wait For Page Ready
     Wait Till Element Visible     ${JOB_HEADER}
     ${job}=    Get Text And Save Runtime Value    ${JOB_HEADER}    JOB_NAME
+    
+Store Created Job Name For Rapid Contract
+    [Arguments]    ${NAME}
+    Wait For Page Ready
+    Wait Till Element Visible     ${JOB_HEADER}
+    ${job}=    Get Text And Save Runtime Value    ${JOB_HEADER}    ${NAME}
+    RETURN    ${job}
 
 Switch to Specified tab in Details Page
     [Arguments]    ${tab}
