@@ -1,5 +1,7 @@
 *** Settings ***
 Library     SeleniumLibrary
+Library    ../../../libs/RuntimeData.py
+
 Resource    ../../keywords/common_keywords.resource
 Resource    ../../keywords/common_utils.resource
 
@@ -60,9 +62,8 @@ Select Add Skill Button
 
 Input Uniq Skill Name
     Wait Till Element Visible    ${SKILL_NAME_LOCATOR}
-    Generate And Store Global Unique Name    TestSkill    SKILL_NAME
-    Log    ${SKILL_NAME}
-    Input Text Safely    ${SKILL_NAME_LOCATOR}    ${SKILL_NAME}
+    ${skill}=    Generate And Store Global Unique Name    TestSkill    SKILL_NAME
+    Input Text Safely    ${SKILL_NAME_LOCATOR}    ${skill}
 
 select Clinical Option For Skill Category
     From Dropdown Verify Or Select An Option  ${SKILL_CATEGORY_DROPDOWN}    ${SKILL_CATEGORY_OPTIONS}    Clinical    select

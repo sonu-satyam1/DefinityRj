@@ -1,6 +1,7 @@
 *** Settings ***
 Library     SeleniumLibrary
 Library    Collections
+Library    ../../libs/RuntimeData.py
 Resource    ../variables/global_variables.resource
 Resource    ../errors/common_assertions.resource
 
@@ -36,6 +37,12 @@ Wait Till Element Enabled
     [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
     Wait For Page Ready
     Wait Until Element Is Enabled    ${LOCATOR}    ${TIMEOUT}
+
+Wait Till Element Disabled
+    [Arguments]    ${LOCATOR}    ${TIMEOUT}=${DEFAULT_TIMEOUT}
+    Wait For Page Ready
+    Element Should Be Disabled    ${LOCATOR}
+
 
 Wait For Spinner To Disappear
     [Arguments]    ${PAGE_LOADER}    ${TIMEOUT}=${LONG_TIMEOUT}
@@ -81,6 +88,7 @@ Verify Current Tab Is Active
     [Arguments]    ${TAB_NAME}
     ${LOCATOR}=    Set Variable    xpath=//li[@role='tab' and @aria-selected='true']//span[normalize-space()='${TAB_NAME}']
     Wait Till Element Visible    ${LOCATOR}    30s
+
 
 Verify Current Section Is Active
     [Arguments]    ${SECTION_NAME}

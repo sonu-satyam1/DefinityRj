@@ -1,5 +1,6 @@
 *** Settings ***
 Library     SeleniumLibrary
+Library    ../../../libs/RuntimeData.py
 Resource    ../../keywords/common_keywords.resource
 Resource    ../../errors/common_assertions.resource
 Resource    jobDetailsPage.resource
@@ -20,6 +21,10 @@ ${SHOW_ALL_BTN}                                     xpath://button[.//span[norma
 ${LAST_USED_TEMPLATE_NAME_OPTIONS}                  xpath://h2[.//span[normalize-space()='Last Used']]/following-sibling::div//tbody//span[@class='name-col']
 ${SELECT_BUTTON}                                    xpath://button[@type='submit']/span[text()='SELECT']
 ${JOB_DETAILS_LIST_OPTIONS}                         xpath://tbody//span[contains(@class,'name-col') and @role='button']
+${SEARCH_BOX}                                       xpath://label[normalize-space()='Search']/preceding::input[1]
+${HEADER_TITLES}                                    xpath://table[contains(@class,'k-grid-header-table')]//span[@class='k-column-title']
+${ROWS_XPATH}                                       //table[contains(@class,'k-grid-table')]//tbody//tr
+${NO_RECORDS_TEXT}                                  No records available
 *** Keywords ***
 Verify Job Order Administration Page Title
     Verify Page Title    Job Order Administration
@@ -55,3 +60,12 @@ Open Job Details By Selecting Right Side Panel Header of Selected Random Job
     Click Element Safely    ${SIDE_PANEL_TITLE}    50s
     Wait For Page Ready    50s
     Verify Job Details Page Title    ${txt}
+
+Select Specified Job From List in Right Side Panel
+    [Arguments]    ${jobName}
+    Search And Select First Result By Column    ${SEARCH_BOX}    ${jobName}    ${HEADER_TITLES}    Job Details    ${ROWS_XPATH}    ${NO_RECORDS_TEXT}
+    Wait For Page Ready
+    Wait Till Element Visible    ${SIDE_PANEL_TITLE}
+    Click Element Safely    ${SIDE_PANEL_TITLE}    50s
+    Wait For Page Ready
+

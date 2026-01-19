@@ -1,4 +1,5 @@
 *** Settings ***
+Library    ../../libs/RuntimeData.py
 Resource    ../../resources/pages/Login/loginPage.resource
 Resource    ../../resources/pages/Welcome/welcomePage.resource
 Resource    ../../resources/pages/Settings/administrativeSettingsPage.resource
@@ -32,7 +33,8 @@ Verify Two rules partition combos
     Verify Administrative Settings Page Title
     Select Option from Skills Credentials and Pay Rates    Skills Administration
     Verify Skill Administration Page Title
-    Select Specified Skill    TestSkill_20260108_1337
+    ${skill}=    RuntimeData.Get Value    SKILL_NAME
+    Select Specified Skill    ${skill}
     Edit Skill Details
     Clear Inputs Rules
     Select Multi Options In Rule    1    Job Type    Standard Contract
@@ -50,7 +52,8 @@ Verify Three rules cover all combos
     Verify Administrative Settings Page Title
     Select Option from Skills Credentials and Pay Rates    Skills Administration
     Verify Skill Administration Page Title
-    Select Specified Skill    TestSkill_20260108_1337
+    ${skill}=    RuntimeData.Get Value    SKILL_NAME
+    Select Specified Skill    ${skill}
     Edit Skill Details
     Clear Inputs Rules
     Select Multi Options In Rule    1    Job Type    Standard Contract
@@ -73,7 +76,8 @@ Verify Multi-select grouping that still yields unique mapping
     Verify Administrative Settings Page Title
     Select Option from Skills Credentials and Pay Rates    Skills Administration
     Verify Skill Administration Page Title
-    Select Specified Skill    TestSkill_20260108_1337
+    ${skill}=    RuntimeData.Get Value    SKILL_NAME
+    Select Specified Skill    ${skill}
     Edit Skill Details
     Clear Inputs Rules
     Select Multi Options In Rule    1    Job Type    Standard Contract    PRN
@@ -96,7 +100,8 @@ Verify Exact duplicate mapping in two rules
     Verify Administrative Settings Page Title
     Select Option from Skills Credentials and Pay Rates    Skills Administration
     Verify Skill Administration Page Title
-    Select Specified Skill    TestSkill_20260108_1337
+    ${skill}=    RuntimeData.Get Value    SKILL_NAME
+    Select Specified Skill    ${skill}
     Edit Skill Details
     Clear Inputs Rules
     Select Multi Options In Rule    1    Job Type    Standard Contract
@@ -115,7 +120,8 @@ Verify Overlapping multi-selects cause duplicate atomic combo
     Verify Administrative Settings Page Title
     Select Option from Skills Credentials and Pay Rates    Skills Administration
     Verify Skill Administration Page Title
-    Select Specified Skill    TestSkill_20260108_1337
+    ${skill}=    RuntimeData.Get Value    SKILL_NAME
+    Select Specified Skill    ${skill}
     Edit Skill Details
     Clear Inputs Rules
     Select Multi Options In Rule    1    Job Type    Standard Contract    PRN
@@ -134,7 +140,8 @@ Verify Partial overlap where one atomic combo duplicates
     Verify Administrative Settings Page Title
     Select Option from Skills Credentials and Pay Rates    Skills Administration
     Verify Skill Administration Page Title
-    Select Specified Skill    TestSkill_20260108_1337
+    ${skill}=    RuntimeData.Get Value    SKILL_NAME
+    Select Specified Skill    ${skill}
     Edit Skill Details
     Clear Inputs Rules
     Select Multi Options In Rule    1    Job Type    Standard Contract
@@ -153,7 +160,8 @@ Verify Missing explicit uniqueness in overlapping rules
     Verify Administrative Settings Page Title
     Select Option from Skills Credentials and Pay Rates    Skills Administration
     Verify Skill Administration Page Title
-    Select Specified Skill    TestSkill_20260108_1337
+    ${skill}=    RuntimeData.Get Value    SKILL_NAME
+    Select Specified Skill    ${skill}
     Edit Skill Details
     Clear Inputs Rules
     Select Multi Options In Rule    1    Job Type    Standard Contract
@@ -165,14 +173,15 @@ Verify Missing explicit uniqueness in overlapping rules
     Select Single Option In Rule    2    Hiring Process    Resume
     Save Skill Details
     Validate Error Message
-    
+
 Verify Exceeding allowed number of rules
     Login To Portal    HCS    ${HCS}
     Click Feature Menu Option    Settings
     Verify Administrative Settings Page Title
     Select Option from Skills Credentials and Pay Rates    Skills Administration
     Verify Skill Administration Page Title
-    Select Specified Skill    TestSkill_20260108_1337
+    ${skill}=    RuntimeData.Get Value    SKILL_NAME
+    Select Specified Skill    ${skill}
     Edit Skill Details
     Clear Inputs Rules
     Select Multi Options In Rule    1    Job Type    Standard Contract
@@ -200,7 +209,8 @@ Verify Overlapping multi-selects causing multiple duplicates
     Verify Administrative Settings Page Title
     Select Option from Skills Credentials and Pay Rates    Skills Administration
     Verify Skill Administration Page Title
-    Select Specified Skill    TestSkill_20260108_1337
+    ${skill}=    RuntimeData.Get Value    SKILL_NAME
+    Select Specified Skill    ${skill}
     Edit Skill Details
     Clear Inputs Rules
     Select Multi Options In Rule    1    Job Type    Standard Contract    PRN
