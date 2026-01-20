@@ -69,5 +69,17 @@
   },
   "NORMAL_JOB_FLOW_JOB": "5216 - TestSkill_20251128_1650 - TestLocation_20251128_1650 - Days (05:49 - 15:49)",
   "FROM_TEMPLATE_FLOW_JOB": "5218 - TestSkill_20251128_1650 - TestLocation_20251128_1650 - Days (05:49 - 15:49)",
-  "COPY_EXIST_FLOW_JOB": "5217 - TestSkill_20251128_1650 - TestLocation_20251128_1650 - Days (05:49 - 15:49)"
+  "COPY_EXIST_FLOW_JOB": "5217 - TestSkill_20251128_1650 - TestLocation_20251128_1650 - Days (05:49 - 15:49)",
+  "JOB_FOR_TALENT_SUBMISSION": "5228 - TestSkill_20251128_1650 - TestLocation_20251128_1650 - Days (05:49 - 15:49)",
+  "TEST_EMAIL_ADDRESS": "TestUser_20260120230822@mailinator.com",
+  "TALENT_SSN": 571493045,
+  "TALENT.FIRST_NAME": "Heather",
+  "TALENT.LAST_NAME": "Donovan",
+  "TALENT.PHONE": 4585739601,
+  "TALENT.ADDRESS": "355 Holland Ports",
+  "TALENT.CITY": "West Anthony",
+  "TALENT.ZIP": "63812",
+  "TALENT.SUMMARY": "Trouble north then relationship job report. Common develop item every knowledge girl.",
+  "TALENT.DOB": "05/14/2004",
+  "TALENT.STATE": "Wyoming"
 }

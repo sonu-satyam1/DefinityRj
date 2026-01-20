@@ -101,6 +101,7 @@ Click Column Filter Menu
     ...    //th[.//span[@class='k-column-title' and normalize-space()='${Header}']]//a[contains(@class,'k-grid-column-menu')]
     Wait Till Element Visible    xpath:${menu_xpath}
     Click Element Safely         xpath:${menu_xpath}
+
 Apply Filter for Open Jobs and Job Type
     [Arguments]    ${Header}    ${Option}
     Wait For Page Ready

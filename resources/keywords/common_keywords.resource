@@ -1,6 +1,7 @@
 *** Settings ***
 Library     SeleniumLibrary
-Library    Collections
+Library     Collections
+
 Library    ../../libs/RuntimeData.py
 Resource    ../variables/global_variables.resource
 Resource    ../errors/common_assertions.resource
@@ -293,3 +294,39 @@ Search And Select First Result By Column
     Click Element Safely         ${cell_locator}
 
     Log    Clicked first result under column '${HEADER_TEXT}' for '${SEARCH_TEXT}'
+
+
+Select First Result By Column
+    [Arguments]
+    ...    ${HEADER_TITLES_LOCATOR}
+    ...    ${HEADER_TEXT}
+    ...    ${ROWS_XPATH}
+    ...    ${NO_RECORDS_TEXT}
+
+    Wait For Page Ready
+
+    # ---- Check No Records ----
+    ${no_rec}=    Run Keyword And Return Status
+    ...    Page Should Contain    ${NO_RECORDS_TEXT}
+
+    IF    ${no_rec}
+        Fail    No records available for search text provided
+    END
+
+    # ---- Get Column Index ----
+    ${col_index}=    Get Column Index By Header Text
+    ...    ${HEADER_TITLES_LOCATOR}
+    ...    ${HEADER_TEXT}
+
+    # ---- Click First Row Cell Under That Column ----
+    ${cell_locator}=    Set Variable
+    ...    xpath=(${ROWS_XPATH})[1]/td[${col_index}]//*[self::a or self::span or self::button or self::div]
+
+    Wait Till Element Visible    ${cell_locator}    30s
+    Scroll Element Into View     ${cell_locator}
+    Click Element Safely         ${cell_locator}
+
+    Log    Clicked first result under column '${HEADER_TEXT}'
+
+
+
