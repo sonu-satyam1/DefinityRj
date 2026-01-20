@@ -29,7 +29,7 @@ ${FILTER_BUTTON}                                    xpath://div[contains(@class,
 ${FIRST_CHECKBOX_BULK_EDIT}                         xpath:(//tbody[@role='rowgroup']//input[@type='checkbox'])[1]
 ${EDIT_SELECTED_ROWS_BUTTON}                        xpath://button[.//span[normalize-space()='Edit Selected Rows']]
 ${HOT_JOB_DROPDOWN_LOCATOR}                         xpath://label[normalize-space(text())='Hot Job']/preceding::span[contains(@class,'k-svg-i-caret-alt-down')][1]
-${HOT_JOB_OPTIONS_TEXT_LOCATOR}                     xpath://ul[@id='hotJoblist']
+${HOT_JOB_OPTIONS_TEXT_LOCATOR}                     xpath://ul[@id='hotJoblist'] //li/span
 ${BULK_EDIT_SUBMIT_BUTTON}                          xpath://button[@type='submit']/span[text()='Submit']
 ${BULK_EDIT_WINDOW_HEADER}                          xpath://span[contains(@class,'k-dialog-title') and normalize-space()='Edit Job Orders']
 ${BULK_EDIT_SUCCESS_MESSAGE}                        xpath://p[contains(@class,'success-msg-content') and contains(normalize-space(),'Job Orders have been updated')]
@@ -121,7 +121,7 @@ Select Jobs for Bulk Edit
     Wait For Page Ready
     Scroll Grid To Bulk Column
 
-    FOR    ${index}    IN RANGE    1    ${noOfJobs + 1}
+    FOR    ${index}    IN RANGE    1    ${noOfJobs}
         Click Element Safely
         ...    xpath=(//tbody[@role='rowgroup']//input[@type='checkbox'])[${index}]
         Sleep    0.5s
