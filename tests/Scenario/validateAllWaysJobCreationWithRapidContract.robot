@@ -7,9 +7,7 @@ Resource    ../../resources/pages/Job/createJobPage.resource
 Resource    ../../resources/pages/Job/jobDetailsPage.resource
 Resource    ../../resources/variables/jobEntities.resource
 Resource    ../../resources/pages/Job/jobOrderAdministrationListPage.resource
-Resource    ../../resources/pages/LefNavMenu/leftNavigation.resource
-Resource    ../../resources/pages/Settings/administrativeSettingsPage.resource
-Resource    ../../resources/pages/Settings/rateAdministration.resource
+
 
 Variables   ../../resources/variables/environment/qa2.py
 
