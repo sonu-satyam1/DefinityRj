@@ -23,10 +23,10 @@ ${SHIFT_TEXT}                      xpath://span[contains(@class,'paypackage-card
 ${REGULAR_RATE_TEXT}               xpath://span[contains(@class,'paypackage-card-list-item') and contains(.,'Regular Rate')]
 ${ADDITIONAL_RATES}                xpath://div[contains(@class,'flex-wrap')]//p[contains(.,':')]
 ${PAYCARD}                        xpath=//div[contains(@class,'paypackage-card-wrapper')]
-${SHIFT_TXT}     xpath=.//span[contains(text(),'Shifts')]
-${RATE_TXT}      xpath=.//span[contains(text(),'Regular Rate')]
-${HEADER_TXT}    xpath=.//h3[contains(@class,'title')]
-${ADD_RATES}     xpath=.//h3[.//text()='Additional Rates']/following-sibling::div//p
+${TALENT_SEARCH}                   xpath://div[contains(@class,"k-tabstrip")]//div[contains(@class,"k-tabstrip-content") and contains(@class,"k-active")]//span[label[normalize-space()="Search"]]/input
+${SEARCH_RESULTS_ROWS}             //table[contains(@class,"k-grid-table")]//tbody//tr
+${TALENT_TABLE_HEADERS}            xpath://table[contains(@class,"k-grid-header-table")]//thead//th//span[contains(@class,"k-column-title")]
+${NO_RECORDS}                      No records available
 
 
 *** Keywords ***
@@ -236,3 +236,10 @@ Get Overtime Rules
     RETURN    ${overtimeRules}
 
 
+Search For Created Talent
+    [Arguments]    ${talentName}
+    Wait For Page Ready
+    Scroll To View Element    ${TALENT_SEARCH}
+    Scroll To View Element    ${SEARCH_RESULTS_ROWS}
+    Search And Select First Result By Column    ${TALENT_SEARCH}    ${talentName}    ${TALENT_TABLE_HEADERS}    Talent    ${SEARCH_RESULTS_ROWS}    ${NO_RECORDS}
+    Wait For Page Ready

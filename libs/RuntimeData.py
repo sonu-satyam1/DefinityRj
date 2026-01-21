@@ -43,3 +43,32 @@ class RuntimeData:
 
     def clear_all(self):
         _write({})
+
+    def get_runtime_field_inside_object(self, object_key, field_key):
+        obj = self.get_value(object_key)
+        return obj.get(field_key)
+
+    def update_object_field(self, object_key, field, value):
+        """
+        Update or add a field inside an object stored in runtime_data.json
+        Example:
+            RuntimeData.Update Object Field    TALENT    SSN    123456789
+        """
+
+        data = _read()
+
+        obj = data.get(object_key)
+
+        # if not exists or not a dict, create new dict
+        if not isinstance(obj, dict):
+            obj = {}
+
+        # update / add field
+        obj[field] = value
+
+        # save back
+        data[object_key] = obj
+        _write(data)
+
+        return value
+

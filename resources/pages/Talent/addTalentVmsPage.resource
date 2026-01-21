@@ -2,7 +2,8 @@
 Resource    ../../keywords/common_keywords.resource
 Resource    ../../errors/common_assertions.resource
 Library    ../../../libs/RuntimeData.py
-
+Library    DateTime
+Library    String
 Resource    ../../keywords/common_utils.resource
 
 *** Variables ***
@@ -21,18 +22,18 @@ ${SUMMARY_INPUT}          xpath://textarea[@id="professionalSummary"]
 ${STATE_DROPDOWN}         xpath://label[normalize-space()='State']/parent::span[contains(@class,'k-floating-label-container')]//button
 ${STATE_OPTIONS}          xpath://ul[contains(@class,'k-list-ul')]//li
 ${YOE_INPUT}              xpath://label[normalize-space()='Years of Experience']/preceding::input[1]
-${LICENSE_UPLOAD}         xpath://h4[normalize-space()='Upload License / Identification']/following::input[@type='file'][1]
-${RESUME_UPLOAD}          xpath://h4[normalize-space()='Upload Resume / References']/following::input[@type='file'][1]
-${STEP2_BUTTON}          xpath://button[.//span[text()='STEP 2']]
-${gender_dropdown}    xpath://label[normalize-space(.)="Gender"]/preceding::button[@aria-label="expand combobox"][1]
-${recruiter_dropdown}    xpath://label[normalize-space(.)="Recruiter"]/preceding::button[@aria-label="expand combobox"][1]
-${referralSource_dropdown}    xpath://label[normalize-space(.)="Referral Source"]/preceding::button[@aria-label="expand combobox"][1]
-${skills_option}  xpath://span[@role="combobox" and @aria-label="Skills"]
-${dynamicElement}    xpath=//div[@class="k-animation-container vm-form-select-popup w-396 k-animation-container-shown"]
-${skilldpdw_list}    xpath=//div[@id=':r3k:']
-${CHECKBOX_BASE}     //div[contains(@class,'k-treeview')]//li
-${yearsOfExperience_txtbox}  xpath://input[@id='yearsOfExperience']
-${save_btn}  xpath://button[@type='submit']
+${LICENSE_UPLOAD}         xpath://h4[normalize-space()='Upload License / Identification']/following::input[@type='file' and contains(@class,'k-hidden')][1]
+${RESUME_UPLOAD}          xpath://h4[normalize-space()='Upload Resume / References']/following::input[@type='file' and contains(@class,'k-hidden')][1]
+${STEP2_BUTTON}           xpath://button[.//span[text()='STEP 2']]
+${DOB_CALENDAR_ICON}      xpath://button[@aria-label='Choose date']
+${CAL_LOCATOR}            xpath://div[contains(@class,'MuiDateCalendar-root')]
+${CAL_YEAR_DROPDOWN}      xpath://button[contains(@class,'MuiPickersCalendarHeader-switchViewButton')]
+${CAL_CURR_MON_YEAR}      xpath://div[contains(@class,'MuiPickersCalendarHeader-label')]
+${CAL_PREVIOUS_MONTH_BTN}      xpath://button[@aria-label='Previous month']
+${CAL_NEXT_MONTH_BTN}          xpath://button[@aria-label='Next month']
+${STEP3_BTN}                   xpath://button[.//span[text()='STEP 3']]
+${SAVE_SUBMIT_BTN}             xpath://button[normalize-space(.//span/text())='SAVE & SUBMIT']
+
 
 
 
@@ -62,7 +63,7 @@ Enter Unique SSN For Talent in Vms
 
         ${ssn}=    Generate Random SSN
         Log    Trying SSN: ${ssn}
-        
+
         Clear Element Text    ${SSN_INPUT}
         Input Text            ${SSN_INPUT}    ${ssn}
         Wait For Page Ready
@@ -95,16 +96,82 @@ Enter Unique SSN For Talent in Vms
     ...    Fail    Could not generate unique SSN after ${max_retry} attempts
 
 
-Select Date Of Birth For Talent in Vms
+
+Open DOB Picker
+    Wait For Page Ready
+    Wait Till Element Visible    ${DOB_CALENDAR_ICON}
+    Click Element Safely    ${DOB_CALENDAR_ICON}
+    Wait Until Element Is Visible    ${CAL_LOCATOR}
+
+Select Provided Month
+    [Arguments]    ${target_month}
+
+    ${MAX_TRIES}=    Set Variable    24
+
+    FOR    ${i}    IN RANGE    ${MAX_TRIES}
+        Wait Till Element Visible    ${CAL_CURR_MON_YEAR}
+        ${label}=    Get Text    ${CAL_CURR_MON_YEAR}
+        ${current_month}=    Convert Month Label To Number    ${label}
+
+        IF    ${current_month} == ${target_month}
+            Exit For Loop
+        ELSE IF    ${current_month} > ${target_month}
+            Wait Till Element Visible    ${CAL_PREVIOUS_MONTH_BTN}
+            Click Element Safely    ${CAL_PREVIOUS_MONTH_BTN}
+        ELSE
+            Wait Till Element Visible    ${CAL_NEXT_MONTH_BTN}
+            Click Element Safely    ${CAL_NEXT_MONTH_BTN}
+        END
+
+        Sleep    0.3
+    END
+
+
+Convert Month Label To Number
+    [Arguments]    ${label}
+    ${month_text}=    Split String    ${label}    ${SPACE}
+    ${month}=    Set Variable    ${month_text}[0]
+    ${month_l}=    Convert To Lower Case    ${month}
+
+    ${months}=    Create List
+    ...    january    february    march    april    may    june
+    ...    july    august    september    october    november    december
+
+    ${index}=    Get Index From List    ${months}    ${month_l}
+    ${month_no}=    Evaluate    ${index} + 1
+    RETURN    ${month_no}
+
+Choose DOB From Calendar in Vms
     [Arguments]    ${dob}
-    Wait For Page Ready    
-    Wait Till Element Visible    ${DOB_INPUT}
-    Clear Element Text           ${DOB_INPUT}
-    Input Text                   ${DOB_INPUT}    ${dob}
-    Wait For Page Ready    
+
+    ${month}=    Get Substring    ${dob}    0    2
+    ${day}=      Get Substring    ${dob}    3    5
+    ${year}=     Get Substring    ${dob}    6    10
+
+    ${month}=    Convert To Integer    ${month}
+    ${day}=      Convert To Integer    ${day}
+    Open DOB Picker
+    # Open year selection
+    Wait Till Element Visible    ${CAL_YEAR_DROPDOWN}
+    Click Element Safely    ${CAL_YEAR_DROPDOWN}
+
+    # Pick year
+    Wait Till Element Visible        xpath=//button[normalize-space()='${year}']
+    Click Element Safely    xpath=//button[normalize-space()='${year}']
+
+    # Go to correct month
+    Select provided Month    ${month}
+
+    # Pick day (enabled only)
+    Wait Till Element Visible
+    ...    xpath=//button[@role='gridcell' and not(@disabled) and normalize-space()='${day}']
+    Click Element Safely
+    ...    xpath=//button[@role='gridcell' and not(@disabled) and normalize-space()='${day}']
+
+
 
 Providing Random Talent Details in Vms
-    Fill Basic Details using Faker    ${FIRSTNAME_INPUT}    ${LASTNAME_INPUT}    ${PHONE_INPUT}    ${ADDRESS_INPUT}    ${CITY_INPUT}    ${ZIP_INPUT}    ${SUMMARY_INPUT}    ${DOB_INPUT}
+    Fill Basic Details using Faker    ${FIRSTNAME_INPUT}    ${LASTNAME_INPUT}    ${PHONE_INPUT}    ${ADDRESS_INPUT}    ${CITY_INPUT}    ${ZIP_INPUT}    ${SUMMARY_INPUT}
 
 Input State For Talent in Vms
     [Arguments]    ${STATE}
@@ -115,27 +182,26 @@ Input State For Talent in Vms
     Wait Till Element Visible   ${STATE_OPTIONS}
     Click Element Safely        xpath://ul[contains(@class,'k-list-ul')]//li//span[normalize-space()='${STATE}']
     Wait For Page Ready
-    Save Value    TALENT.STATE    ${STATE}
+    RuntimeData.Update Object Field    TALENT    STATE    ${STATE}
+
 
 Input yearsOfExperience For Talent in Vms
     [Arguments]    ${yoe}
     Wait For Page Ready    
     Wait Till Element Visible        ${YOE_INPUT}    50 sec
     Input Text Safely        ${YOE_INPUT}    ${yoe}
-    Wait For Page Ready    
+    Wait For Page Ready
 
 Upload License Test Document For Talent in Vms
     Wait For Page Ready
-    Scroll To View Element      ${LICENSE_UPLOAD}
     ${file_input}=    Set Variable    ${LICENSE_UPLOAD}
-    Choose File    ${file_input}    /home/costrategix/PycharmProjects/DefinityRj/testdata/uploads/testpdf.pdf
+    Choose File    ${file_input}    ${EXECDIR}/testdata/uploads/testpdf.pdf
     Wait For Page Ready    
 
 Upload Resume Test Document For Talent in Vms
     Wait For Page Ready
-    Scroll To View Element      ${RESUME_UPLOAD}
     ${file_input}=    Set Variable    ${RESUME_UPLOAD}
-    Choose File    ${file_input}    /home/costrategix/PycharmProjects/DefinityRj/testdata/uploads/testpdf.pdf
+    Choose File    ${file_input}    ${EXECDIR}/testdata/uploads/testpdf.pdf
     Wait For Page Ready    
 
 Navigate to Step2 For Talent in Vms
@@ -144,10 +210,12 @@ Navigate to Step2 For Talent in Vms
     Click Element Safely    ${STEP2_BUTTON}
     Wait For Page Ready
 
-Save Talent Details
-    Sleep    2 sec
-    Wait Until Element Is Visible    ${save_btn}    50 sec
-    Wait Until Element Is Enabled    ${save_btn}    50 sec
-    Click Button    ${save_btn}
-    Sleep    5 sec
+Navigate to Step3 and Save & Submit Talent Details in Vms
+    Wait For Page Ready    
+    Wait Till Element Enabled    ${STEP3_BTN}
+    Click Element Safely    ${STEP3_BTN}
+    Wait For Page Ready
+    Wait Until Element Is Enabled    ${SAVE_SUBMIT_BTN}
+    Click Element Safely        ${SAVE_SUBMIT_BTN}
+    Wait For Page Ready
 
