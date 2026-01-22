@@ -69,6 +69,7 @@ all scenarios are maintained in `tests/Scenario/`
 1. validateAllWaysJobCreationWithRapidContract.robot
     Test cases covers different ways of job creation with Job Type as Rapid Contract and using `jobEntities.resource`
     which contains different entities which are required to creat job like: `location, department, skill,..`
+
         ```robot
         *** Test Cases ***
         Validate Job Creation With Job Type as Rapid Contract Using Normal Flow
@@ -99,6 +100,7 @@ all scenarios are maintained in `tests/Scenario/`
      Test cases covers in JobList Page applying Filter for `status` and `jobType` with values as `open` and `Rapid Contract`
      and select specified number of jobs like 5 in `Select Jobs for Bulk Edit    5` from result and do Bulk Edit to update
      Hot Job Option `Update Hot Job Option For Bulk Edit    Add Hot Job Flag` and submit
+
            ```robot
            *** Test Cases ***
            Validate Bulk Edit for Open Jobs of Rapid Contract
@@ -109,6 +111,7 @@ all scenarios are maintained in `tests/Scenario/`
     and fetching all rates for selected Skill from job creation then `save and compare rates` and similarly OT Rules
     select specified ot Template `Choose Specified OT Rule Template from Dropdown list    ${OT_RULE_TEMPLATE_NAME}`
     and checking selected location from job creation is present or not then fetching and comparing with Job Ot rules
+
           ```robot
            *** Test Cases ***
            Validate Job Creation With Job Type as Rapid Contract
@@ -116,16 +119,18 @@ all scenarios are maintained in `tests/Scenario/`
            Compare All Job Rates with Rate Template and Ensure Skill Matches Job's Skil
            Compare All Job OT Rules with OT Template and Ensure Location Matches Job's Location
                  ```
-    ##### NOTE: If you want to add your own Entity values ${RATE_TEMPLATE_NAME} ${OT_RULE_TEMPLATE_NAME} you can Edit in `jobEntities.resource` File
+    ##### NOTE: If you want to add your own Entity values `${RATE_TEMPLATE_NAME}`  `${OT_RULE_TEMPLATE_NAME}` you can Edit in `jobEntities.resource` File
 4. validateHrefForAllHiringProcessingSkillList.robot
    Test cases covers check all the values under `hiring process` column in `Skill Administration` page are of type button
    and when clicked on any value should open window
+
           ```robot
            *** Test Cases ***
            Validate All Values Under Hiring Process Values are Buttons and Redirect to View Rules Window
                  ```
 5. validateSkillHiringProcessRules.robot
    Test cases covers create of new skill and update skill with different combinations of Rules
+
           ```robot
            *** Test Cases ***
            Validate Skill Hiring Process Rules
@@ -143,6 +148,7 @@ all scenarios are maintained in `tests/Scenario/`
    Test cases covers create job of `Rapid Contract` type and store created job name then login to vms
    portal and search with created job name then create new talent using faker library for firstname, lastname,...
    and store all talent details create and submit talent in vms portal
+
           ```robot
            *** Test Cases ***
            Create Job of Rapid Contract Type For Talent Submission
@@ -151,6 +157,7 @@ all scenarios are maintained in `tests/Scenario/`
                  ```
 7. verifyRapidContractTypeListedinJobTypeDropDown.robot
    Test cases covers checking rapid contract option is present in jobtype dropdown
+
           ```robot
            *** Test Cases ***
            Validate Rapid Contract Option listed in JobType DropDown While Creating New Job
