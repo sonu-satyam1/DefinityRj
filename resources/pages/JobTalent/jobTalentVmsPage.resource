@@ -23,7 +23,7 @@ ${NO_RECORDS}                      No records available
 Verify Talent Name Matches Stored Name in Vms
     Wait For Page Ready
     Wait Till Element Visible    ${JOB_TALENT_HEADER_LOCATOR}
-
+    Sleep    3s
     ${first}=    RuntimeData.Get Runtime Field Inside Object    TALENT    FIRST_NAME
     ${last}=     RuntimeData.Get Runtime Field Inside Object    TALENT    LAST_NAME
     ${expected}=    Set Variable    ${first} ${last}

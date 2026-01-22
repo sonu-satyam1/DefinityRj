@@ -18,7 +18,7 @@ ${FILTER_OPTION_DPDWN}                              xpath://span[contains(@class
 ${CALENDAR_BODY}                                    xpath://div[contains(@class,'MuiDateCalendar-root')]
 ${COLUMN_FILTER_BTN}                                xpath://button[.//span[contains(@class,'icon-play')]]
 ${SHOW_ALL_BTN}                                     xpath://button[.//span[normalize-space(.)='Show All']]
-${LAST_USED_TEMPLATE_NAME_OPTIONS}                  xpath://h2[.//span[normalize-space()='Last Used']]/following-sibling::div//tbody//span[@class='name-col']
+${LAST_USED_TEMPLATE_NAME_OPTIONS}                  xpath://h2[.//span[normalize-space()='Last Used']]/following-sibling::div[contains(@class,'k-grid')][1]//tbody/tr
 ${SELECT_BUTTON}                                    xpath://button[@type='submit']/span[text()='SELECT']
 ${JOB_DETAILS_LIST_OPTIONS}                         xpath://tbody//span[contains(@class,'name-col') and @role='button']
 ${SEARCH_BOX}                                       xpath://label[normalize-space()='Search']/preceding::input[1]

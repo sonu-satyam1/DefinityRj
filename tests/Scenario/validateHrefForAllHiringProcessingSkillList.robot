@@ -8,7 +8,7 @@ Variables   ../../resources/variables/environment/qa2.py
 Test Teardown    Close Browser Safely
 
 *** Test Cases ***
-Validate Rapid Contract Option listed in JobType DropDown While Creating New Job
+Validate All Values Under Hiring Process Values are Buttons and Redirect to View Rules Window
     Login To Portal    HCS    ${HCS}
     Click Feature Menu Option    Settings
     Verify Administrative Settings Page Title

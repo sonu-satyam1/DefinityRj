@@ -32,11 +32,11 @@ Create Job of Rapid Contract Type For Talent Submission
     Provide Num of Positions    ${NO_OF_POSITIONS}
     Verify Vendor Hiring Process is Disabled for Rapid Contract Type
     Select Earliest Start Date as Next Day
+    Provide Years of Relevant Experience    ${YEARS_OF_EXPERIENCE}
     Select Specified Shift    ${SHIFT}
     Provide Minimum Week Duration    ${MINI_WK_DUR}
     Provide Expected Weekly Shift    ${EXPECTED_WKLY_SHIFT}
     Provide Hours Per Shift    ${HOURS_PER_SHIFT}
-    Provide Years of Relevant Experience    ${YEARS_OF_EXPERIENCE}
     Switch to Specified tab in CreateJob    Pay Package
     Verify Current Tab Is Active    Pay Package
     Set Regular Rate If Empty      ${REGULAR_RATE}

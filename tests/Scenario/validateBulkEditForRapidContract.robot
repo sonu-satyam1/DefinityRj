@@ -11,7 +11,6 @@ Variables   ../../resources/variables/environment/qa2.py
 Test Teardown    Close Browser Safely
 
 *** Test Cases ***
-
 Validate Bulk Edit for Open Jobs of Rapid Contract
     Login To Portal    HCS    ${HCS}
     Click Feature Menu Option    Jobs

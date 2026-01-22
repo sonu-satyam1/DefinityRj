@@ -86,7 +86,7 @@ Select Specified Skill
 Select Specified Shift
     [Arguments]    ${shift}
     Wait For Page Ready
-    Sleep    0.5s
+    Sleep    2s
     Wait Till Element Visible    ${SHIFT_DROPDOWN_LOCATOR}    80s
     From Dropdown Verify or Select an Option    ${SHIFT_DROPDOWN_LOCATOR}    ${SHIFT_OPTIONS_LOCATOR}    ${shift}    select
     Wait For Page Ready
@@ -161,6 +161,7 @@ Provide Hours Per Shift
     SeleniumLibrary.Press Keys       ${HOURS_PER_SHIFT_INPUT_TXT}    CTRL+A    BACKSPACE
     Input Text Safely        ${HOURS_PER_SHIFT_INPUT_TXT}    ${hrsPerSh}
     Wait For Page Ready
+    Press Keys    ${YEARS_OF_EXP_INPUT_TXT}    TAB
     Sleep    0.5s
 
 Provide Years of Relevant Experience
@@ -186,6 +187,7 @@ Switch to Pay Package tab
 Switch to Specified tab in CreateJob
     [Arguments]    ${tab}
     Wait For Page Ready
+    Sleep    5s
     Wait Till Element Enabled    xpath://form//ul[@role='tablist']//li[.//span[starts-with(normalize-space(.), '${tab}')]]    80s
     Click Element Safely        xpath://form//ul[@role='tablist']//li[.//span[starts-with(normalize-space(.), '${tab}')]]
     Sleep    0.5s
