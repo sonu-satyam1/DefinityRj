@@ -50,7 +50,7 @@ Select Submit Talent New Talent in Vms
     Click Element Safely    ${SUBMIT_NEW_TALENT_BUTTON}
     Wait For Page Ready
 
-Search For Created Talent
+Search For Created Talent in Vms
     [Arguments]    ${talentName}
     Wait For Page Ready
     Scroll To View Element    ${TALENT_SEARCH}

@@ -31,13 +31,13 @@ Validate Job Creation With Job Type as Rapid Contract Using Normal Flow
     Provide Expected Weekly Shift    ${EXPECTED_WKLY_SHIFT}
     Provide Hours Per Shift    ${HOURS_PER_SHIFT}
     Provide Years of Relevant Experience    ${YEARS_OF_EXPERIENCE}
-    Switch to Specified tab    Pay Package
+    Switch to Specified tab in CreateJob    Pay Package
     Verify Current Tab Is Active    Pay Package
     Set Regular Rate If Empty      ${REGULAR_RATE}
-    Switch to Specified tab    Credentials
+    Switch to Specified tab in CreateJob    Credentials
     Verify Current Tab Is Active    Credentials
     Select First Credential Value as Optional
-    Switch to Specified tab    Vendors
+    Switch to Specified tab in CreateJob    Vendors
     Verify Current Tab Is Active    Vendors
     Select Expedited Option From Vendor tab
     Submit Job Details
@@ -65,13 +65,13 @@ Validate Job Creation With Job Type as Rapid Contract Using Copy Exists
     Provide Expected Weekly Shift    ${EXPECTED_WKLY_SHIFT}
     Provide Hours Per Shift    ${HOURS_PER_SHIFT}
     Provide Years of Relevant Experience    ${YEARS_OF_EXPERIENCE}
-    Switch to Specified tab    Pay Package
+    Switch to Specified tab in CreateJob    Pay Package
     Verify Current Tab Is Active    Pay Package
     Set Regular Rate If Empty      ${REGULAR_RATE}
-    Switch to Specified tab    Credentials
+    Switch to Specified tab in CreateJob    Credentials
     Verify Current Tab Is Active    Credentials
     Select First Credential Value as Optional
-    Switch to Specified tab    Vendors
+    Switch to Specified tab in CreateJob    Vendors
     Verify Current Tab Is Active    Vendors
     Select Expedited Option From Vendor tab
     Submit Job Details
@@ -100,13 +100,13 @@ Validate Job Creation With Job Type as Rapid Contract Using Add New Job From Tem
     Provide Expected Weekly Shift    ${EXPECTED_WKLY_SHIFT}
     Provide Hours Per Shift    ${HOURS_PER_SHIFT}
     Provide Years of Relevant Experience    ${YEARS_OF_EXPERIENCE}
-    Switch to Specified tab    Pay Package
+    Switch to Specified tab in CreateJob    Pay Package
     Verify Current Tab Is Active    Pay Package
     Set Regular Rate If Empty      ${REGULAR_RATE}
-    Switch to Specified tab    Credentials
+    Switch to Specified tab in CreateJob    Credentials
     Verify Current Tab Is Active    Credentials
     Select First Credential Value as Optional
-    Switch to Specified tab    Vendors
+    Switch to Specified tab in CreateJob    Vendors
     Verify Current Tab Is Active    Vendors
     Select Expedited Option From Vendor tab
     Submit Job Details

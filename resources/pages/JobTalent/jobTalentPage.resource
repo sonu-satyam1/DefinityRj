@@ -19,7 +19,7 @@ ${SEND_FOR_APPROVAL_BTN}                    xpath://button[.//span[normalize-spa
 ${NO_RECORDS}                      No records available
 
 *** Keywords ***
-Verify Talent Name Matches Stored Name
+Verify Talent Name Matches Stored Name in Hcs
     Wait For Page Ready
     Wait Till Element Visible    ${JOB_TALENT_HEADER_LOCATOR}
 
@@ -44,7 +44,7 @@ Verify Talent Name Matches Stored Name
     Should Be Equal As Strings    ${actual}    ${expected}
 
 
-Check for Job is Offered Status
+Check for Job is Offered Status in Hcs
     Wait For Page Ready
     Wait Until Element Is Visible    ${STATUS_TEXT}
     ${actual}=    Get Text    ${STATUS_TEXT}
@@ -54,28 +54,28 @@ Check for Job is Offered Status
     Log    Status Actual:${actual},Expected:${expected}
     Should Contain    ${actual}    ${expected}
 
-Accept the Offer
+Accept the Offer in Hcs
     Wait For Page Ready    
     Wait Till Element Enabled    ${ACCEPT_OFFER_BTN}
     Click Element Safely    ${ACCEPT_OFFER_BTN}
     Sleep    10s
     Wait For Page Ready
 
-Reject the Offer
+Reject the Offer in Hcs
     Wait For Page Ready
     Wait Till Element Enabled    ${REJECT_OFFER_BTN}
     Click Element Safely    ${REJECT_OFFER_BTN}
     Sleep    10s
     Wait For Page Ready
 
-Switch to Specified tab
+Switch to Specified tab in Hcs
     [Arguments]    ${tab}
     Wait For Page Ready
     Sleep    5s
     Click Element Safely        xpath://form//ul[@role='tablist']//li[.//span[starts-with(normalize-space(.), '${tab}')]]
 
 
-Offer Extension If Eligible
+Offer Extension If Eligible in Hcs
     ${status_ok}=    Run Keyword And Return Status
     ...    Wait Till Element Visible
     ...    ${STATUS_ON_ASSIGN}
@@ -92,7 +92,7 @@ Offer Extension If Eligible
 
             # ----- Wait for dialog -----
             Wait Till Element Visible        ${CONTRACT_EXT_HEADER}
-            Switch to Specified tab    Credentials
+            Switch to Specified tab in Hcs    Credentials
             Wait For Page Ready
             # ----- Wait until submit enabled -----
             Wait Until Keyword Succeeds    30s    1s
