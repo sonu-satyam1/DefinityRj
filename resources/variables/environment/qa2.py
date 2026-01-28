@@ -1,5 +1,5 @@
 # env/qa2.py
-
+APPROVER_USER= ""
 HCS = {
     "url":  "https://costrategi-security-qa2.internal-definitywfs.com/signin",
     "user": "rajitha.patragolla+1@costrategix.com",

@@ -165,11 +165,12 @@ Enable Column From Filter Menu
 
 From Dropdown Verify or Select an Option
     [Arguments]    ${DROPDOWN_LOCATOR}    ${OPTIONS_TEXT_LOCATOR}    ${OPTION_TEXT}    ${ACTION}=select
-
+    Wait Till Element Visible    ${DROPDOWN_LOCATOR}    90s
     Wait And Click With Retry    ${DROPDOWN_LOCATOR}
-    Wait Till Element Visible    ${OPTIONS_TEXT_LOCATOR}    50s
+    Wait Till Element Visible    ${OPTIONS_TEXT_LOCATOR}    90s
 
     @{elements}=    Get WebElements    ${OPTIONS_TEXT_LOCATOR}
+    Sleep    0.2s
     ${found}=    Set Variable    False
 
     FOR    ${el}    IN    @{elements}
@@ -178,9 +179,8 @@ From Dropdown Verify or Select an Option
         IF    '${txt}'.lower() == '${OPTION_TEXT}'.lower()
             ${found}=    Set Variable    True
             IF    '${ACTION}' == 'select'
-                Wait Till Element Enabled    ${el}    50s
+                Wait Till Element Enabled    ${el}    80s
                 Click Element    ${el}
-                Wait For Page Ready
             END
             EXIT FOR LOOP
         END
@@ -329,4 +329,154 @@ Select First Result By Column
     Log    Clicked first result under column '${HEADER_TEXT}'
 
 
+Search And Select First Option From the Resultant Rows
+    [Arguments]
+    ...    ${SEARCH_BOX}
+    ...    ${SEARCH_TEXT}
+    ...    ${ROWS_XPATH}
+    ...    ${NO_RECORDS_TEXT}
 
+    Wait For Page Ready
+
+    Input Text Safely    ${SEARCH_BOX}    ${SEARCH_TEXT}
+    Sleep    2s
+    Wait For Page Ready
+
+    # ---- Check No Records ----
+    ${no_rec}=    Run Keyword And Return Status
+    ...    Page Should Contain    ${NO_RECORDS_TEXT}
+
+    IF    ${no_rec}
+        Fail    No records available for search text: ${SEARCH_TEXT}
+    END
+
+    # ---- First Row, First Cell ----
+    ${first_cell}=    Set Variable    xpath=(${ROWS_XPATH})[1]
+
+    # ---- Assert it CONTAINS search text (generic assertion) ----
+    Generic Assert Element Contains Text Case Insensitive
+    ...    ${first_cell}
+    ...    ${SEARCH_TEXT}
+
+    # ---- Click Result ----
+    Scroll Element Into View     ${first_cell}
+    Click Element Safely         ${first_cell}
+
+    Log    Selected first result containing: ${SEARCH_TEXT}
+
+
+
+Search And Verify Specified Column Value
+    [Arguments]
+    ...    ${SEARCH_BOX}
+    ...    ${SEARCH_TEXT}
+    ...    ${HEADER_TEXT}
+    ...    ${HEADER_TITLES}
+    ...    ${ROWS_XPATH}
+
+    Wait For Page Ready
+    Clear Element Text    ${SEARCH_BOX}
+    Input Text Safely     ${SEARCH_BOX}    ${SEARCH_TEXT}
+    Sleep    1.5s
+    Wait For Page Ready
+
+    # ---------- Validate Row Exists ----------
+    ${rows}=    Get WebElements    ${ROWS_XPATH}
+    ${row_count}=    Get Length    ${rows}
+    Run Keyword If    ${row_count} == 0
+    ...    Fail    No rows found after searching '${SEARCH_TEXT}'
+
+    # ---------- Find Column Index ----------
+    @{headers}=    Get WebElements    ${HEADER_TITLES}
+    ${col_index}=    Set Variable    -1
+    ${i}=    Set Variable    1
+
+    FOR    ${h}    IN    @{headers}
+        ${htxt}=    Get Text    ${h}
+        ${htxt}=    Strip String    ${htxt}
+        IF    '${htxt}'.lower() == '${HEADER_TEXT}'.lower()
+            ${col_index}=    Set Variable    ${i}
+            EXIT FOR LOOP
+        END
+        ${i}=    Evaluate    ${i} + 1
+    END
+
+    Run Keyword If    ${col_index} == -1
+    ...    Fail    Column header '${HEADER_TEXT}' not found in grid
+
+    # ---------- Get Cell Value (First Row) ----------
+    ${cell}=    Set Variable
+    ...    xpath=(${ROWS_XPATH})[1]/td[${col_index}]
+
+    Wait Until Element Is Visible    ${cell}    20s
+    ${actual}=    Get Text    ${cell}
+    ${actual}=    Strip String    ${actual}
+
+    # ---------- Assert ----------
+    Generic Assert Text Equals    ${actual}    ${SEARCH_TEXT}
+
+Search Verify And Click Action In Same Row
+    [Arguments]
+    ...    ${SEARCH_BOX}
+    ...    ${SEARCH_TEXT}
+    ...    ${HEADER_TEXT}
+    ...    ${HEADER_TITLES}
+    ...    ${ROWS_XPATH}
+    ...    ${ACTION_RELATIVE_XPATH}
+
+    Wait For Page Ready
+    Clear Element Text    ${SEARCH_BOX}
+    Input Text Safely     ${SEARCH_BOX}    ${SEARCH_TEXT}
+    Sleep    1.5s
+    Wait For Page Ready
+
+    # ---------- Get Rows ----------
+    @{rows}=    Get WebElements    ${ROWS_XPATH}
+    ${row_count}=    Get Length    ${rows}
+    Run Keyword If    ${row_count} == 0
+    ...    Fail    No rows found after searching '${SEARCH_TEXT}'
+
+    # ---------- Find Column Index ----------
+    @{headers}=    Get WebElements    ${HEADER_TITLES}
+    ${col_index}=    Set Variable    -1
+    ${i}=    Set Variable    1
+
+    FOR    ${h}    IN    @{headers}
+        ${htxt}=    Get Text    ${h}
+        ${htxt}=    Strip String    ${htxt}
+        IF    '${htxt}'.lower() == '${HEADER_TEXT}'.lower()
+            ${col_index}=    Set Variable    ${i}
+            EXIT FOR LOOP
+        END
+        ${i}=    Evaluate    ${i} + 1
+    END
+
+    Run Keyword If    ${col_index} == -1
+    ...    Fail    Column header '${HEADER_TEXT}' not found
+
+    # ---------- Find Matching Row & Click Action ----------
+    ${matched}=    Set Variable    False
+    ${row_i}=    Set Variable    1
+
+    FOR    ${row}    IN    @{rows}
+        ${cell}=    Set Variable    xpath=(${ROWS_XPATH})[${row_i}]/td[${col_index}]
+        ${txt}=     Get Text    ${cell}
+        ${txt}=     Strip String    ${txt}
+
+        IF    '${txt}'.lower() == '${SEARCH_TEXT}'.lower()
+            ${matched}=    Set Variable    True
+
+            ${action}=    Set Variable
+            ...    xpath=(${ROWS_XPATH})[${row_i}]${ACTION_RELATIVE_XPATH}
+
+            Wait Until Element Is Visible    ${action}    20s
+            Scroll Element Into View         ${action}
+            Click Element Safely             ${action}
+            EXIT FOR LOOP
+        END
+
+        ${row_i}=    Evaluate    ${row_i} + 1
+    END
+
+    Run Keyword If    not ${matched}
+    ...    Fail    No row found where '${HEADER_TEXT}' = '${SEARCH_TEXT}'

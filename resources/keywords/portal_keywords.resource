@@ -17,10 +17,16 @@ ${INPUT_PASSWORD_MYDEF}          xpath://input[@type='password']
 *** Keywords ***
 Open Portal And Login To HCS
     [Arguments]    ${PORTAL}    
+    
+    ${user}=    Set Variable    ${PORTAL['user']}
+     IF    '${APPROVER_USER}' != '' and '${APPROVER_USER}' != 'None'
+        ${user}=    Set Variable    ${APPROVER_USER}
+    END
+#    Input Text Safely     ${INPUT_EMAIL_ADDRESS}    ${PORTAL['user']}
     Open Browser    ${PORTAL['url']}    chrome
     Maximize Browser Window
     Wait Till Element Visible    ${HEADER_SIGNIN}    50s
-    Input Text Safely     ${INPUT_EMAIL_ADDRESS}    ${PORTAL['user']}
+    Input Text Safely     ${INPUT_EMAIL_ADDRESS}    ${user}
     Input Text Safely     ${INPUT_PASSWORD}     ${PORTAL['pass']}
     Wait Till Element Enabled  ${BUTTON_LOGIN}    50s
     Click Element Safely   ${BUTTON_LOGIN}

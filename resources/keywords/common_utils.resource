@@ -115,3 +115,48 @@ Upload File Dynamically
     [Arguments]    ${element}    ${filename}
     ${file_path}=    Set Variable    ${UPLOAD_DIR}/${filename}
     Choose File    ${element}    ${file_path}
+
+Fill Address Details Using Faker
+    [Arguments]
+    ...    ${ADDRESS_INPUT}
+    ...    ${CITY_INPUT}
+    ...    ${ZIP_INPUT}
+    ...    ${COUNTRY_INPUT}
+    ...    ${LOCATION_CODE_INPUT}
+
+    ${address}=        Street Address
+    ${city}=           City
+    ${zip}=            Postcode
+    ${country}=        Country
+    ${location_code}=  Random Number    digits=5
+
+    Wait For Page Ready
+    Scroll To View Element    ${ADDRESS_INPUT}
+    Input Text Safely         ${ADDRESS_INPUT}    ${address}
+
+    Wait For Page Ready
+    Scroll To View Element    ${CITY_INPUT}
+    Input Text Safely         ${CITY_INPUT}       ${city}
+
+    Wait For Page Ready
+    Scroll To View Element    ${ZIP_INPUT}
+    Input Text Safely         ${ZIP_INPUT}        ${zip}
+
+    Wait For Page Ready
+    Scroll To View Element    ${COUNTRY_INPUT}
+    Input Text Safely         ${COUNTRY_INPUT}    ${country}
+
+    Wait For Page Ready
+    Scroll To View Element    ${LOCATION_CODE_INPUT}
+    Input Text Safely         ${LOCATION_CODE_INPUT}    ${location_code}
+
+    # ---- Create Address dictionary ----
+    ${address_obj}=    Create Dictionary
+    ...    ADDRESS=${address}
+    ...    CITY=${city}
+    ...    ZIP=${zip}
+    ...    COUNTRY=${country}
+    ...    LOCATION_CODE=${location_code}
+
+    # ---- Store in runtime data ----
+    Save Value    ADDRESS_DETAILS    ${address_obj}

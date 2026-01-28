@@ -27,7 +27,7 @@ ${TALENT_SEARCH}                   xpath://div[contains(@class,"k-tabstrip")]//d
 ${SEARCH_RESULTS_ROWS}             //table[contains(@class,"k-grid-table")]//tbody//tr
 ${TALENT_TABLE_HEADERS}            xpath://table[contains(@class,"k-grid-header-table")]//thead//th//span[contains(@class,"k-column-title")]
 ${NO_RECORDS}                      No records available
-
+${APPROVE_REQUEST_BTN}             xpath://span[normalize-space()='APPROVE REQUEST']
 
 *** Keywords ***
 Verify Job Details Page Title
@@ -46,11 +46,24 @@ Check for Open Job Status
     ${status}=    Get Text    ${JOB_STATUS}
     Should Be Equal As Strings    ${status}    Open
 
+Check for Pending Approval Job Status
+    Wait For Page Ready
+    Wait Until Element Is Visible    ${JOB_STATUS}    50s
+    ${status}=    Get Text    ${JOB_STATUS}
+    Should Be Equal As Strings    ${status}    Pending Approval
+
 Store Created Job Name
     Wait For Page Ready
     Wait Till Element Visible     ${JOB_HEADER}
     ${job}=    Get Text And Save Runtime Value    ${JOB_HEADER}    JOB_NAME
-    
+
+Store Created Job Name With Specified Key
+    [Arguments]    ${NAME}
+    Wait For Page Ready
+    Wait Till Element Visible     ${JOB_HEADER}
+    ${job}=    Get Text And Save Runtime Value    ${JOB_HEADER}    ${NAME}
+    RETURN    ${job}
+
 Store Created Job Name For Rapid Contract
     [Arguments]    ${NAME}
     Wait For Page Ready
@@ -64,6 +77,12 @@ Switch to Specified tab in Details Page
     Sleep    5s
     Click Element Safely        ${JOB_DETAILS_TABS}//li[.//span[normalize-space()='${tab}']]
     Wait For Page Ready
+
+Select Approve Request for Approval Flow
+    Wait For Page Ready
+    Click Element Safely    ${APPROVE_REQUEST_BTN}
+    Wait For Page Ready
+    Check for Open Job Status
 
 View Pay Package Rate Details
     Wait For Page Ready

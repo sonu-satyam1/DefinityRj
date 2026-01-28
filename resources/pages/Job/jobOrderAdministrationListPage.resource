@@ -34,10 +34,26 @@ ${BULK_EDIT_SUBMIT_BUTTON}                          xpath://button[@type='submit
 ${BULK_EDIT_WINDOW_HEADER}                          xpath://span[contains(@class,'k-dialog-title') and normalize-space()='Edit Job Orders']
 ${BULK_EDIT_SUCCESS_MESSAGE}                        xpath://p[contains(@class,'success-msg-content') and contains(normalize-space(),'Job Orders have been updated')]
 ${CLOSE_BUTTON}                                     xpath://button[@type='button']/span[text()='Close']
-
+${JOB_ORDER_ADMIN_TABS}                                 xpath://ul[contains(@class,'k-tabstrip-items')]
 *** Keywords ***
 Verify Job Order Administration Page Title
     Verify Page Title    Job Order Administration
+
+Switch to Specified tab in Job Order Administration Page
+    [Arguments]    ${tab}
+    Wait For Page Ready
+    Sleep    5s
+    Click Element Safely        ${JOB_ORDER_ADMIN_TABS}//li[.//span[normalize-space()='${tab}']]
+    Wait For Page Ready
+
+Select Specified Job From List for Pending Approval
+    [Arguments]    ${jobName}
+    Search And Select First Result By Column    ${SEARCH_BOX}    ${jobName}    ${HEADER_TITLES}    Job Details    ${ROWS_XPATH}    ${NO_RECORDS_TEXT}
+    Wait For Page Ready
+    Wait Till Element Visible    xpath://div[@class='vm-right-pane-container']//h1
+    Verify Job Details Page Title    ${jobName}
+
+
 
 Select Add New Job From Template Option
     Sleep    5s

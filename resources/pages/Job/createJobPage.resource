@@ -48,6 +48,12 @@ Select Rapid Contract Job Type
     From Dropdown Verify or Select an Option    ${JOB_TYPE_DROPDOWN_LOCATOR}    ${JOB_TYPE_OPTIONS_TEXT_LOCATOR}    Rapid Contract    select
     Wait For Page Ready
 
+Select Standard Contract Job Type
+    Wait For Page Ready
+    Sleep    1s
+    From Dropdown Verify or Select an Option    ${JOB_TYPE_DROPDOWN_LOCATOR}    ${JOB_TYPE_OPTIONS_TEXT_LOCATOR}    Standard Contract    select
+    Wait For Page Ready
+
 Select Specified Hiring Manager
     [Arguments]    ${hiringManager}
     Sleep    0.5s
@@ -87,6 +93,15 @@ Select Specified Shift
     [Arguments]    ${shift}
     Wait For Page Ready
     Sleep    2s
+    Wait Till Element Visible    ${SHIFT_DROPDOWN_LOCATOR}    80s
+    From Dropdown Verify or Select an Option    ${SHIFT_DROPDOWN_LOCATOR}    ${SHIFT_OPTIONS_LOCATOR}    ${shift}    select
+    Wait For Page Ready
+    Sleep    0.5s
+
+Select Specified Shift in Create Job From Template
+    [Arguments]    ${shift}
+    Wait For Page Ready
+    Sleep    3s
     Wait Till Element Visible    ${SHIFT_DROPDOWN_LOCATOR}    80s
     From Dropdown Verify or Select an Option    ${SHIFT_DROPDOWN_LOCATOR}    ${SHIFT_OPTIONS_LOCATOR}    ${shift}    select
     Wait For Page Ready

@@ -62,7 +62,35 @@ use: `--outputdir dirName`
 Example:
 `robot --variablefile resources/variables/environment/qa2.py  --outputdir results tests/Scenario/validateAllWaysJobCreationWithRapidContract.robot`
 
+Individual Test case Execution:
+```bash
+robot \
+  --variablefile resources/variables/environment/qa2.py \
+  --outputdir results \
+  -t "Validate Job Creation With Job Type as Rapid Contract Using Normal Flow" \
+  tests/Scenario/validateAllWaysJobCreationWithRapidContract.robot
+```
 
+by Tag:
+`robot --include smoke --variablefile resources/variables/environment/qa2.py --outputdir results tests/`
+
+Run Single Test from Folder (Searches All Files):
+```bash
+robot \
+  --variablefile resources/variables/environment/qa2.py \
+  --outputdir results \
+  -t "Validate Job Creation With Rapid Contract" \
+  tests/
+```
+
+Rerun Only Failed Tests(First Run -Normal Execution):
+```bash
+robot \
+ --variablefile resources/variables/environment/qa2.py \
+ --outputdir results_rerun \
+ --rerunfailed results/output.xml \
+ tests/
+```
 # scenario's Covered
 all scenarios are maintained in `tests/Scenario/`
 ---

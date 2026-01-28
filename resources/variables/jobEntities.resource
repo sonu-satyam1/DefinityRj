@@ -13,3 +13,5 @@ ${YEARS_OF_EXPERIENCE}        5
 ${REGULAR_RATE}               1
 ${RATE_TEMPLATE_NAME}         TestRateTemplate_20251128_1650
 ${OT_RULE_TEMPLATE_NAME}      Testratetemplate_20251128_1650
+${MARKET}                     Test_Location_Group_20251128_1650
+${SKILL_TYPE}                 Clinical
