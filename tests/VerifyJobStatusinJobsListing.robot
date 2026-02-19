@@ -647,5 +647,5 @@ Verify that when Hospital withdraw an Vendor talent offer such that the number o
     Apply Filter for Open Jobs and Job Type        Job Details       ${job_id}
     Wait For Page Ready
     validate job should be changed to open
-    Sleep    2s
+    Sleep    5s
 
