@@ -87,5 +87,15 @@
     "SSN": 714699431
   },
   "WORKFLOW_RULE_NAME": "TestRule_20260124_213232",
-  "APPROVAL_FLOW_JOB_NAME": "5378 - TestSkillForApprovalFlow - TestLocationForApprovalFlow - 19:00-07:30 (13:30 - 21:30)"
+  "APPROVAL_FLOW_JOB_NAME": "5378 - TestSkillForApprovalFlow - TestLocationForApprovalFlow - 19:00-07:30 (13:30 - 21:30)",
+  "APPROVAL_LOCATION_NAME": "TestLocationApprovalFlow_20260128_113444",
+  "ADDRESS_DETAILS": {
+    "ADDRESS": "554 Richard Roads Apt. 458",
+    "CITY": "South Joseph",
+    "ZIP": "54596",
+    "COUNTRY": "Kyrgyz Republic",
+    "LOCATION_CODE": 64013,
+    "STATE": "Florida"
+  },
+  "APPROVAL_DEPARTMENT_NAME": "TestDepartmentApprovalFlow_20260128_113517"
 }

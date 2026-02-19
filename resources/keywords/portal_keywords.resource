@@ -11,7 +11,7 @@ ${BUTTON_LOGIN}                  xpath://button[@type='submit']
 ${HEADER_LETS_GET_STARTED}       xpath://h1[normalize-space()="Let's Get Started!"]
 ${INPUT_EMAIL_BY_LABEL}          xpath://label[normalize-space()='Email Address']/following::input[1]
 ${BUTTON_FIND_ACCOUNT}           xpath://button[normalize-space()='Find Account']
-${HEADER_SIGNIN_MYDEF}                xpath://h1[normalize-space()='Sign In']
+${HEADER_SIGNIN_MYDEF}           xpath://h1[normalize-space()='Sign In']
 ${INPUT_PASSWORD_MYDEF}          xpath://input[@type='password']
 
 *** Keywords ***

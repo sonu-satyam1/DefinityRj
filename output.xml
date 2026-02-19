@@ -1,140 +1,1488 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.1 (Python 3.11.14 on linux)" generated="2026-01-10T16:22:18.002027" rpa="false" schemaversion="5">
-<suite id="s1" name="Login" source="/home/costrategix/PycharmProjects/DefinityRj/tests/LoginPage/login.robot">
-<test id="s1-t1" name="Login To HCS Portal" line="7">
-<kw name="Login To Portal" owner="login">
-<kw name="Open Browser And Maximize" owner="common_keywords">
+<robot generator="Robot 7.0 (Python 3.13.3 on win32)" generated="2026-02-19T16:47:13.241027" rpa="false" schemaversion="5">
+<suite id="s1" name="DefinityRj" source="C:\Users\costrategix\PycharmProjects\DefinityRj">
+<suite id="s1-s1" name="Tests" source="C:\Users\costrategix\PycharmProjects\DefinityRj\tests">
+<suite id="s1-s1-s1" name="VerifyJobStatusinJobsListing" source="C:\Users\costrategix\PycharmProjects\DefinityRj\tests\VerifyJobStatusinJobsListing.robot">
+<test id="s1-s1-s1-t1" name="Verify that Job Orders in Offers Pending Status should restrict the hospital from extending additional offers" line="503">
+<kw name="Login To Portal" owner="loginPage">
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Open Portal And Login To HCS" owner="portal_keywords">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-02-19T16:47:13.585267" level="INFO">${user} = devops@definity.com</msg>
+<var>${user}</var>
+<arg>${PORTAL['user']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-02-19T16:47:13.583866" elapsed="0.001438"/>
+</kw>
+<if>
+<branch type="IF" condition="'${APPROVER_USER}' != '' and '${APPROVER_USER}' != 'None'">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${user}</var>
+<arg>${APPROVER_USER}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-02-19T16:47:13.585683" elapsed="0.000027"/>
+</kw>
+<status status="NOT RUN" start="2026-02-19T16:47:13.585445" elapsed="0.000317"/>
+</branch>
+<status status="PASS" start="2026-02-19T16:47:13.585422" elapsed="0.000378"/>
+</if>
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2026-01-10T16:22:18.245294" level="INFO">Opening browser 'chrome' to base url 'https://costrategi-security-qa2.internal-definitywfs.com/signin'.</msg>
-<arg>${URL}</arg>
-<arg>${BROWSER_NAME}</arg>
+<msg time="2026-02-19T16:47:13.587312" level="INFO">Opening browser 'chrome' to base url 'https://costrategi-security-stage1.internal-definitywfs.com/signin'.</msg>
+<arg>${PORTAL['url']}</arg>
+<arg>chrome</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2026-01-10T16:22:18.245109" elapsed="2.176496"/>
+<status status="PASS" start="2026-02-19T16:47:13.585935" elapsed="3.309534"/>
 </kw>
 <kw name="Maximize Browser Window" owner="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.421915" elapsed="0.016354"/>
-</kw>
-<arg>${PORTAL['url']}</arg>
-<status status="PASS" start="2026-01-10T16:22:18.244396" elapsed="2.194134"/>
+<status status="PASS" start="2026-02-19T16:47:16.895745" elapsed="0.035827"/>
 </kw>
 <kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:16.932867" elapsed="0.017731"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:16.932694" elapsed="0.018008"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:16.932432" elapsed="0.018369"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:16.932163" elapsed="0.018720"/>
+</kw>
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.439040" elapsed="0.021565"/>
+<status status="PASS" start="2026-02-19T16:47:16.951060" elapsed="0.030856"/>
 </kw>
-<arg>${SIGN_IN_HEADER}</arg>
-<status status="PASS" start="2026-01-10T16:22:20.438727" elapsed="0.022035"/>
+<arg>${HEADER_SIGNIN}</arg>
+<arg>50s</arg>
+<status status="PASS" start="2026-02-19T16:47:16.931813" elapsed="0.050203"/>
 </kw>
 <kw name="Input Text Safely" owner="common_keywords">
 <kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:16.983654" elapsed="0.009098"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:16.983514" elapsed="0.009340"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:16.983299" elapsed="0.009635"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:16.982801" elapsed="0.010253"/>
+</kw>
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.462234" elapsed="0.014074"/>
+<status status="PASS" start="2026-02-19T16:47:16.993304" elapsed="0.016748"/>
 </kw>
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
-<status status="PASS" start="2026-01-10T16:22:20.461874" elapsed="0.014621"/>
+<status status="PASS" start="2026-02-19T16:47:16.982547" elapsed="0.027594"/>
 </kw>
 <kw name="Clear Element Text" owner="SeleniumLibrary">
 <arg>${LOCATOR}</arg>
 <doc>Clears the value of the text-input-element identified by ``locator``.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.476629" elapsed="0.037875"/>
+<status status="PASS" start="2026-02-19T16:47:17.010292" elapsed="0.031898"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2026-01-10T16:22:20.514996" level="INFO">Typing text 'rajitha.patragolla+1@costrategix.com' into text field 'xpath://input[@name='emailAddress']'.</msg>
+<msg time="2026-02-19T16:47:17.042600" level="INFO">Typing text 'devops@definity.com' into text field 'xpath://input[@name='emailAddress']'.</msg>
 <arg>${LOCATOR}</arg>
 <arg>${TEXT}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.514719" elapsed="0.132382"/>
+<status status="PASS" start="2026-02-19T16:47:17.042384" elapsed="0.140056"/>
 </kw>
-<arg>${EMAIL_TEXTBOX}</arg>
-<arg>${PORTAL['user']}</arg>
-<status status="PASS" start="2026-01-10T16:22:20.461013" elapsed="0.186214"/>
+<arg>${INPUT_EMAIL_ADDRESS}</arg>
+<arg>${user}</arg>
+<status status="PASS" start="2026-02-19T16:47:16.982208" elapsed="0.200351"/>
 </kw>
 <kw name="Input Text Safely" owner="common_keywords">
 <kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:17.185863" elapsed="0.010600"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:17.185654" elapsed="0.010906"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:17.185339" elapsed="0.011286"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:17.185031" elapsed="0.011642"/>
+</kw>
 <kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
 <doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.648450" elapsed="0.014654"/>
+<status status="PASS" start="2026-02-19T16:47:17.196836" elapsed="0.020357"/>
 </kw>
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
-<status status="PASS" start="2026-01-10T16:22:20.648142" elapsed="0.015087"/>
+<status status="PASS" start="2026-02-19T16:47:17.184688" elapsed="0.032595"/>
 </kw>
 <kw name="Clear Element Text" owner="SeleniumLibrary">
 <arg>${LOCATOR}</arg>
 <doc>Clears the value of the text-input-element identified by ``locator``.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.663398" elapsed="0.024728"/>
+<status status="PASS" start="2026-02-19T16:47:17.217427" elapsed="0.019903"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2026-01-10T16:22:20.688589" level="INFO">Typing text 'Test@123' into text field 'xpath://input[@name='password']'.</msg>
+<msg time="2026-02-19T16:47:17.237691" level="INFO">Typing text 'Password@123!' into text field 'xpath://input[@name='password']'.</msg>
 <arg>${LOCATOR}</arg>
 <arg>${TEXT}</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.688343" elapsed="0.077167"/>
+<status status="PASS" start="2026-02-19T16:47:17.237507" elapsed="0.067277"/>
 </kw>
-<arg>${PASSWORD_TEXTBOX}</arg>
+<arg>${INPUT_PASSWORD}</arg>
 <arg>${PORTAL['pass']}</arg>
-<status status="PASS" start="2026-01-10T16:22:20.647440" elapsed="0.118163"/>
+<status status="PASS" start="2026-02-19T16:47:17.182765" elapsed="0.122132"/>
 </kw>
-<kw name="Wait And Click With Retry" owner="common_keywords">
-<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
-<kw name="Click Element Safely" owner="common_keywords">
 <kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:17.306342" elapsed="0.007105"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:17.306189" elapsed="0.007348"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:17.305944" elapsed="0.007657"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:17.305692" elapsed="0.007956"/>
+</kw>
 <kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
 <doc>Waits until the element ``locator`` is enabled.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.766821" elapsed="0.018378"/>
+<status status="PASS" start="2026-02-19T16:47:17.313799" elapsed="0.020253"/>
+</kw>
+<arg>${BUTTON_LOGIN}</arg>
+<arg>50s</arg>
+<status status="PASS" start="2026-02-19T16:47:17.305123" elapsed="0.029024"/>
+</kw>
+<kw name="Click Element Safely" owner="common_keywords">
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:17.335435" elapsed="0.005798"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:17.335293" elapsed="0.006027"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:17.335070" elapsed="0.006317"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:17.334868" elapsed="0.006569"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-02-19T16:47:17.341591" elapsed="0.023157"/>
 </kw>
 <arg>${LOCATOR}</arg>
 <arg>${TIMEOUT}</arg>
-<status status="PASS" start="2026-01-10T16:22:20.766646" elapsed="0.018647"/>
+<status status="PASS" start="2026-02-19T16:47:17.334630" elapsed="0.030203"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2026-01-10T16:22:20.785609" level="INFO">Clicking element 'xpath://button[@type='submit']'.</msg>
+<msg time="2026-02-19T16:47:17.365339" level="INFO">Clicking element 'xpath://button[@type='submit']'.</msg>
 <arg>${LOCATOR}</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.785416" elapsed="0.056198"/>
+<status status="PASS" start="2026-02-19T16:47:17.365037" elapsed="0.073196"/>
 </kw>
-<arg>${LOCATOR}</arg>
-<status status="PASS" start="2026-01-10T16:22:20.766444" elapsed="0.075266"/>
+<arg>${BUTTON_LOGIN}</arg>
+<status status="PASS" start="2026-02-19T16:47:17.334321" elapsed="0.104023"/>
 </kw>
-<arg>${RETRY_COUNT}</arg>
-<arg>${POLLING_INTERVAL}</arg>
-<arg>Click Element Safely</arg>
-<arg>${LOCATOR}</arg>
-<doc>Runs the specified keyword and retries if it fails.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.766021" elapsed="0.075737"/>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-02-19T16:47:22.438996" level="INFO">Slept 5 seconds.</msg>
+<arg>5 sec</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-02-19T16:47:17.438507" elapsed="5.000627"/>
 </kw>
-<arg>${SIGN_IN_BTN}</arg>
-<status status="PASS" start="2026-01-10T16:22:20.765765" elapsed="0.076033"/>
+<arg>${PORTAL}</arg>
+<status status="PASS" start="2026-02-19T16:47:13.583592" elapsed="8.855666"/>
 </kw>
+<arg>'${PORTAL_NAME}' == 'HCS'</arg>
+<arg>Open Portal And Login To HCS</arg>
+<arg>${PORTAL}</arg>
+<arg>ELSE IF</arg>
+<arg>'${PORTAL_NAME}' == 'VMS'</arg>
+<arg>Open Portal And Login To VMS</arg>
+<arg>${PORTAL}</arg>
+<arg>ELSE IF</arg>
+<arg>'${PORTAL_NAME}' == 'MYDEF'</arg>
+<arg>Open Portal And Login To MYDEF</arg>
+<arg>${PORTAL}</arg>
+<arg>ELSE</arg>
+<arg>Fail</arg>
+<arg>Unsupported portal: ${PORTAL_NAME}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-02-19T16:47:13.583153" elapsed="8.856163"/>
+</kw>
+<arg>HCS</arg>
 <arg>${HCS}</arg>
-<status status="PASS" start="2026-01-10T16:22:18.244101" elapsed="2.597731"/>
+<status status="PASS" start="2026-02-19T16:47:13.582284" elapsed="8.857108"/>
+</kw>
+<kw name="Click Feature Menu Option" owner="welcomePage">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-02-19T16:47:22.441225" level="INFO">${menu_locator} = xpath=//a[contains(@class,'wc-card-wrapper') and .//span[contains(@class,'wc-card-text') and contains(normalize-space(.),'Jobs')]]</msg>
+<var>${menu_locator}</var>
+<arg>xpath=//a[contains(@class,'wc-card-wrapper') and .//span[contains(@class,'wc-card-text') and contains(normalize-space(.),'${MENU}')]]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-02-19T16:47:22.440776" elapsed="0.000557"/>
+</kw>
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:22.443280" elapsed="0.030321"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:22.443022" elapsed="0.030670"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:22.442643" elapsed="0.031115"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:22.442293" elapsed="0.031516"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-02-19T16:47:22.473953" elapsed="0.023362"/>
+</kw>
+<arg>${menu_locator}</arg>
+<arg>30s</arg>
+<status status="PASS" start="2026-02-19T16:47:22.441784" elapsed="0.055629"/>
+</kw>
+<if>
+<branch type="IF" condition="'${SUB}' == 'None'">
+<kw name="Click Element Safely" owner="common_keywords">
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:22.498811" elapsed="0.008094"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:22.498658" elapsed="0.008394"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:22.498450" elapsed="0.008705"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:22.498261" elapsed="0.008978"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-02-19T16:47:22.507493" elapsed="0.032621"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:22.498038" elapsed="0.042171"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:22.540544" level="INFO">Clicking element 'xpath=//a[contains(@class,'wc-card-wrapper') and .//span[contains(@class,'wc-card-text') and contains(normalize-space(.),'Jobs')]]'.</msg>
+<arg>${LOCATOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-19T16:47:22.540363" elapsed="0.078231"/>
+</kw>
+<arg>${menu_locator}</arg>
+<status status="PASS" start="2026-02-19T16:47:22.497758" elapsed="0.121108"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:22.497504" elapsed="0.121423"/>
+</branch>
+<branch type="ELSE">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${sub_locator}</var>
+<arg>xpath=//a[contains(@class,'wc-card-wrapper') and .//span[contains(@class,'wc-card-text') and contains(normalize-space(.),'${MENU}')]]//a[contains(@class,'wc-card-sublink') and normalize-space(.)='${SUB}']</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2026-02-19T16:47:22.619125" elapsed="0.000026"/>
+</kw>
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<arg>${sub_locator}</arg>
+<arg>30s</arg>
+<status status="NOT RUN" start="2026-02-19T16:47:22.619318" elapsed="0.000028"/>
+</kw>
+<kw name="Click Element Safely" owner="common_keywords">
+<arg>${sub_locator}</arg>
+<status status="NOT RUN" start="2026-02-19T16:47:22.619459" elapsed="0.000021"/>
+</kw>
+<status status="NOT RUN" start="2026-02-19T16:47:22.618977" elapsed="0.000532"/>
+</branch>
+<status status="PASS" start="2026-02-19T16:47:22.497479" elapsed="0.122068"/>
+</if>
+<arg>Jobs</arg>
+<status status="PASS" start="2026-02-19T16:47:22.440091" elapsed="0.179505"/>
+</kw>
+<kw name="Verify Job Order Administration Page Title" owner="jobOrderAdministrationListPage">
+<kw name="Verify Page Title" owner="common_keywords">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-02-19T16:47:22.620761" level="INFO">${LOCATOR} = xpath://h1[normalize-space()='Job Order Administration']</msg>
+<var>${LOCATOR}</var>
+<arg>xpath://h1[normalize-space()='${expected_title}']</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-02-19T16:47:22.620609" elapsed="0.000175"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:22.620900" elapsed="0.324704"/>
+</kw>
+<kw name="Element Text Should Be" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:22.946055" level="INFO">Verifying element 'xpath://h1[normalize-space()='Job Order Administration']' contains exact text 'Job Order Administration'.</msg>
+<arg>${LOCATOR}</arg>
+<arg>${expected_title}</arg>
+<doc>Verifies that element ``locator`` contains exact the text ``expected``.</doc>
+<status status="PASS" start="2026-02-19T16:47:22.945828" elapsed="0.021955"/>
+</kw>
+<arg>Job Order Administration</arg>
+<status status="PASS" start="2026-02-19T16:47:22.620294" elapsed="0.347589"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:22.619990" elapsed="0.347941"/>
+</kw>
+<kw name="Generic Assert Element Text Equals" owner="common_assertions">
+<kw name="Get Element Text After Wait" owner="common_assertions">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:22.969113" elapsed="0.046029"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:23.040431" level="INFO">${TEXT} = OPEN POSITIONS</msg>
+<var>${TEXT}</var>
+<arg>${LOCATOR}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-19T16:47:23.015580" elapsed="0.024882"/>
+</kw>
+<return>
+<value>${TEXT}</value>
+<status status="PASS" start="2026-02-19T16:47:23.040531" elapsed="0.000056"/>
+</return>
+<msg time="2026-02-19T16:47:23.040691" level="INFO">${ACTUAL} = OPEN POSITIONS</msg>
+<var>${ACTUAL}</var>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:22.968838" elapsed="0.071870"/>
+</kw>
+<kw name="Generic Assert Text Equals" owner="common_assertions">
+<kw name="Build Default Message" owner="common_assertions">
+<kw name="Set Variable If" owner="BuiltIn">
+<msg time="2026-02-19T16:47:23.041586" level="INFO">${FINAL} = Expected text 'OPEN POSITIONS' but found 'OPEN POSITIONS'</msg>
+<var>${FINAL}</var>
+<arg>'${MESSAGE}'=='None'</arg>
+<arg>${DEFAULT}</arg>
+<arg>${MESSAGE}</arg>
+<doc>Sets variable based on the given condition.</doc>
+<status status="PASS" start="2026-02-19T16:47:23.041399" elapsed="0.000217"/>
+</kw>
+<return>
+<value>${FINAL}</value>
+<status status="PASS" start="2026-02-19T16:47:23.041700" elapsed="0.000052"/>
+</return>
+<msg time="2026-02-19T16:47:23.041924" level="INFO">${MESSAGE} = Expected text 'OPEN POSITIONS' but found 'OPEN POSITIONS'</msg>
+<var>${MESSAGE}</var>
+<arg>${MESSAGE}</arg>
+<arg>Expected text '${EXPECTED}' but found '${ACTUAL}'</arg>
+<status status="PASS" start="2026-02-19T16:47:23.041134" elapsed="0.000818"/>
+</kw>
+<kw name="Run Keyword And Continue On Failure" owner="BuiltIn">
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${ACTUAL}</arg>
+<arg>${EXPECTED}</arg>
+<arg>${MESSAGE}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-02-19T16:47:23.042411" elapsed="0.000362"/>
+</kw>
+<arg>Should Be Equal</arg>
+<arg>${ACTUAL}</arg>
+<arg>${EXPECTED}</arg>
+<arg>${MESSAGE}</arg>
+<doc>Runs the keyword and continues execution even if a failure occurs.</doc>
+<status status="PASS" start="2026-02-19T16:47:23.042163" elapsed="0.000736"/>
+</kw>
+<arg>${ACTUAL}</arg>
+<arg>${EXPECTED}</arg>
+<arg>${MESSAGE}</arg>
+<status status="PASS" start="2026-02-19T16:47:23.040849" elapsed="0.002151"/>
+</kw>
+<arg>${OPEN_POSITIONS_TAB}</arg>
+<arg>OPEN POSITIONS</arg>
+<status status="PASS" start="2026-02-19T16:47:22.968403" elapsed="0.074694"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:23.044899" elapsed="4.074408"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:23.044684" elapsed="4.074770"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:23.044336" elapsed="4.075244"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:23.043970" elapsed="4.075695"/>
+</kw>
+<kw name="Switch to Specified subtab in Job Order Administration Page from tab" owner="jobListing">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:27.122104" elapsed="0.010177"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:27.121806" elapsed="0.010659"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:27.121376" elapsed="0.011228"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:27.120957" elapsed="0.011747"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>//li[text()='${subtab}']</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-02-19T16:47:27.133007" elapsed="0.015261"/>
+</kw>
+<kw name="Click Element Safely" owner="common_keywords">
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:27.151618" elapsed="0.013465"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:27.151241" elapsed="0.014029"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:27.150706" elapsed="0.014701"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:27.150039" elapsed="0.015470"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-02-19T16:47:27.165804" elapsed="0.037648"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:27.149424" elapsed="0.054232"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:27.204383" level="INFO">Clicking element '//li[text()='New']'.</msg>
+<arg>${LOCATOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-19T16:47:27.203992" elapsed="0.130571"/>
+</kw>
+<arg>//li[text()='${subtab}']</arg>
+<status status="PASS" start="2026-02-19T16:47:27.148683" elapsed="0.186016"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-02-19T16:47:32.335490" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-02-19T16:47:27.334866" elapsed="5.000829"/>
+</kw>
+<arg>New</arg>
+<status status="PASS" start="2026-02-19T16:47:27.120476" elapsed="5.215431"/>
+</kw>
+<kw name="Apply Filter for Open Jobs and Job Type" owner="jobOrderAdministrationListPage">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.339577" elapsed="0.019921"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.339163" elapsed="0.020524"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.338550" elapsed="0.021286"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:32.337911" elapsed="0.022034"/>
+</kw>
+<kw name="Scroll Grid To Column" owner="jobOrderAdministrationListPage">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-02-19T16:47:32.361506" level="INFO">${xpath} = //th[.//span[@class='k-column-title' and normalize-space()='Status']]</msg>
+<var>${xpath}</var>
+<arg>//th[.//span[@class='k-column-title' and normalize-space()='${Header}']]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.361131" elapsed="0.000437"/>
+</kw>
+<kw name="Execute Javascript" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:32.362738" level="INFO">Executing JavaScript:
+var el = document.evaluate("//th[.//span[@class='k-column-title' and normalize-space()='Status']]", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;el.scrollIntoView({behavior: "instant", block: "nearest", inline: "center"});
+Without any arguments.</msg>
+<arg>var el = document.evaluate("${xpath}", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;</arg>
+<arg>el.scrollIntoView({behavior: "instant", block: "nearest", inline: "center"});</arg>
+<doc>Executes the given JavaScript code with possible arguments.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.361873" elapsed="0.017625"/>
+</kw>
+<arg>${Header}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.360287" elapsed="0.019309"/>
+</kw>
+<kw name="Click Column Filter Menu" owner="jobOrderAdministrationListPage">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-02-19T16:47:32.380140" level="INFO">${menu_xpath} = //th[.//span[@class='k-column-title' and normalize-space()='Status']]//a[contains(@class,'k-grid-column-menu')]</msg>
+<var>${menu_xpath}</var>
+<arg>//th[.//span[@class='k-column-title' and normalize-space()='${Header}']]//a[contains(@class,'k-grid-column-menu')]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.380015" elapsed="0.000157"/>
+</kw>
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.382108" elapsed="0.011335"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.381757" elapsed="0.011943"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.381190" elapsed="0.012557"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:32.380648" elapsed="0.013135"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.393894" elapsed="0.031633"/>
+</kw>
+<arg>xpath:${menu_xpath}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.380287" elapsed="0.045459"/>
+</kw>
+<kw name="Click Element Safely" owner="common_keywords">
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.427725" elapsed="0.008933"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.427574" elapsed="0.009185"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.427347" elapsed="0.009491"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:32.427127" elapsed="0.009775"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.437127" elapsed="0.015359"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.426755" elapsed="0.025826"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:32.452912" level="INFO">Clicking element 'xpath://th[.//span[@class='k-column-title' and normalize-space()='Status']]//a[contains(@class,'k-grid-column-menu')]'.</msg>
+<arg>${LOCATOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.452733" elapsed="0.060257"/>
+</kw>
+<arg>xpath:${menu_xpath}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.426048" elapsed="0.087229"/>
+</kw>
+<arg>${Header}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.379754" elapsed="0.133574"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.514124" elapsed="0.006748"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.513966" elapsed="0.006999"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.513747" elapsed="0.007289"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:32.513506" elapsed="0.007571"/>
+</kw>
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.522009" elapsed="0.007603"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.521882" elapsed="0.007873"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.521690" elapsed="0.008152"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:32.521513" elapsed="0.008392"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.530115" elapsed="0.253636"/>
+</kw>
+<arg>xpath://li[.//label[normalize-space()='${Option}']]//input[@type='checkbox']</arg>
+<status status="PASS" start="2026-02-19T16:47:32.521226" elapsed="0.262739"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.786021" elapsed="0.013279"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.785662" elapsed="0.013821"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.785061" elapsed="0.014569"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:32.784354" elapsed="0.015385"/>
+</kw>
+<kw name="Click Element Safely" owner="common_keywords">
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.803066" elapsed="0.014702"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.802691" elapsed="0.015285"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.802085" elapsed="0.016046"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:32.801554" elapsed="0.016687"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.818588" elapsed="0.028588"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.800935" elapsed="0.046335"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:32.847601" level="INFO">Clicking element 'xpath://li[.//label[normalize-space()='Offer Pending']]//input[@type='checkbox']'.</msg>
+<arg>${LOCATOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.847420" elapsed="0.056387"/>
+</kw>
+<arg>xpath://li[.//label[normalize-space()='${Option}']]//input[@type='checkbox']</arg>
+<status status="PASS" start="2026-02-19T16:47:32.800099" elapsed="0.103805"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.904828" elapsed="0.006850"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.904681" elapsed="0.007076"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.904430" elapsed="0.007385"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:32.904136" elapsed="0.007726"/>
+</kw>
+<kw name="Click Element Safely" owner="common_keywords">
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.913159" elapsed="0.007622"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.912998" elapsed="0.007855"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.912768" elapsed="0.008136"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:32.912567" elapsed="0.008384"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.921076" elapsed="0.023617"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.912335" elapsed="0.032445"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:32.945070" level="INFO">Clicking element 'xpath://div[contains(@class,'k-filter-menu-container')]//button[.//span[text()='Filter']]'.</msg>
+<arg>${LOCATOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-19T16:47:32.944910" elapsed="0.077037"/>
+</kw>
+<arg>${FILTER_BUTTON}</arg>
+<status status="PASS" start="2026-02-19T16:47:32.912029" elapsed="0.110076"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:33.023580" elapsed="0.033877"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:33.023191" elapsed="0.034406"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:33.022821" elapsed="0.034884"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:33.022369" elapsed="0.035412"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-02-19T16:47:35.058863" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-02-19T16:47:33.057989" elapsed="2.001088"/>
+</kw>
+<arg>Status</arg>
+<arg>Offer Pending</arg>
+<status status="PASS" start="2026-02-19T16:47:32.337190" elapsed="2.722211"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-02-19T16:47:37.061580" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-02-19T16:47:35.060516" elapsed="2.001347"/>
+</kw>
+<kw name="Click And Open Talent With Applied Status In All Jobs" owner="jobListing">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.067707" elapsed="0.020027"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.067078" elapsed="0.020858"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:37.066006" elapsed="0.022084"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:37.065069" elapsed="0.023139"/>
+</kw>
+<kw name="Get Element Count" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:37.109549" level="INFO">${count} = 1</msg>
+<var>${count}</var>
+<arg>${JOB_POSITIONS}</arg>
+<doc>Returns the number of elements matching ``locator``.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.088618" elapsed="0.021015"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-02-19T16:47:37.110370" level="INFO">${applied_found} = False</msg>
+<var>${applied_found}</var>
+<arg>${False}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.110015" elapsed="0.000409"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.113372" elapsed="0.016177"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.113014" elapsed="0.016722"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:37.112395" elapsed="0.017493"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:37.111762" elapsed="0.018237"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-02-19T16:47:37.130721" level="INFO">${job_xpath} = (//span[contains(@class,'name-col')])[1]</msg>
+<var>${job_xpath}</var>
+<arg>(//span[contains(@class,'name-col')])[${index}]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.130310" elapsed="0.000471"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.132645" elapsed="0.014584"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.132308" elapsed="0.015101"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:37.131739" elapsed="0.015808"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:37.131127" elapsed="0.016522"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:37.246393" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-26.png"&gt;&lt;img src="selenium-screenshot-26.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-02-19T16:47:37.246573" level="FAIL">Element with locator '//div[contains(@class,'slide-pane__overlay')]' not found.</msg>
+<arg>//div[contains(@class,'slide-pane__overlay')]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="FAIL" start="2026-02-19T16:47:37.148338" elapsed="0.103584">Element with locator '//div[contains(@class,'slide-pane__overlay')]' not found.</status>
+</kw>
+<msg time="2026-02-19T16:47:37.252054" level="INFO">${overlay_present} = False</msg>
+<var>${overlay_present}</var>
+<arg>Element Should Be Visible</arg>
+<arg>//div[contains(@class,'slide-pane__overlay')]</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.147970" elapsed="0.104106"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.252937" elapsed="0.027751"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.252787" elapsed="0.028089"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:37.252540" elapsed="0.028489"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:37.252245" elapsed="0.028913"/>
+</kw>
+<if>
+<branch type="IF" condition="${overlay_present}">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<status status="NOT RUN" start="2026-02-19T16:47:37.281774" elapsed="0.000101"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>//div[contains(@class,'slide-pane__close')]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2026-02-19T16:47:37.282172" elapsed="0.000191"/>
+</kw>
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>//div[contains(@class,'slide-pane__overlay')]</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="NOT RUN" start="2026-02-19T16:47:37.282659" elapsed="0.000054"/>
+</kw>
+<status status="NOT RUN" start="2026-02-19T16:47:37.281322" elapsed="0.001479"/>
+</branch>
+<status status="PASS" start="2026-02-19T16:47:37.281281" elapsed="0.001602"/>
+</if>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.284750" elapsed="0.015970"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.284404" elapsed="0.016499"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:37.283789" elapsed="0.017260"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:37.283154" elapsed="0.018008"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${job_xpath}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.301501" elapsed="0.033119"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.336587" elapsed="0.013686"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.336256" elapsed="0.014195"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:37.335677" elapsed="0.014912"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:37.335059" elapsed="0.015639"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:37.351390" level="INFO">Clicking element '(//span[contains(@class,'name-col')])[1]'.</msg>
+<arg>${job_xpath}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.351002" elapsed="0.107931"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.459893" elapsed="0.017735"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.459731" elapsed="0.017977"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:37.459419" elapsed="0.018346"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:37.459114" elapsed="0.018709"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>//div[contains(@class,'slide-pane')]</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.478006" elapsed="0.023393"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.502379" elapsed="0.946414"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:37.502200" elapsed="0.946806"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:37.501907" elapsed="0.947257"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:37.501571" elapsed="0.947710"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:38.479111" level="INFO">Element '//div[contains(@class,'slide-pane')]//span[normalize-space()='Applied']' is displayed.</msg>
+<arg>//div[contains(@class,'slide-pane')]//span[normalize-space()='Applied']</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.450114" elapsed="0.029064"/>
+</kw>
+<msg time="2026-02-19T16:47:38.479305" level="INFO">${applied_present} = True</msg>
+<var>${applied_present}</var>
+<arg>Element Should Be Visible</arg>
+<arg>//div[contains(@class,'slide-pane')]//span[normalize-space()='Applied']</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.449652" elapsed="0.029673"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.480035" elapsed="0.005865"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.479919" elapsed="0.006062"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:38.479721" elapsed="0.006329"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:38.479487" elapsed="0.006606"/>
+</kw>
+<if>
+<branch type="IF" condition="${applied_present}">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.487687" elapsed="0.008463"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.487482" elapsed="0.008834"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:38.486744" elapsed="0.009711"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:38.486407" elapsed="0.010149"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-02-19T16:47:38.497132" level="INFO">Applied talent found in Job Index 1</msg>
+<arg>Applied talent found in Job Index ${index}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.496831" elapsed="0.000478"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-02-19T16:47:38.497928" level="INFO">${applied_found} = True</msg>
+<var>${applied_found}</var>
+<arg>${True}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.497634" elapsed="0.000342"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.499654" elapsed="0.010971"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.499308" elapsed="0.011401"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:38.498803" elapsed="0.011965"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:38.498271" elapsed="0.012592"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:38.511450" level="INFO">Clicking element '//div[contains(@class,'slide-pane')]//span[normalize-space()='Applied']/../../..//a'.</msg>
+<arg>//div[contains(@class,'slide-pane')]//span[normalize-space()='Applied']/../../..//a</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.511139" elapsed="0.156884"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:42.216190" level="INFO">Suppressing StaleElementReferenceException from Selenium.</msg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.669396" elapsed="3.762573"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:38.669160" elapsed="3.762903"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:38.668769" elapsed="3.763359"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:38.668343" elapsed="3.763835"/>
+</kw>
+<kw name="Exit For Loop" owner="BuiltIn">
+<msg time="2026-02-19T16:47:42.432426" level="INFO">Exiting for loop altogether.</msg>
+<doc>Stops executing the enclosing FOR loop.</doc>
+<status status="PASS" start="2026-02-19T16:47:42.432327" elapsed="0.000176"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<status status="NOT RUN" start="2026-02-19T16:47:42.432668" elapsed="0.000029"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:38.486163" elapsed="3.946575"/>
+</branch>
+<status status="PASS" start="2026-02-19T16:47:38.486145" elapsed="3.946643"/>
+</if>
+<var name="${index}">1</var>
+<status status="PASS" start="2026-02-19T16:47:37.111425" elapsed="5.321393"/>
+</iter>
+<var>${index}</var>
+<value>1</value>
+<value>${count}+1</value>
+<status status="PASS" start="2026-02-19T16:47:37.110617" elapsed="5.322265"/>
+</for>
+<if>
+<branch type="IF" condition="not ${applied_found}">
+<kw name="Log" owner="BuiltIn">
+<arg>No talents with applied status found on offers pending job please create test data</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2026-02-19T16:47:42.433269" elapsed="0.000047"/>
+</kw>
+<status status="NOT RUN" start="2026-02-19T16:47:42.433004" elapsed="0.000362"/>
+</branch>
+<status status="PASS" start="2026-02-19T16:47:42.432986" elapsed="0.000418"/>
+</if>
+<return>
+<value>${applied_found}</value>
+<status status="PASS" start="2026-02-19T16:47:42.433443" elapsed="0.000044"/>
+</return>
+<msg time="2026-02-19T16:47:42.433637" level="INFO">${applied_found} = True</msg>
+<var>${applied_found}</var>
+<status status="PASS" start="2026-02-19T16:47:37.064088" elapsed="5.369577"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-02-19T16:47:44.435267" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-02-19T16:47:42.434374" elapsed="2.001110"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="validate that extend offer button is disabled" owner="jobListing">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.439864" elapsed="0.020591"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.439502" elapsed="0.021149"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:44.438885" elapsed="0.021920"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:44.438267" elapsed="0.022650"/>
+</kw>
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.463596" elapsed="0.019319"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.463204" elapsed="0.019912"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:44.462631" elapsed="0.020642"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:44.462084" elapsed="0.021306"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.483726" elapsed="0.036711"/>
+</kw>
+<arg>${EXTEND_OFFER_BUTTON_LOCATOR}</arg>
+<status status="PASS" start="2026-02-19T16:47:44.461272" elapsed="0.059363"/>
+</kw>
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.522553" elapsed="0.016210"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.522197" elapsed="0.016739"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:44.521626" elapsed="0.017463"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:44.520977" elapsed="0.018217"/>
+</kw>
+<kw name="Click Element Safely" owner="common_keywords">
+<kw name="Wait Till Element Enabled" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.542568" elapsed="0.015315"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.542195" elapsed="0.015864"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:44.541550" elapsed="0.016652"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:44.541057" elapsed="0.017253"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.558631" elapsed="0.054537"/>
+</kw>
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:44.540475" elapsed="0.073870"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:44.616557" level="INFO">Clicking element '//button[.//span[normalize-space()='Extend Offer']]'.</msg>
+<arg>${LOCATOR}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.615416" elapsed="0.086078"/>
+</kw>
+<arg>${EXTEND_OFFER_BUTTON_LOCATOR}</arg>
+<status status="PASS" start="2026-02-19T16:47:44.539669" elapsed="0.161909"/>
+</kw>
+<kw name="Wait Till Element Visible" owner="common_keywords">
+<kw name="Wait For Page Ready" owner="common_keywords">
+<kw name="Wait For Page Loader To Disappear" owner="common_keywords">
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Wait Until Element Is Not Visible" owner="SeleniumLibrary">
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is not visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.702561" elapsed="0.006735"/>
+</kw>
+<arg>Wait Until Element Is Not Visible</arg>
+<arg>${PAGE_LOADER}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.702428" elapsed="0.006975"/>
+</kw>
+<arg>${TIMEOUT}</arg>
+<status status="PASS" start="2026-02-19T16:47:44.702228" elapsed="0.007249"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:44.702041" elapsed="0.007560"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${LOCATOR}</arg>
+<arg>${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.709788" elapsed="3.049362"/>
+</kw>
+<arg>${ERROR_MSG_LOCATOR}</arg>
+<status status="PASS" start="2026-02-19T16:47:44.701727" elapsed="3.057557"/>
+</kw>
+<kw name="Element Should Contain" owner="SeleniumLibrary">
+<msg time="2026-02-19T16:47:47.771960" level="INFO">Element '//span[normalize-space()='The positions for this job are filled. There are no more openings for this job.']' contains text 'The positions for this job are filled.'.</msg>
+<arg>${ERROR_MSG_LOCATOR}</arg>
+<arg>The positions for this job are filled.</arg>
+<doc>Verifies that element ``locator`` contains text ``expected``.</doc>
+<status status="PASS" start="2026-02-19T16:47:47.759443" elapsed="0.012592"/>
+</kw>
+<status status="PASS" start="2026-02-19T16:47:44.437670" elapsed="3.334444"/>
+</kw>
+<arg>${applied_found}</arg>
+<arg>validate that extend offer button is disabled</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-02-19T16:47:44.436778" elapsed="3.335379"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>not ${applied_found}</arg>
+<arg>Log</arg>
+<arg>No talents with applied status found on offers pending job , please create test data</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2026-02-19T16:47:47.772766" elapsed="0.000188"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-02-19T16:47:52.774195" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-02-19T16:47:47.773292" elapsed="5.001105"/>
 </kw>
 <kw name="Close Browser Safely" owner="common_keywords" type="TEARDOWN">
 <kw name="Run Keyword And Ignore Error" owner="BuiltIn">
 <kw name="Close Browser" owner="SeleniumLibrary">
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.843108" elapsed="0.055762"/>
+<status status="PASS" start="2026-02-19T16:47:52.776844" elapsed="2.226388"/>
 </kw>
 <arg>Close Browser</arg>
 <doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
-<status status="PASS" start="2026-01-10T16:22:20.842555" elapsed="0.056425"/>
+<status status="PASS" start="2026-02-19T16:47:52.776428" elapsed="2.227028"/>
 </kw>
-<status status="PASS" start="2026-01-10T16:22:20.842095" elapsed="0.056962"/>
+<status status="PASS" start="2026-02-19T16:47:52.775672" elapsed="2.227960"/>
 </kw>
-<status status="PASS" start="2026-01-10T16:22:18.243628" elapsed="2.655549"/>
+<status status="PASS" start="2026-02-19T16:47:13.581170" elapsed="41.423562"/>
 </test>
-<status status="PASS" start="2026-01-10T16:22:18.005290" elapsed="2.894456"/>
+<status status="PASS" start="2026-02-19T16:47:13.271794" elapsed="41.736267"/>
+</suite>
+<status status="PASS" start="2026-02-19T16:47:13.270599" elapsed="41.741375"/>
+</suite>
+<status status="PASS" start="2026-02-19T16:47:13.243659" elapsed="41.771495"/>
 </suite>
 <statistics>
 <total>
@@ -143,9 +1491,26 @@
 <tag>
 </tag>
 <suite>
-<stat name="Login" id="s1" pass="1" fail="0" skip="0">Login</stat>
+<stat pass="1" fail="0" skip="0" id="s1" name="DefinityRj">DefinityRj</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Tests">DefinityRj.Tests</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1-s1" name="VerifyJobStatusinJobsListing">DefinityRj.Tests.VerifyJobStatusinJobsListing</stat>
 </suite>
 </statistics>
 <errors>
+<msg time="2026-02-19T16:47:13.501806" level="ERROR">Error in file 'C:\Users\costrategix\PycharmProjects\DefinityRj\resources\keywords\common_utils.resource' on line 3: Importing library 'FakerLibrary' failed: ModuleNotFoundError: No module named 'pkg_resources'
+Traceback (most recent call last):
+  File "C:\Users\costrategix\PycharmProjects\DefinityRj\.venv\Lib\site-packages\FakerLibrary\__init__.py", line 1, in &lt;module&gt;
+    import pkg_resources
+PYTHONPATH:
+  C:\Users\costrategix\PycharmProjects\DefinityRj
+  C:\Users\costrategix\PycharmProjects\DefinityRj
+  C:\Users\costrategix\PycharmProjects\DefinityRj\.venv\Scripts\python313.zip
+  C:\Users\costrategix\Python\DLLs
+  C:\Users\costrategix\Python\Lib
+  C:\Users\costrategix\Python
+  C:\Users\costrategix\PycharmProjects\DefinityRj\.venv
+  C:\Users\costrategix\PycharmProjects\DefinityRj\.venv\Lib\site-packages</msg>
+<msg time="2026-02-19T16:47:13.543063" level="WARN">Error in file 'C:\Users\costrategix\PycharmProjects\DefinityRj\resources\pages\Job\jobListing.resource' on line 50: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2026-02-19T16:47:13.546479" level="WARN">Error in file 'C:\Users\costrategix\PycharmProjects\DefinityRj\resources\pages\Job\jobListing.resource' on line 598: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
 </errors>
 </robot>

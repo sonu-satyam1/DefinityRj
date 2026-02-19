@@ -1,8 +1,8 @@
 *** Variables ***
-${LOCATION}                   TestLocation_20251128_1650
-${DEPARTMENT}                 TestDepartment_20251128_1650
-${HIRING_MANAGER}             rajitha p
-${SKILL}                      TestSkill_20251128_1650
+${LOCATION}                   Alabama
+${DEPARTMENT}                 Cardiology
+${HIRING_MANAGER}             sonu satyam
+${SKILL}                      Cardiology
 ${NO_OF_POSITIONS}            5
 ${EARLIEST_DATE}
 ${MINI_WK_DUR}                5

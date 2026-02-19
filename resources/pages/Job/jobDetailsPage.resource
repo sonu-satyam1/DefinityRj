@@ -46,6 +46,13 @@ Check for Open Job Status
     ${status}=    Get Text    ${JOB_STATUS}
     Should Be Equal As Strings    ${status}    Open
 
+Check for Draft Job Status
+    Wait For Page Ready
+    Wait Until Element Is Visible    ${JOB_STATUS}    50s
+    ${status}=    Get Text    ${JOB_STATUS}
+    Wait For Page Ready
+    Should Be Equal As Strings    ${status}    Draft
+
 Check for Pending Approval Job Status
     Wait For Page Ready
     Wait Until Element Is Visible    ${JOB_STATUS}    50s

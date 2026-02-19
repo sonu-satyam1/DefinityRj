@@ -44,7 +44,7 @@ Select Add Location Button
 
 Input Uniq Location Name
     Wait Till Element Visible    ${LOCATION_NAME_INPUT}
-    ${location}=    Generate And Store Global Unique Name    TestLocation    APPROVAL_LOCATION_NAME
+    ${location}=    Generate And Store Global Unique Name    TestLocationApprovalFlow    APPROVAL_LOCATION_NAME
     Input Text Safely    ${LOCATION_NAME_INPUT}    ${location}
 
 Input Location Code

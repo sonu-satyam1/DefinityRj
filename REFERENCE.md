@@ -91,6 +91,10 @@ robot \
  --rerunfailed results/output.xml \
  tests/
 ```
+
+for different user:
+`robot  --variablefile resources/variables/environment/qa2.py  --variable APPROVER_USER:jenkinsamplesmtp@gmail.com  --outputdir results  tests/Scenario/validateCreateApprovalFlow.robot`
+
 # scenario's Covered
 all scenarios are maintained in `tests/Scenario/`
 ---
@@ -192,3 +196,4 @@ all scenarios are maintained in `tests/Scenario/`
            Validate Rapid Contract Option listed in JobType DropDown While Creating New Job Using Template
            Validate Rapid Contract Option listed in JobType DropDown While Creating New Job by Copying Existing Job
                  ```
+8. for Approval Flow: `robot  --variablefile resources/variables/environment/qa2.py  --variable APPROVER_USER:jenkinsamplesmtp@gmail.com  --outputdir results  tests/Scenario/validateCreateApprovalFlow.robot`

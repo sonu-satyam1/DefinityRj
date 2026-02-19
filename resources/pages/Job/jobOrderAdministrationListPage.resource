@@ -77,15 +77,19 @@ Select a Random Job Details from List
     Log    Selected index: ${i}
     Log    Selected text: ${txt}
     Wait For Page Ready    50s
+    Sleep    2s
     RETURN    ${i}    ${txt}
 
 Open Job Details By Selecting Right Side Panel Header of Selected Random Job
+    Wait For Page Ready    50s
     ${i}    ${txt}=    Select a Random Job Details from List
     Wait For Page Ready    50s
     Wait Till Element Visible    ${SIDE_PANEL_TITLE}
+    Wait For Page Ready    50s
     Click Element Safely    ${SIDE_PANEL_TITLE}    50s
     Wait For Page Ready    50s
     Verify Job Details Page Title    ${txt}
+    Wait For Page Ready    50s
 
 Select Specified Job From List in Right Side Panel
     [Arguments]    ${jobName}
@@ -118,17 +122,22 @@ Click Column Filter Menu
     Wait Till Element Visible    xpath:${menu_xpath}
     Click Element Safely         xpath:${menu_xpath}
 
+
 Apply Filter for Open Jobs and Job Type
     [Arguments]    ${Header}    ${Option}
     Wait For Page Ready
     Scroll Grid To Column    ${Header}
     Click Column Filter Menu    ${Header}
+    Wait For Page Ready
     Wait Till Element Visible
     ...    xpath://li[.//label[normalize-space()='${Option}']]//input[@type='checkbox']
+    Wait For Page Ready
     Click Element Safely
     ...    xpath://li[.//label[normalize-space()='${Option}']]//input[@type='checkbox']
+    Wait For Page Ready
     Click Element Safely    ${FILTER_BUTTON}
     Wait For Page Ready
+    Sleep    2s
 
 Select Jobs for Bulk Edit
     [Arguments]    ${noOfJobs}
@@ -163,4 +172,4 @@ Submit Bulk Edit Changes
     Click Element Safely    ${CLOSE_BUTTON}
     Wait For Page Ready
     
-    
+

@@ -133,12 +133,14 @@ Verify Table Has Column
     Wait For Page Ready
     Page Should Contain Element
     ...    xpath=//th//span[@class='k-column-title' and normalize-space()='${column_name}']
+    Scroll Element Into View    xpath=//th//span[@class='k-column-title' and normalize-space()='${column_name}']
+    Sleep    2s
 
 Show All Columns From Menu Filter
     [Arguments]    ${TIMEOUT}=30s
     Wait And Click With Retry    ${FILTER_MENU_BTN}
     Wait Till Element Visible    ${FILTER_MENU_PANEL}    50s
-    Click Element Safely    ${SHOW_ALL_BTN}
+    Click Element Safely         ${SHOW_ALL_BTN}
     Wait For Page Ready
     Press Keys    NONE    ESC
     Wait For Page Ready

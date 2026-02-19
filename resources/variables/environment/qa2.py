@@ -1,9 +1,9 @@
 # env/qa2.py
 APPROVER_USER= ""
 HCS = {
-    "url":  "https://costrategi-security-qa2.internal-definitywfs.com/signin",
-    "user": "rajitha.patragolla+1@costrategix.com",
-    "pass": "Test@123"
+    "url":  "https://costrategi-security-stage1.internal-definitywfs.com/signin",
+    "user": "devops@definity.com",
+    "pass": "Password@123!"
 }
 
 MYDEF = {
