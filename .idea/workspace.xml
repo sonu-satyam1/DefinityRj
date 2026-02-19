@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+    <list default="true" id="d6777957-512b-44ae-94aa-8c8802a05512" name="Changes" comment="">
     <list default="true" id="d6777957-512b-44ae-94aa-8c8802a05512" name="Changes" comment="def">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
@@ -15,11 +16,18 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
+        <entry key="$PROJECT_DIR$" value="main" />
         <entry key="$PROJECT_DIR$" value="branch2" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "sonu-satyam1"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/resources/pages/Job/jobListing.resource" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -88,7 +96,7 @@
     "Robot.VerifyJobStatusinJobsListing.robot.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "branch2",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
@@ -247,6 +255,16 @@
     <option name="localTasksCounter" value="3" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="def" />
     <option name="LAST_COMMIT_MESSAGE" value="def" />
