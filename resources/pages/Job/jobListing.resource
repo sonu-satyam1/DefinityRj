@@ -204,16 +204,6 @@ validate Job Id searched accurately
     Wait For Page Ready  
     Should Be Equal    ${ACTUAL_JOB_ID}    ${JOB_ID}
 
-#validate data searched accurately by column filter for status
-#    [Arguments]        ${column_name}    ${expected_value}
-#    ${i}=    Get Column Index By Header Text      ${JOBS_HEADERS}    ${column_name}
-#    ${elements}=    Get WebElements    //td[${i}]
-#    FOR    ${el}    IN    @{elements}
-#        ${text}=    Get Text    ${el}
-#        Log    ${text}
-#        Log    ${expected_value}
-#        Should Be Equal    ${text}    ${expected_value}
-#    END
 
 validate data searched accurately by column filter for status
     [Arguments]    ${column_name}    ${expected_value}
