@@ -562,7 +562,6 @@ Verify that Job Order reverts back to OPEN status for offers accepted job if a I
     Switch to Specified subtab in Job Order Administration Page from tab    New
     Apply Filter for Open Jobs and Job Type        Status       Offers Accepted
     Sleep    2s
-#    Click All Jobs And select Internal talent with offers accepted status in offers accepted jobs
     Click All Jobs And select Internal talent with status give in argument    Offer Accepted
     change status to failed to start for offers accepted talents
     Sleep    2s
@@ -572,7 +571,6 @@ Verify that Job Order reverts back to OPEN status for offers accepted job if a I
     Verify Job Order Administration Page Title
     Generic Assert Element Text Equals    ${OPEN_POSITIONS_TAB}    OPEN POSITIONS
     Wait For Page Ready
-#    Apply Filter for Open Jobs and Job Type        Job Details       ${job_offered_job_id}
     Apply Filter for Open Jobs and Job Type        Job Details       ${job_id}
     Sleep   2s
     validate job should be changed to open
@@ -587,7 +585,6 @@ Verify that Job Order reverts back to OPEN status for offers accepted job if a V
     Switch to Specified subtab in Job Order Administration Page from tab    New
     Apply Filter for Open Jobs and Job Type        Status       Offers Accepted
     Sleep    2s
-#    Click All Jobs And select Vendor talent with offers accepted status in offers accepted jobs
     Click All Jobs And select Vendor talent with status give in argument    Offer Accepted
     change status to failed to start for offers accepted talents
     Sleep    2s
@@ -597,7 +594,6 @@ Verify that Job Order reverts back to OPEN status for offers accepted job if a V
     Verify Job Order Administration Page Title
     Generic Assert Element Text Equals    ${OPEN_POSITIONS_TAB}    OPEN POSITIONS
     Wait For Page Ready
-#    Apply Filter for Open Jobs and Job Type        Job Details       ${job_offered_job_id}
     Apply Filter for Open Jobs and Job Type        Job Details       ${job_id}
     Sleep   2s
     validate job should be changed to open
