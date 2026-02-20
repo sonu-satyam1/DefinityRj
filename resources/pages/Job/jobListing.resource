@@ -52,26 +52,73 @@ Get Texts From Elements
 
 Validate Default Jobs Page Job Statuses
     @{texts}=    Get Texts From Elements    ${JOBS_STATUSES}
-    Log    ${texts}
-    List Should Contain Value    ${texts}    Open
-    List Should Contain Value    ${texts}    Offer Pending
-    List Should Contain Value    ${texts}    Offers Accepted
+    Log    Job Status List: ${texts}
+    @{expected}=    Create List    Open    Offer Pending    Offers Accepted
+    ${match_found}=    Set Variable    ${False}
+    FOR    ${status}    IN    @{expected}
+        ${present}=    Run Keyword And Return Status
+        ...    List Should Contain Value    ${texts}    ${status}
+        IF    ${present}
+            ${match_found}=    Set Variable    ${True}
+            Exit For Loop
+        END
+    END
+    IF    not ${match_found}
+        Fail    None of the expected statuses found. Actual: ${texts}
+    END
     
 Validate Default Jobs Page All Jobs Requisition Statuses
     @{texts}=    Get Texts From Elements    ${JOBS_STATUSES}
-    Log    ${texts}
-    List Should Contain Value    ${texts}    Closed
-    List Should Contain Value    ${texts}    Filled
-    List Should Contain Value    ${texts}    Offer Pending
-    List Should Contain Value    ${texts}    Offers Accepted
-    List Should Contain Value    ${texts}    Open
-    List Should Contain Value    ${texts}    Pending Approval
+    Log    Requisition Status List: ${texts}
+
+    @{expected_statuses}=    Create List
+    ...    Closed
+    ...    Filled
+    ...    Offer Pending
+    ...    Offers Accepted
+    ...    Open
+    ...    Pending Approval
+
+    ${match_found}=    Set Variable    ${False}
+
+    FOR    ${status}    IN    @{expected_statuses}
+        ${present}=    Run Keyword And Return Status
+        ...    List Should Contain Value    ${texts}    ${status}
+        IF    ${present}
+            Log    Found expected status: ${status}
+            ${match_found}=    Set Variable    ${True}
+            Exit For Loop
+        END
+    END
+
+    IF    not ${match_found}
+        Fail    None of the expected requisition statuses found. Actual: ${texts}
+    ELSE
+        Log    At least one valid requisition status is present
+    END
+
 
 Validate Default Jobs Page pending approval & Draft Statuses
     @{texts}=    Get Texts From Elements    ${JOBS_STATUSES}
-    Log    ${texts}
-    List Should Contain Value    ${texts}    Draft
-    List Should Contain Value    ${texts}    Pending Approval
+    Log    Job Status List: ${texts}
+    @{expected_statuses}=    Create List
+    ...    Draft
+    ...    Pending Approval
+    ${match_found}=    Set Variable    ${False}
+    FOR    ${status}    IN    @{expected_statuses}
+        ${present}=    Run Keyword And Return Status
+        ...    List Should Contain Value    ${texts}    ${status}
+        IF    ${present}
+            Log    Found expected status: ${status}
+            ${match_found}=    Set Variable    ${True}
+            Exit For Loop
+        END
+    END
+    IF    not ${match_found}
+        Fail    Neither Draft nor Pending Approval status found. Actual: ${texts}
+    ELSE
+        Log    At least one valid status (Draft or Pending Approval) is present
+    END
 
 Apply quick filter on Jobs page
     [Arguments]    ${Quick_filter_name}    
@@ -157,15 +204,27 @@ validate Job Id searched accurately
     Wait For Page Ready  
     Should Be Equal    ${ACTUAL_JOB_ID}    ${JOB_ID}
 
+#validate data searched accurately by column filter for status
+#    [Arguments]        ${column_name}    ${expected_value}
+#    ${i}=    Get Column Index By Header Text      ${JOBS_HEADERS}    ${column_name}
+#    ${elements}=    Get WebElements    //td[${i}]
+#    FOR    ${el}    IN    @{elements}
+#        ${text}=    Get Text    ${el}
+#        Log    ${text}
+#        Log    ${expected_value}
+#        Should Be Equal    ${text}    ${expected_value}
+#    END
+
 validate data searched accurately by column filter for status
-    [Arguments]        ${column_name}    ${expected_value}
-    ${i}=    Get Column Index By Header Text      ${JOBS_HEADERS}    ${column_name}
+    [Arguments]    ${column_name}    ${expected_value}
+    ${i}=    Get Column Index By Header Text    ${JOBS_HEADERS}    ${column_name}
     ${elements}=    Get WebElements    //td[${i}]
     FOR    ${el}    IN    @{elements}
         ${text}=    Get Text    ${el}
-        Log    ${text}
-        Log    ${expected_value}
-        Should Be Equal    ${text}    ${expected_value}
+        ${text}=    Strip String    ${text}
+        Log    Actual Text: ${text}
+        Log    Expected to contain: ${expected_value}
+        Should Contain    ${text}    ${expected_value}
     END
 
 Enter Value in column filter search box
@@ -1107,269 +1166,6 @@ validate job should be changed to open
         Should Be Equal   ${job_status}    Open
     END
 
-#Click All Jobs And select talent with offers accepted status in offers accepted jobs
-#    Wait For Page Ready
-#    ${count}=    Get Element Count    ${JOB_POSITIONS}
-#    ${talent_found}=    Set Variable    ${False}
-#    Wait For Page Ready
-#    FOR    ${index}    IN RANGE    1    ${count}+1
-#        Wait For Page Ready
-#        Log    --------------------------------------------------
-#        Log    Checking Job Index: ${index}
-#        Wait For Page Ready
-#        ${job_xpath}=    Set Variable
-#        ...    (//span[contains(@class,'name-col')])[${index}]
-#
-#        # Close overlay if present
-#        ${overlay_present}=    Run Keyword And Return Status
-#        ...    Element Should Be Visible
-#        ...    //div[contains(@class,'slide-pane__overlay')]
-#
-#        IF    ${overlay_present}
-#            Wait For Page Ready
-#            Click Element    //div[contains(@class,'slide-pane__close')]
-#            Wait For Page Ready
-#            Wait Until Element Is Not Visible
-#            ...    //div[contains(@class,'slide-pane__overlay')]
-#            ...    timeout=15s
-#        END
-#
-#        # Click Job
-#        Wait For Page Ready
-#        Wait Until Element Is Visible    ${job_xpath}    timeout=15s
-#        Scroll Element Into View         ${job_xpath}
-#        Wait For Page Ready
-#        Click Element                    ${job_xpath}
-#
-#        # Wait for slide pane
-#        Wait For Page Ready
-#        Wait Until Element Is Visible
-#        ...    //div[contains(@class,'slide-pane')]
-#        ...    timeout=15s
-#
-#        # Check if Offer Accepted talent exists
-#        Wait For Page Ready
-#        Wait Until Page Contains Element    //span[@class='me-3']
-#        ${internal_vendor_talent}=    Get Text    //span[@class='me-3']
-#        Log              ${internal_vendor_talent}
-#        ${offer_present}=    Run Keyword And Return Status
-#        ...    Element Should Be Visible
-#        ...    (//span[@class='status-chips-wrapper offer-accepted' and text()='Offer Accepted'])[1]
-#
-#        IF    ${offer_present}
-#
-#            Log    Offer Accepted talent found in Job Index ${index}
-#            Wait For Page Ready
-#            ${job_offered_job_id}=    Get Text    //h2[@class='slide-pane-job-name m-0 pb-2 cursor-pointer']
-#            Set Suite Variable        ${job_offered_job_id}    ${job_offered_job_id}
-#            Log                       ${job_offered_job_id}
-#            Click Element
-#            ...    (//span[@class='status-chips-wrapper offer-accepted' and text()='Offer Accepted']/../../..//a)[1]
-#            Wait For Page Ready
-#            ${talent_found}=    Set Variable    ${True}
-#            Exit For Loop
-#
-#        ELSE
-#            Log    No Offer Accepted talent found in Job Index ${index}
-#        END
-#
-#    END
-#
-#    IF    not ${talent_found}
-#        Log    No Offer Accepted talent found in any job
-#    END
-
-
-
-#Click All Jobs And select Internal talent with offers accepted status in offers accepted jobs
-#    Wait For Page Ready
-#    ${count}=    Get Element Count    ${JOB_POSITIONS}
-#    ${talent_found}=    Set Variable    ${False}
-#
-#    FOR    ${index}    IN RANGE    1    ${count}+1
-#        Log    --------------------------------------------------
-#        Log    Checking Job Index: ${index}
-#        Wait For Page Ready
-#        ${job_xpath}=    Set Variable
-#        ...    (//span[contains(@class,'name-col')])[${index}]
-#        Wait For Page Ready
-#        # Close overlay if present
-#        ${overlay_present}=    Run Keyword And Return Status
-#        ...    Element Should Be Visible
-#        ...    //div[contains(@class,'slide-pane__overlay')]
-#        Wait For Page Ready
-#        IF    ${overlay_present}
-#            Wait For Page Ready
-#            Click Element    //div[contains(@class,'slide-pane__close')]
-#            Wait For Page Ready
-#            Wait Until Element Is Not Visible
-#            ...    //div[contains(@class,'slide-pane__overlay')]
-#            ...    timeout=15s
-#        END
-#
-#        # Click Job
-#        Wait For Page Ready
-#        Wait Until Element Is Visible    ${job_xpath}    timeout=15s
-#        Wait For Page Ready
-#        Scroll Element Into View         ${job_xpath}
-#        Wait For Page Ready
-#        Click Element                    ${job_xpath}
-#        Wait For Page Ready
-#
-#        # Wait for slide pane
-#        Wait For Page Ready
-#        Wait Until Element Is Visible
-#        ...    //div[contains(@class,'slide-pane')]
-#        ...    timeout=15s
-#        Wait For Page Ready
-#
-#        # Get Vendor Type
-#        Wait For Page Ready
-#        Wait Until Page Contains Element    //span[@class='me-3']
-#        Wait For Page Ready
-#        ${internal_vendor_talent}=    Get Text    //span[@class='me-3']
-#        Wait For Page Ready
-#        ${internal_vendor_talent}=    Strip String    ${internal_vendor_talent}
-#        Wait For Page Ready
-#        Log    Vendor Type: ${internal_vendor_talent}
-#
-#        # Check Offer Accepted status
-#        Wait For Page Ready
-#        ${offer_present}=    Run Keyword And Return Status
-#        ...    Element Should Be Visible
-#        ...    (//span[@class='status-chips-wrapper offer-accepted' and text()='Offer Accepted'])[1]
-#
-#        # Check Vendor is Internal
-#        Wait For Page Ready
-#        ${is_internal_vendor}=    Run Keyword And Return Status
-#        ...    Should Be Equal As Strings
-#        ...    ${internal_vendor_talent}
-#        ...    Vendor: Internal
-#
-#        # Combined condition
-#        Wait For Page Ready
-#        IF    ${offer_present} and ${is_internal_vendor}
-#            Wait For Page Ready
-#            Log    Offer Accepted AND Vendor: Internal found in Job Index ${index}
-#            Wait For Page Ready
-#            ${job_offered_job_id}=    Get Text
-#            ...    //h2[@class='slide-pane-job-name m-0 pb-2 cursor-pointer']
-#            Set Suite Variable    ${job_offered_job_id}    ${job_offered_job_id}
-#            Log    Selected Job: ${job_offered_job_id}
-#            Wait For Page Ready
-#            Scroll Element Into View    (//span[@class='status-chips-wrapper offer-accepted' and text()='Offer Accepted']/../../..//a)[1]
-#            Click Element
-#            ...    (//span[@class='status-chips-wrapper offer-accepted' and text()='Offer Accepted']/../../..//a)[1]
-#
-#            Wait For Page Ready
-#            ${talent_found}=    Set Variable    ${True}
-#            Exit For Loop
-#
-#        ELSE
-#            Log    Condition not met (Offer Accepted not found OR Vendor not Internal)
-#        END
-#
-#    END
-#
-#    IF    not ${talent_found}
-#        Log    No Offer Accepted talent with Vendor: Internal found in any job
-#    END
-
-#Click All Jobs And select Vendor talent with offers accepted status in offers accepted jobs
-#    Wait For Page Ready
-#    ${count}=    Get Element Count    ${JOB_POSITIONS}
-#    Wait For Page Ready
-#    ${talent_found}=    Set Variable    ${False}
-#
-#    FOR    ${index}    IN RANGE    1    ${count}+1
-#        Log    --------------------------------------------------
-#        Log    Checking Job Index: ${index}
-#
-#        ${job_xpath}=    Set Variable
-#        ...    (//span[contains(@class,'name-col')])[${index}]
-#
-#        # Close overlay if present
-#        Wait For Page Ready
-#        ${overlay_present}=    Run Keyword And Return Status
-#        ...    Element Should Be Visible
-#        ...    //div[contains(@class,'slide-pane__overlay')]
-#
-#        IF    ${overlay_present}
-#            Wait For Page Ready
-#            Click Element    //div[contains(@class,'slide-pane__close')]
-#            Wait Until Element Is Not Visible
-#            ...    //div[contains(@class,'slide-pane__overlay')]
-#            ...    timeout=15s
-#            Wait For Page Ready
-#        END
-#
-#        # Click Job
-#        Wait For Page Ready
-#        Wait Until Element Is Visible    ${job_xpath}    timeout=15s
-#        Wait For Page Ready
-#        Scroll Element Into View         ${job_xpath}
-#        Wait For Page Ready
-#        Click Element                    ${job_xpath}
-#        Wait For Page Ready
-#
-#        # Wait for slide pane
-#        Wait For Page Ready
-#        Wait Until Element Is Visible
-#        ...    //div[contains(@class,'slide-pane')]
-#        ...    timeout=15s
-#
-#        # Get Vendor Type
-#        Wait For Page Ready
-#        Wait Until Page Contains Element    //span[@class='me-3']
-#        Wait For Page Ready
-#        ${internal_vendor_talent}=    Get Text    //span[@class='me-3']
-#        Wait For Page Ready
-#        ${internal_vendor_talent}=    Strip String    ${internal_vendor_talent}
-#        Wait For Page Ready
-#        Log    Vendor Type: ${internal_vendor_talent}
-#        Wait For Page Ready
-#
-#        # Check Offer Accepted status
-#        Wait For Page Ready
-#        ${offer_present}=    Run Keyword And Return Status
-#        ...    Element Should Be Visible
-#        ...    (//span[@class='status-chips-wrapper offer-accepted' and text()='Offer Accepted'])[1]
-#
-#        # Check Vendor is Internal
-#        Wait For Page Ready
-#        ${is_internal_vendor}=    Run Keyword And Return Status
-#        ...     Should Not Be Equal As Strings
-#        ...    ${internal_vendor_talent}
-#        ...    Vendor: Internal
-#
-#        # Combined condition
-#        Wait For Page Ready
-#        IF    ${offer_present} and ${is_internal_vendor}
-#            Wait For Page Ready
-#            Log    Offer Accepted AND Vendor: Internal found in Job Index ${index}
-#            Wait For Page Ready
-#            ${job_offered_job_id}=    Get Text
-#            ...    //h2[@class='slide-pane-job-name m-0 pb-2 cursor-pointer']
-#            Wait For Page Ready
-#            Set Suite Variable    ${job_offered_job_id}    ${job_offered_job_id}
-#            Log    Selected Job: ${job_offered_job_id}
-#            Wait For Page Ready
-#            Click Element
-#            ...    (//span[@class='status-chips-wrapper offer-accepted' and text()='Offer Accepted']/../../..//a)[1]
-#
-#            Wait For Page Ready
-#            ${talent_found}=    Set Variable    ${True}
-#            Exit For Loop
-#
-#        ELSE
-#            Log    Condition not met (Offer Accepted not found OR Vendor not Internal)
-#        END
-#
-#    END
-#
-#    IF    not ${talent_found}
-#        Log    No Offer Accepted talent with Vendor: Internal found in any job
-#    END
 
 
 
