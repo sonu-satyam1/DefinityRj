@@ -635,7 +635,7 @@ Verify that when Hospital withdraw an Vendor talent offer such that the number o
     Switch to Specified subtab in Job Order Administration Page from tab    New
     Apply Filter for Open Jobs and Job Type        Status       Offer Pending
     Sleep    2s
-    Click All Jobs And select Vendor talent with status give in argument    Job Offered
+    Click All Jobs And select Vendor talent with status give in argument    Job is Offered
     hospital withdraw offer for job is offered talent
     Sleep    2s
     Close Browser Safely
