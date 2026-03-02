@@ -97,5 +97,6 @@
     "LOCATION_CODE": 64013,
     "STATE": "Florida"
   },
-  "APPROVAL_DEPARTMENT_NAME": "TestDepartmentApprovalFlow_20260128_113517"
+  "APPROVAL_DEPARTMENT_NAME": "TestDepartmentApprovalFlow_20260128_113517",
+  "APPROVAL_GROUP_NAME": "TestGroupApprovalFlow_20260223_164737"
 }

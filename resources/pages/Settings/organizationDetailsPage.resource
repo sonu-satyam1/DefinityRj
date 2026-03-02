@@ -12,6 +12,11 @@ ${APPROVAL_SELECTED_LABEL}            xpath://input[@name='approvalWorkflow' and
 ${EDIT_BUTTON}                        xpath://button[.//span[normalize-space()='Edit']]
 ${SEQUENTIAL_RADIO_EDIT}              xpath://input[@name='approvalWorkflow' and @value='2']
 ${SAVE_BUTTON}                        xpath://button[normalize-space()='Save']
+${XPATH_BTN_PUNCH_TYPE_DROPDOWN}               //span[normalize-space()='Timecard Punch Type']//button
+${XPATH_BTN_TIMECARD_ENTRY_DROPDOWN}           //span[normalize-space()='Timecard Entry']//button
+${XPATH_BTN_PUNCH_TYPE_DROPDOWN_VALUES}        //ul[@id='timeTrackingPunchTypelist']//li
+${XPATH_BTN_TIMECARD_ENTRY_DROPDOWN_VALUES}    //ul[@id='timecardEntryMethodlist']//li
+
 
 *** Keywords ***
 Verify Organization Details Page Title
@@ -24,7 +29,6 @@ Switch to Business rules tab in Organization Details Page
 
 Verify Or Set Approval Workflow As Sequential
     Wait For Page Ready
-
     ${current}=    Get Current Approval Workflow
     Log    Current approval workflow: ${current}
 
@@ -52,3 +56,44 @@ Get Current Approval Workflow
     ${txt}=    Get Text    ${APPROVAL_SELECTED_LABEL}
     ${txt}=    Strip String    ${txt}
     [Return]    ${txt}
+
+edit hospital info on Organization Details page
+    Wait For Page Ready
+    Scroll Element Into View     ${EDIT_BUTTON}
+    Wait Till Element Visible    ${EDIT_BUTTON}
+    Click Element Safely         ${EDIT_BUTTON}
+    Wait For Page Ready
+
+update punch timecard punch type
+    [Arguments]    ${punch_type}
+    Wait For Page Ready
+    Wait Till Element Visible                   ${XPATH_BTN_PUNCH_TYPE_DROPDOWN}
+    Scroll Element Into View                    ${XPATH_BTN_PUNCH_TYPE_DROPDOWN}
+    From Dropdown Verify or Select an Option    ${XPATH_BTN_PUNCH_TYPE_DROPDOWN}    ${XPATH_BTN_PUNCH_TYPE_DROPDOWN_VALUES}    ${punch_type}    select
+    Wait For Page Ready
+
+update timecard entry type
+    [Arguments]    ${timecard_entry_type}
+    Wait For Page Ready
+    Wait Till Element Visible                   ${XPATH_BTN_TIMECARD_ENTRY_DROPDOWN}
+    Scroll Element Into View                    ${XPATH_BTN_TIMECARD_ENTRY_DROPDOWN}
+    From Dropdown Verify or Select an Option    ${XPATH_BTN_TIMECARD_ENTRY_DROPDOWN}    ${XPATH_BTN_TIMECARD_ENTRY_DROPDOWN_VALUES}    ${timecard_entry_type}    select
+    Wait For Page Ready
+
+save hospital info on Organization Details page
+    Wait For Page Ready
+    Wait Till Element Visible    ${SAVE_BUTTON}
+    Scroll Element Into View     ${SAVE_BUTTON}
+    Click Element Safely         ${SAVE_BUTTON}
+    Wait For Page Ready
+
+
+
+    
+    
+    
+
+
+    
+
+

@@ -5,6 +5,11 @@ HCS = {
     "user": "sonu.satyam@costrategix.com",
     "pass": "Test@123"
 }
+# HCS = {
+#     "url":  "https://tenet-security-preprod.internal-definitywfs.com/signin",
+#     "user": "nikhilkumar.waghaye@costrategix.com",
+#     "pass": "Nikhil@15"
+# }
 
 MYDEF = {
     "url":  "https://defcostrategimydefqa2st.z20.web.core.windows.net",
