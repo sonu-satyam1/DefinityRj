@@ -191,6 +191,8 @@ Click Talent Name on Listing Page and navigate to Timecards details page
 Fill Timecard Hours
     [Arguments]    ${row_index}    ${hours_value}
     Wait For Page Ready
+    Wait Until Element Is Visible        (//input[contains(@name,'hours')])[${row_index}]
+    Scroll Element Into View             (//input[contains(@name,'hours')])[${row_index}]
     ${hours_locator}=    Set Variable    (//input[contains(@name,'hours')])[${row_index}]
     Wait For Page Ready
     Wait Until Element Is Visible    ${hours_locator}    20s
