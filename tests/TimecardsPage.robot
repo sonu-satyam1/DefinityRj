@@ -80,7 +80,7 @@ Verify that for "Timecard punch type" set as Time IN/Time out, Vendor timecard m
     Capture Timecard Work Week Date Details while submitting Timecard
     Capture Rate card Details Details while submitted Timecard
     submit timecard
-    Sleep    2s
+    Sleep    10s
     Close Browser Safely
     Login To Portal    VMS    ${VMS}
     Click Feature Menu Option in Vms    TIMECARDS
@@ -114,7 +114,7 @@ Verify that for "Timecard punch type " set as Time IN/Time out Vendor timecard m
     Capture Timecard Work Week Date Details while submitting Timecard
     Capture Rate card Details Details while submitted Timecard
     submit timecard
-    Sleep    2s
+    Sleep    10s
     Close Browser Safely
     Login To Portal    VMS    ${VMS}
     Click Feature Menu Option in Vms    TIMECARDS
@@ -144,7 +144,7 @@ Verify that after submitting a timecard the timecard status should update to PEN
     Capture Timecard Work Week Date Details while submitting Timecard
     Capture Rate card Details Details while submitted Timecard
     submit timecard
-    Sleep    2s
+    Sleep    10s
     Close Browser Safely
     Login To Portal    HCS    ${HCS}
     Click Feature Menu Option    TIMECARDS
@@ -178,7 +178,7 @@ Verify that after submitting a timecard the timecard status should update to PEN
     Capture Timecard Work Week Date Details while submitting Timecard
     Capture Rate card Details Details while submitted Timecard
     submit timecard
-    Sleep    2s
+    Sleep    10s
     Close Browser Safely
     Login To Portal    HCS    ${HCS}
     Click Feature Menu Option    TIMECARDS
@@ -253,7 +253,7 @@ Verify that for "Timecard punch type" set as Hours Vendor timecard manager shoul
     Capture Timecard Work Week Date Details while submitting Timecard
     Capture Rate card Details Details while submitted Timecard
     submit timecard
-    Sleep    2s
+    Sleep    10s
     Close Browser Safely
     Login To Portal    VMS    ${VMS}
     Click Feature Menu Option in Vms    TIMECARDS
@@ -285,7 +285,7 @@ Verify that for "Timecard punch type"set as "Hours" Vendor timecard manager shou
     Capture Timecard Work Week Date Details while submitting Timecard
     Capture Rate card Details Details while submitted Timecard
     submit timecard
-    Sleep    2s
+    Sleep    10s
     Close Browser Safely
     Login To Portal    VMS    ${VMS}
     Click Feature Menu Option in Vms    TIMECARDS
@@ -313,7 +313,7 @@ Verify that after submitting a timecard the timecard status should update to PEN
     Capture Timecard Work Week Date Details while submitting Timecard
     Capture Rate card Details Details while submitted Timecard
     submit timecard
-    Sleep    2s
+    Sleep    10s
     Close Browser Safely
     Login To Portal    HCS    ${HCS}
     Click Feature Menu Option    TIMECARDS
@@ -346,7 +346,7 @@ Verify that after submitting a timecard the timecard status should update to PEN
     Capture Timecard Work Week Date Details while submitting Timecard
     Capture Rate card Details Details while submitted Timecard
     submit timecard
-    Sleep    2s
+    Sleep    10s
     Close Browser Safely
     Login To Portal    HCS    ${HCS}
     Click Feature Menu Option    TIMECARDS
@@ -376,7 +376,7 @@ Verify that Vendor talent manager should be able to submit the timecard with tog
     enable toggle Did Not Work and click on continue
     Validate Button State By Text    ADD DOCUMENT    disabled
     submit timecard
-    Sleep    2s
+    Sleep    10s
     Close Browser Safely
     Login To Portal    VMS    ${VMS}
     Click Feature Menu Option in Vms    TIMECARDS
