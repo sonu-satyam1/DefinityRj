@@ -190,6 +190,50 @@ Verify that after submitting a timecard the timecard status should update to PEN
     Capture All Cells From First Row
     Validate Timecard Row Data    ${TIMECARD_TALENT_NAME_BEFORE_SUBMISSION}     ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}    ${TIMECARD_DATE_RANGE_BEFORE_SUBMISSION}    Pending Approval
 
+Verify that HCS timecard manager should be able to submit a timecard from HCS side with punch type as time in and time out
+    [Documentation]     timecard status should updateD to APPROVED in HCS Timecard DETAILS page
+                ...     timecard status should updateD to APPROVED in HCS Timecard  LISTING page
+                ...     "Timecard punch type " set as Time IN/Time out
+    Login To Portal    HCS    ${HCS}
+    Click Feature Menu Option    TIMECARDS
+    Verify Timecard Management Page Title
+    navigate to default view
+    Filter Timecard By Column by selecting dropdown    Status       Pending Submission
+    ${talent_clicked}=    Get First Talent Name And Click
+    IF    not ${talent_clicked}
+        Pass Execution    No Pending Submission timecards available. Generate Pending submission timecards and execute again.
+    END
+    # Continue remaining steps only if talent exists
+    fill the timecard time in
+    fill the timeout
+    open add document section
+    upload document and save on HCS
+    Capture Talent Name while submitting Timecard
+    Capture Timecard Work Week Date Details while submitting Timecard
+    Capture Rate card Details Details while submitted Timecard from HCS
+    submit timecard from HCS
+    Sleep    10s
+    Close Browser Safely
+    Login To Portal    HCS    ${HCS}
+    Click Feature Menu Option    TIMECARDS
+    Verify Timecard Management Page Title
+    navigate to default view
+    Filter Timecard By Column by selecting dropdown on HCS    Status        Approved
+    Filter Timecard By Column by entering text on HCS   Timecard Amount     ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}
+    Filter Timecard By Column by entering text on HCS    Talent Name        ${TIMECARD_TALENT_NAME_BEFORE_SUBMISSION}
+    Capture All Cells From First Row
+    Validate Timecard Row Data    ${TIMECARD_TALENT_NAME_BEFORE_SUBMISSION}     ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}    ${TIMECARD_DATE_RANGE_BEFORE_SUBMISSION}    Approved
+    Click Talent Name on Listing Page and navigate to Timecards details page
+    Capture Talent Name and validate after submitting Timecard
+    validate timecard status    Approved
+    Capture Rate card Details Details and validate after submitting Timecard in HCS
+    Capture Timecard Work Week Date Details and validate after submitting Timecard
+    Validate Timecards Line Items Statuses on HCS    Approved
+    
+
+
+
+
 #error messages while submitting timecard
 Verify that if a timecard is submitted without any punches, it should throw error
     Login To Portal    VMS    ${VMS}
@@ -390,6 +434,44 @@ Verify that Vendor talent manager should be able to submit the timecard with tog
     Capture Timecard Work Week Date Details and validate after submitting Timecard
     Validate Timecards Line Items Statuses     Pending Approval
 
+Verify that HCS timecard manager should be able to submit a timecard from HCS side with punch type as hours
+    [Documentation]     timecard status should updateD to APPROVED in HCS Timecard DETAILS page
+                ...     timecard status should updateD to APPROVED in HCS Timecard  LISTING page
+                ...     "Timecard punch type " set as hours
+    Login To Portal    HCS    ${HCS}
+    Click Feature Menu Option    TIMECARDS
+    Verify Timecard Management Page Title
+    navigate to default view
+    Filter Timecard By Column by selecting dropdown    Status       Pending Submission
+    ${talent_clicked}=    Get First Talent Name And Click
+    IF    not ${talent_clicked}
+        Pass Execution    No Pending Submission timecards available. Generate Pending submission timecards and execute again.
+    END
+    # Continue remaining steps only if talent exists
+    Fill Timecard Hours    1    2
+    open add document section
+    upload document and save on HCS
+    Capture Talent Name while submitting Timecard
+    Capture Timecard Work Week Date Details while submitting Timecard
+    Capture Rate card Details Details while submitted Timecard from HCS
+    submit timecard from HCS
+    Sleep    10s
+    Close Browser Safely
+    Login To Portal    HCS    ${HCS}
+    Click Feature Menu Option    TIMECARDS
+    Verify Timecard Management Page Title
+    navigate to default view
+    Filter Timecard By Column by selecting dropdown on HCS    Status        Approved
+    Filter Timecard By Column by entering text on HCS   Timecard Amount     ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}
+    Filter Timecard By Column by entering text on HCS    Talent Name        ${TIMECARD_TALENT_NAME_BEFORE_SUBMISSION}
+    Capture All Cells From First Row
+    Validate Timecard Row Data    ${TIMECARD_TALENT_NAME_BEFORE_SUBMISSION}     ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}    ${TIMECARD_DATE_RANGE_BEFORE_SUBMISSION}    Approved
+    Click Talent Name on Listing Page and navigate to Timecards details page
+    Capture Talent Name and validate after submitting Timecard
+    validate timecard status    Approved
+    Capture Rate card Details Details and validate after submitting Timecard in HCS
+    Capture Timecard Work Week Date Details and validate after submitting Timecard
+    Validate Timecards Line Items Statuses on HCS    Approved
     
 
 

@@ -175,6 +175,8 @@ Click Talent Name on Listing Page and navigate to Timecards details page
     Wait Till Element Enabled    ${column_menu}
     Wait Till Element Visible             (//tr//td//a)[2]
     Scroll Element Into View              (//tr//td//a)[2]
+    Sleep    5s
+    Scroll Element Into View              //span[text()='Talent Name']
     ${talent_locator}=    Set Variable    (//tr//td//a)[2]
     ${talent_present}=    Run Keyword And Return Status
     ...    Wait Till Element Visible    ${talent_locator}    5s
@@ -241,6 +243,17 @@ fill the timeout
     Wait Till Element Enabled                  //button[text()='OK']
     Click Element Safely                       //button[text()='OK']
 
+
+#handle kendo load time
+Wait For Kendo Loader To Disappear
+    ${overlay}=    Set Variable    //div[contains(@class,'k-overlay')]
+    Wait Until Keyword Succeeds    60s    2s    Overlay Should Be Gone
+
+Overlay Should Be Gone
+    ${count}=    Get Element Count    //div[contains(@class,'k-overlay') and not(contains(@style,'display: none'))]
+    Should Be Equal As Integers    ${count}    0
+
+
 open add document section
     Wait For Page Ready
     Wait Till Element Visible                  ${VMS_BTN_ADD_DOCUMENT}
@@ -261,13 +274,16 @@ upload document and save
     Choose File                        //input[@type='file']        ${file_path}
     Sleep                              3s
     #save
-    Wait Until Page Contains Element    //button//span[text()='Save']    45s
-    Wait Till Element Enabled           //button//span[text()='Save']
-    Click Element                       //button//span[text()='Save']
+    Wait Until Page Contains Element    //button[@type='submit' and .//span[text()='Save']]
+    Wait Till Element Enabled           //button[@type='submit' and .//span[text()='Save']]
+    Click Element                       //button[@type='submit' and .//span[text()='Save']]
     Wait For Page Ready
     # Wait until this specific dialog disappears
     Wait Until Page Does Not Contain Element    ${UPLOAD_DIALOG}    90s
-#    Sleep                               30s
+    Sleep                               5s
+
+
+
 
 submit timecard
     Wait For Page Ready
@@ -487,6 +503,7 @@ Validate Timecard Row Data
     List Should Contain Value    ${actual_list}    ${expected_amount}
     List Should Contain Value    ${actual_list}    ${expected_date}
     List Should Contain Value    ${actual_list}    ${status}
+
 
 Validate Error Message for Timecards on VMS Page
     Wait For Page Ready
