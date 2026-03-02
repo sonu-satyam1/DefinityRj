@@ -97,6 +97,11 @@ ${XPATH_TABLE_ROW_PLACEMENT_LINK}           xpath=//td[@role='gridcell']//a[cont
 ${XPATH_TABLE_ROW_TALENT_LINK}              xpath=//td[@role='gridcell']//a[contains(@href,'/timecard/detail/')]
 ${XPATH_TABLE_ROW_FIRST_TALENT_LINK}        xpath=(//td[@role='gridcell']//a[contains(@href,'/timecard/detail/')])[1]
 
+# rateCard Page Locators
+${HCS_TAB_RATE_CARD}            //li[@role='tab'][.//span[text()='RATE CARD']]
+${HCS_RATECARD_TOTAL_AMOUNT}    //th[normalize-space()='Amount']/ancestor::table//tbody/tr/td[last()]
+${HCS_BTN_SUBMIT_TIMECARD}      //button[.//span[normalize-space()='APPROVE WITH EDITS']]
+
 
 
 *** Keywords ***
@@ -254,3 +259,64 @@ Validate Timecards Line Items Statuses on HCS
         Should Be Equal    ${status_upper}    ${expected_upper}
     END
     
+upload document and save on HCS
+    ${UPLOAD_DIALOG}=    Set Variable
+    ...    (//div[contains(@class,'k-window') and not(contains(@style,'display: none')) and .//span[normalize-space()='Upload / Edit']])[last()]
+    Wait For Page Ready
+    Wait Until Page Contains Element    //div[@class='k-upload-button-wrap']    45s
+    Sleep                               3s
+    Wait Until Page Contains Element    //input[@type='file']    45s
+    Sleep                               3s
+    # Upload the file
+    Choose File                        //input[@type='file']        ${file_path}
+    Sleep                              3s
+    #save
+    Wait Until Page Contains Element    //button[@type='submit' and .//span[text()='Save']]
+    Wait Till Element Enabled           //button[@type='submit' and .//span[text()='Save']]
+    Click Element                       //button[@type='submit' and .//span[text()='Save']]
+    Wait For Page Ready
+    # Wait until this specific dialog disappears
+    Wait Until Page Does Not Contain Element    ${UPLOAD_DIALOG}    90s
+    Sleep                               5s
+
+Capture Rate card Details Details while submitted Timecard from HCS
+    [Documentation]    Navigates to Ratecard tab, captures Hours and Total Amount, and sets suite variables.
+    Wait Till Element Visible               ${HCS_TAB_RATE_CARD}
+    Wait For Page Ready
+    Scroll Element Into View                ${HCS_TAB_RATE_CARD}
+    Wait Till Element Visible               ${HCS_TAB_RATE_CARD}
+    Wait Till Element Enabled                   ${HCS_TAB_RATE_CARD}
+    Click Element Safely                    ${HCS_TAB_RATE_CARD}
+    Sleep    2s
+    Scroll Element Into View                ${HCS_RATECARD_TOTAL_AMOUNT}
+    Wait Till Element Visible               ${HCS_RATECARD_TOTAL_AMOUNT}
+    # RateCard content might take even longer to load
+    ${amount}=    Get Text                  ${HCS_RATECARD_TOTAL_AMOUNT}
+    Set Suite Variable    ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}    ${amount}
+    Log    Captured Amount While Submitting Timecard: ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}
+
+submit timecard from HCS
+    Wait For Page Ready
+    Wait Till Element Visible                  ${HCS_BTN_SUBMIT_TIMECARD}
+    Wait For Page Ready
+    Wait Till Element Enabled                  ${HCS_BTN_SUBMIT_TIMECARD}
+    Click Element Safely                       ${HCS_BTN_SUBMIT_TIMECARD}
+    Wait For Page Ready
+
+Capture Rate card Details Details and validate after submitting Timecard in HCS
+    [Documentation]    Navigates to Ratecard tab, captures Hours and Total Amount, and sets suite variables.
+    Wait Till Element Visible               ${HCS_TAB_RATE_CARD}
+    Wait For Page Ready
+    Scroll Element Into View                ${HCS_TAB_RATE_CARD}
+    Wait Till Element Visible               ${HCS_TAB_RATE_CARD}
+    Wait Till Element Enabled                   ${HCS_TAB_RATE_CARD}
+    Click Element Safely                    ${HCS_TAB_RATE_CARD}
+    Sleep    2s
+    Scroll Element Into View                ${HCS_RATECARD_TOTAL_AMOUNT}
+    Wait Till Element Visible               ${HCS_RATECARD_TOTAL_AMOUNT}
+    # RateCard content might take even longer to load
+    ${amount}=    Get Text                  ${HCS_RATECARD_TOTAL_AMOUNT}
+    Set Suite Variable    ${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}    ${amount}
+    Log    Captured Amount Before Submitting Timecard: ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}
+    Log    Captured Amount After Submitting Timecard:${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}
+    Should Be Equal    ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}    ${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}
