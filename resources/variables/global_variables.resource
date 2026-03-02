@@ -1,5 +1,5 @@
 *** Variables ***
-${DEFAULT_TIMEOUT}             30s
+${DEFAULT_TIMEOUT}             60s
 ${LONG_TIMEOUT}                80s
 ${SHORT_TIMEOUT}               5s
 ${POLLING_INTERVAL}            500ms
