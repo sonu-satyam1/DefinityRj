@@ -102,43 +102,48 @@ ${HCS_TAB_RATE_CARD}            //li[@role='tab'][.//span[text()='RATE CARD']]
 ${HCS_RATECARD_TOTAL_AMOUNT}    //th[normalize-space()='Amount']/ancestor::table//tbody/tr/td[last()]
 ${HCS_BTN_SUBMIT_TIMECARD}      //button[.//span[normalize-space()='APPROVE WITH EDITS']]
 
+${reject_request_reason_dropdown_arrow}                //input[@aria-controls='rejectReasonlist']/following-sibling::button
+${first_reject_request_reason}                         //ul[@id='rejectReasonlist']/li[1]
+${reject_request_reason_text}                          //textarea[@name='reason']
+${reject_timecard_on_request_reason_window}            //button[@type='submit' and .//span[normalize-space()='Reject Timecard']]
+
 
 
 *** Keywords ***
 Verify Timecard Management Page Title
-    Wait For Page Ready
+    Wait Until Page Ready
     Verify Page Title    Timecard Management
     
 
 navigate to default view
-    Wait For Page Ready
+    Wait Until Page Ready
     From Dropdown Verify or Select an Option    ${XPATH_BTN_VIEWS_DROPDOWN}    ${XPATH_BTN_VIEWS_DROPDOWN_VALUES}    Default    select 
-    Wait For Page Ready
+    Wait Until Page Ready
     
 
 apply quick filter on timecards listing page
     [Arguments]    ${quick_filter_name}
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible    //div[@role='button'][.//span[text()='${quick_filter_name}']]
-    Wait For Page Ready
+    Wait Until Page Ready
     Click Element Safely         //div[@role='button'][.//span[text()='${quick_filter_name}']]
-    Wait For Page Ready
+    Wait Until Page Ready
     
 open first timecard details from listing and store talent name
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible    ${XPATH_TABLE_ROW_FIRST_TALENT_LINK}
     ${first_timecard_talent_name}=    Get Text    ${XPATH_TABLE_ROW_FIRST_TALENT_LINK}
     Set Suite Variable    ${first_timecard_talent_name}    ${first_timecard_talent_name}
     Log                   First Talent Stored: ${first_timecard_talent_name}
-    Wait For Page Ready
+    Wait Until Page Ready
     Scroll Element Into View     ${XPATH_TABLE_ROW_FIRST_TALENT_LINK}
     Click Element Safely         ${XPATH_TABLE_ROW_FIRST_TALENT_LINK}
-#    Wait For Page Ready
+#    Wait Until Page Ready
 
 Filter Timecard By Column by selecting dropdown on HCS
     [Arguments]    ${column_name}    ${column_value}
 
-    Wait For Page Ready
+    Wait Until Page Ready
 
     # Stable dynamic locator for column menu
     ${column_menu}=    Set Variable
@@ -162,7 +167,7 @@ Filter Timecard By Column by selecting dropdown on HCS
     Wait Till Element Enabled    //span[text()='${column_value}']/..//input[@type='checkbox']
     Click Element Safely         //span[text()='${column_value}']/..//input[@type='checkbox']
 
-    Wait For Page Ready
+    Wait Until Page Ready
 
     # Optional Column label click (as per your logic)
     ${column_visible}=    Run Keyword And Return Status
@@ -181,11 +186,11 @@ Filter Timecard By Column by selecting dropdown on HCS
     Wait Till Element Visible    ${HCS_APPLY_BUTTON}
     Wait Till Element Enabled    ${HCS_APPLY_BUTTON}
     Click Element Safely         ${HCS_APPLY_BUTTON}
-    Wait For Page Ready
+    Wait Until Page Ready
 
 Filter Timecard By Column by entering text on HCS
     [Arguments]    ${column_name}    ${column_value}
-    Wait For Page Ready
+    Wait Until Page Ready
     # Stable dynamic locator for column menu
     ${column_menu}=    Set Variable
     ...    //th[.//span[normalize-space()='${column_name}']]//a[contains(@class,'k-grid-column-menu')]
@@ -224,7 +229,7 @@ Filter Timecard By Column by entering text on HCS
     Click Element Safely         ${HCS_APPLY_BUTTON}
 
     # Wait for grid refresh (important for Kendo)
-    Wait For Page Ready
+    Wait Until Page Ready
     Sleep    3s
     Wait Until Keyword Succeeds    5x    2s
     ...    Element Should Be Visible    //div[contains(@class,'k-grid-content')]//tr
@@ -234,7 +239,7 @@ Filter Timecard By Column by entering text on HCS
 Validate Timecards Line Items Statuses on HCS
     [Arguments]    ${expected_line_item_status}
 
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible    ${HCS_LINE_ITEMS_STATUSES_ELEMENTS}
 
     # Normalize expected value once
@@ -262,7 +267,7 @@ Validate Timecards Line Items Statuses on HCS
 upload document and save on HCS
     ${UPLOAD_DIALOG}=    Set Variable
     ...    (//div[contains(@class,'k-window') and not(contains(@style,'display: none')) and .//span[normalize-space()='Upload / Edit']])[last()]
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Until Page Contains Element    //div[@class='k-upload-button-wrap']    45s
     Sleep                               3s
     Wait Until Page Contains Element    //input[@type='file']    45s
@@ -274,7 +279,7 @@ upload document and save on HCS
     Wait Until Page Contains Element    //button[@type='submit' and .//span[text()='Save']]
     Wait Till Element Enabled           //button[@type='submit' and .//span[text()='Save']]
     Click Element                       //button[@type='submit' and .//span[text()='Save']]
-    Wait For Page Ready
+    Wait Until Page Ready
     # Wait until this specific dialog disappears
     Wait Until Page Does Not Contain Element    ${UPLOAD_DIALOG}    90s
     Sleep                               5s
@@ -282,7 +287,7 @@ upload document and save on HCS
 Capture Rate card Details Details while submitted Timecard from HCS
     [Documentation]    Navigates to Ratecard tab, captures Hours and Total Amount, and sets suite variables.
     Wait Till Element Visible               ${HCS_TAB_RATE_CARD}
-    Wait For Page Ready
+    Wait Until Page Ready
     Scroll Element Into View                ${HCS_TAB_RATE_CARD}
     Wait Till Element Visible               ${HCS_TAB_RATE_CARD}
     Wait Till Element Enabled                   ${HCS_TAB_RATE_CARD}
@@ -296,17 +301,17 @@ Capture Rate card Details Details while submitted Timecard from HCS
     Log    Captured Amount While Submitting Timecard: ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}
 
 submit timecard from HCS
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible                  ${HCS_BTN_SUBMIT_TIMECARD}
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Enabled                  ${HCS_BTN_SUBMIT_TIMECARD}
     Click Element Safely                       ${HCS_BTN_SUBMIT_TIMECARD}
-    Wait For Page Ready
+    Wait Until Page Ready
 
 Capture Rate card Details Details and validate after submitting Timecard in HCS
     [Documentation]    Navigates to Ratecard tab, captures Hours and Total Amount, and sets suite variables.
     Wait Till Element Visible               ${HCS_TAB_RATE_CARD}
-    Wait For Page Ready
+    Wait Until Page Ready
     Scroll Element Into View                ${HCS_TAB_RATE_CARD}
     Wait Till Element Visible               ${HCS_TAB_RATE_CARD}
     Wait Till Element Enabled                   ${HCS_TAB_RATE_CARD}
@@ -320,3 +325,61 @@ Capture Rate card Details Details and validate after submitting Timecard in HCS
     Log    Captured Amount Before Submitting Timecard: ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}
     Log    Captured Amount After Submitting Timecard:${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}
     Should Be Equal    ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}    ${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}
+
+
+Approve or Reject timecard from HCS
+    [Arguments]    ${action}
+    Wait Until Page Ready
+
+    ${button_xpath}=    Set Variable
+    ...    //button[.//span[normalize-space()='${action}']]
+
+    Wait Until Keyword Succeeds    30s    3s
+    ...    Click Timecard Action Button    ${button_xpath}
+    Sleep    10s
+    Wait Until Page Ready
+
+Click Timecard Action Button
+    [Arguments]    ${button_xpath}
+
+    Wait Till Element Visible    ${button_xpath}
+    Scroll Element Into View     ${button_xpath}
+    Wait Till Element Enabled    ${button_xpath}
+    Click Element Safely         ${button_xpath}
+
+Select reject request reason from dropdown enter text and click on reject timecard
+    Wait Until Page Ready
+    Sleep    2s
+    Wait Till Element Visible         ${reject_request_reason_dropdown_arrow}
+    Scroll Element Into View          ${reject_request_reason_dropdown_arrow}
+    Wait Till Element Visible         ${reject_request_reason_dropdown_arrow}
+    Wait Till Element Enabled         ${reject_request_reason_dropdown_arrow}
+    Click Element Safely              ${reject_request_reason_dropdown_arrow}
+    Wait Until Page Ready
+    Sleep    2s
+    Wait Till Element Visible         ${first_reject_request_reason}
+    Scroll Element Into View          ${first_reject_request_reason}
+    Wait Till Element Visible         ${first_reject_request_reason}
+    Wait Till Element Enabled         ${first_reject_request_reason}
+    Click Element Safely              ${first_reject_request_reason}
+    Sleep    2s
+    Wait Till Element Visible         ${reject_request_reason_text} 
+    Scroll Element Into View          ${reject_request_reason_text} 
+    Wait Till Element Visible         ${reject_request_reason_text} 
+    Wait Till Element Enabled         ${reject_request_reason_text} 
+    Input Text                        ${reject_request_reason_text}         Document is not valid
+    Sleep    2s
+    Wait Till Element Visible         ${reject_timecard_on_request_reason_window}
+    Scroll Element Into View          ${reject_timecard_on_request_reason_window}
+    Wait Till Element Visible         ${reject_timecard_on_request_reason_window}
+    Wait Till Element Enabled         ${reject_timecard_on_request_reason_window}
+    Click Element Safely              ${reject_timecard_on_request_reason_window}
+    Wait Until Page Ready
+    Sleep    2s
+
+    
+    
+
+    
+    
+     

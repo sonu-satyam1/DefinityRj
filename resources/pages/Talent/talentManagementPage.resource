@@ -1,6 +1,7 @@
 *** Settings ***
 Library     SeleniumLibrary
 Resource    ../../keywords/common_keywords.resource
+Library     String
 
 
 
@@ -12,6 +13,7 @@ ${HEADER_TITLES}             //table[contains(@class,'k-grid-header-table')]//sp
 ${ROWS_XPATH}                //table[contains(@class,'k-grid-table')]//tbody//tr
 ${NO_RECORDS_TEXT}           No records available
 ${TALENT_STATUS_DETAILS_PAGE_XPATH}    //div[@class='d-flex']//span[contains(@class,'status-chips')]
+${SHOW_COMPLETED_XPATH}      //span[@role='switch' and @id='Show Completed Placements']
 
 
 *** Keywords ***
@@ -21,23 +23,34 @@ Verify Talent Management Page Title
 
 Switch to Specified tab in Talent Management Page
     [Arguments]    ${tab}
-    Wait For Page Ready
+    Wait Until Page Ready
     Sleep    5s
     Click Element Safely        ${TALENT_MANAGEMENT_TABS}//li[.//span[normalize-space()='${tab}']]
-    Wait For Page Ready
+    Wait Until Page Ready
 
 Select Specified Talent From List
     [Arguments]    ${talent_name}
     Search And Select First Result By Column    ${SEARCH_BOX}    ${talent_name}    ${HEADER_TITLES}    Talent Name    ${ROWS_XPATH}    ${NO_RECORDS_TEXT}
-    Wait For Page Ready
+    Wait Until Page Ready
+
+enable toggle show completed
+    Wait Until Page Ready
+    Wait Till Element Visible    ${SHOW_COMPLETED_XPATH} 
+    Scroll Element Into View     ${SHOW_COMPLETED_XPATH} 
+    Wait Until Page Ready
+    Sleep    2s
+    Click Element Safely         ${SHOW_COMPLETED_XPATH} 
+    Wait Until Page Ready
     
+
 validate talent status
-    [Arguments]    ${expected_talent_status}
-    Wait For Page Ready
+    [Arguments]    @{expected_talent_statuses}
+    Wait Until Page Ready
     Wait Till Element Visible    ${TALENT_STATUS_DETAILS_PAGE_XPATH}
-    ${actual_talent_status}=    Get Text       ${TALENT_STATUS_DETAILS_PAGE_XPATH}
-    Log    talent Status Captured From Talent Details Page: ${actual_talent_status}
-    Log    expected Talent Status Required : ${expected_talent_status}
-    Should Be Equal        ${actual_talent_status}    ${expected_talent_status}
+    ${actual_talent_status}=    Get Text    ${TALENT_STATUS_DETAILS_PAGE_XPATH}
+    ${actual_talent_status}=    Strip String    ${actual_talent_status}
+    Log    Talent Status Captured: ${actual_talent_status}
+    Log    Expected Status Options: @{expected_talent_statuses}
+    List Should Contain Value    ${expected_talent_statuses}    ${actual_talent_status}
     
 

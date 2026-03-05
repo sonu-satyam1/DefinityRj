@@ -4,7 +4,8 @@ Resource    ../../keywords/common_keywords.resource
 Library     String
 Library     Collections
 Library     OperatingSystem
-Library    BuiltIn
+Library     BuiltIn
+Variables    ../../../testdata/generateRandomData.py
 
 
 
@@ -51,7 +52,7 @@ Verify Timecard Management Page Title in Vms
 Filter Timecard By Column by selecting dropdown
     [Arguments]    ${column_name}    ${column_value}
 
-    Wait For Page Ready
+    Wait Until Page Ready
 
     # Stable dynamic locator for column menu
     ${column_menu}=    Set Variable
@@ -75,7 +76,7 @@ Filter Timecard By Column by selecting dropdown
     Wait Till Element Enabled    //span[text()='${column_value}']/..//input[@type='checkbox']
     Click Element Safely         //span[text()='${column_value}']/..//input[@type='checkbox']
 
-    Wait For Page Ready
+    Wait Until Page Ready
 
     # Optional Column label click (as per your logic)
     ${column_visible}=    Run Keyword And Return Status
@@ -94,12 +95,12 @@ Filter Timecard By Column by selecting dropdown
     Wait Till Element Visible    ${VMS_APPLY_BUTTON}
     Wait Till Element Enabled    ${VMS_APPLY_BUTTON}
     Click Element Safely         ${VMS_APPLY_BUTTON}
-    Wait For Page Ready
+    Wait Until Page Ready
 
 
 Filter Timecard By Column by entering text
     [Arguments]    ${column_name}    ${column_value}
-    Wait For Page Ready
+    Wait Until Page Ready
     # Stable dynamic locator for column menu
     ${column_menu}=    Set Variable
     ...    //th[.//span[normalize-space()='${column_name}']]//a[contains(@class,'k-grid-column-menu')]
@@ -138,7 +139,7 @@ Filter Timecard By Column by entering text
     Click Element Safely         ${VMS_APPLY_BUTTON}
 
     # Wait for grid refresh (important for Kendo)
-    Wait For Page Ready
+    Wait Until Page Ready
     Sleep    3s
     Wait Until Keyword Succeeds    5x    2s
     ...    Element Should Be Visible    //div[contains(@class,'k-grid-content')]//tr
@@ -147,7 +148,7 @@ Filter Timecard By Column by entering text
 
 Get First Talent Name And Click
     [Documentation]    Returns True if talent found and clicked, else False.
-    Wait For Page Ready
+    Wait Until Page Ready
     Sleep    2s
     ${talent_present}=    Run Keyword And Return Status
     ...    Wait Till Element Visible    ${VMS_FIRST_TALENT_LINK}    5s
@@ -162,11 +163,11 @@ Get First Talent Name And Click
     Sleep    3s
     Log    Clicking talent: ${talent_name}
     Click Element    ${VMS_FIRST_TALENT_LINK}
-    Wait For Page Ready
+    Wait Until Page Ready
     RETURN    True
 
 Click Talent Name on Listing Page and navigate to Timecards details page
-    Wait For Page Ready
+    Wait Until Page Ready
     Sleep    2s
     ${column_menu}=    Set Variable
     ...    //th[.//span[normalize-space()='Placement ID']]//a[contains(@class,'k-grid-column-menu')]
@@ -188,58 +189,62 @@ Click Talent Name on Listing Page and navigate to Timecards details page
     Wait Till Element Enabled   ${talent_locator}
 #    Log    Clicking talent: ${TIMECARD_TALENT_NAME_BEFORE_SUBMISSION}
     Click Element    ${talent_locator}
-    Wait For Page Ready
+    Wait Until Page Ready
 
 Fill Timecard Hours
-    [Arguments]    ${row_index}    ${hours_value}
-    Wait For Page Ready
+    [Arguments]    ${row_index}
+    Wait Until Page Ready
     Wait Until Element Is Visible        (//input[contains(@name,'hours')])[${row_index}]
     Scroll Element Into View             (//input[contains(@name,'hours')])[${row_index}]
     ${hours_locator}=    Set Variable    (//input[contains(@name,'hours')])[${row_index}]
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Until Element Is Visible    ${hours_locator}    20s
     Wait Until Element Is Enabled    ${hours_locator}
     Click Element        ${hours_locator}
     Clear Element Text   ${hours_locator}
     Wait Until Element Is Visible    ${hours_locator}
     Sleep    2s
-    Input Text           ${hours_locator}    ${hours_value}
+    Input Text           ${hours_locator}    ${hours}
     Sleep    2s
     Press Keys           ${hours_locator}    TAB
-    Wait For Page Ready
-    Log    Entered ${hours_value} hours in row ${row_index}
+    Wait Until Page Ready
+    Log    Entered ${hours} hours in row ${row_index}
 
 fill the timecard time in
-    Wait For Page Ready
+    Wait Until Page Ready
     Scroll Element Into View            ${VMS_TIME_IN_BTN}
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible           ${VMS_TIME_IN_BTN}
     Wait Till Element Enabled           ${VMS_TIME_IN_BTN}
     Click Element Safely                 ${VMS_TIME_IN_BTN}
-    Wait Till Element Visible            (//li[text()='02'])[1]
-    Wait For Page Ready
-    Wait Till Element Enabled            (//li[text()='02'])[1]
-    Click Element Safely                 (//li[text()='02'])[1]
-    Wait For Page Ready
+    Scroll Element Into View             (//li[contains(text(),'${time_in}')])[1]
+    Sleep    2s
+    Wait Till Element Visible            (//li[contains(text(),'${time_in}')])[1]
+    Wait Until Page Ready
+    Wait Till Element Enabled            (//li[contains(text(),'${time_in}')])[1]
+    Click Element Safely                 (//li[contains(text(),'${time_in}')])[1]
+    Wait Until Page Ready
     Wait Till Element Visible               //button[text()='OK']
     Wait Till Element Enabled               //button[text()='OK']
     Click Element Safely                    //button[text()='OK']
-    Wait For Page Ready
+    Wait Until Page Ready
 
 fill the timeout
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible                  ${VMS_TIME_OUT_BTN}   
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Enabled                  ${VMS_TIME_OUT_BTN}
     Click Element Safely                       ${VMS_TIME_OUT_BTN}
-    Wait For Page Ready
-    Wait Till Element Visible                  (//li[text()='04'])[1]    
-    Wait For Page Ready
-    Wait Till Element Enabled                  (//li[text()='04'])[1]
-    Click Element Safely                       (//li[text()='04'])[1]
-    Wait For Page Ready
+    Wait Until Page Ready
+    Scroll Element Into View                   (//li[contains(text(),'06')])[1]
+    Sleep    2s
+    Wait Till Element Visible                  (//li[contains(text(),'06')])[1]
+    Wait Until Page Ready
+    Wait Till Element Enabled                  (//li[contains(text(),'06')])[1]
+    Click Element Safely                       (//li[contains(text(),'06')])[1]
+    Wait Until Page Ready
     Wait Till Element Visible                  //button[text()='OK']     
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Enabled                  //button[text()='OK']
     Click Element Safely                       //button[text()='OK']
 
@@ -255,17 +260,17 @@ Overlay Should Be Gone
 
 
 open add document section
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible                  ${VMS_BTN_ADD_DOCUMENT}
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Enabled                  ${VMS_BTN_ADD_DOCUMENT}
     Click Element Safely                       ${VMS_BTN_ADD_DOCUMENT}
-    Wait For Page Ready
+    Wait Until Page Ready
 
 upload document and save
     ${UPLOAD_DIALOG}=    Set Variable
     ...    (//div[contains(@class,'k-window') and not(contains(@style,'display: none')) and .//span[normalize-space()='Upload / Edit']])[last()]
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Until Page Contains Element    //div[@class='k-upload-button-wrap']    45s
     Sleep                               3s
     Wait Until Page Contains Element    //input[@type='file']    45s
@@ -277,7 +282,7 @@ upload document and save
     Wait Until Page Contains Element    //button[@type='submit' and .//span[text()='Save']]
     Wait Till Element Enabled           //button[@type='submit' and .//span[text()='Save']]
     Click Element                       //button[@type='submit' and .//span[text()='Save']]
-    Wait For Page Ready
+    Wait Until Page Ready
     # Wait until this specific dialog disappears
     Wait Until Page Does Not Contain Element    ${UPLOAD_DIALOG}    90s
     Sleep                               5s
@@ -286,28 +291,28 @@ upload document and save
 
 
 submit timecard
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible                  ${VMS_BTN_SUBMIT_TIMECARD}
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Enabled                  ${VMS_BTN_SUBMIT_TIMECARD}
     Click Element Safely                       ${VMS_BTN_SUBMIT_TIMECARD}
-    Wait For Page Ready
+    Wait Until Page Ready
     
 
 ## --- Data Capture Keywords ---
 Capture Talent Name while submitting Timecard
     [Documentation]    Captures Talent and Vendor names and sets them as suite variables.
     Wait Till Element Visible        ${VMS_TALENT_NAME_XPATH}
-    Wait For Page Ready
+    Wait Until Page Ready
     ${talent}=    Get Text           ${VMS_TALENT_NAME_XPATH}
     Set Suite Variable               ${TIMECARD_TALENT_NAME_BEFORE_SUBMISSION}    ${talent}
-    Wait For Page Ready
+    Wait Until Page Ready
     Log    Captured Talent While Submitting Timecard: ${TIMECARD_TALENT_NAME_BEFORE_SUBMISSION}
 
 Capture Timecard Work Week Date Details while submitting Timecard
     [Documentation]    Captures the date range from the Timecard tab and sets it as a suite variable.
     Wait Till Element Visible    ${VMS_TAB_TIMECARD}    
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible    ${VMS_TAB_TIMECARD}
     Scroll Element Into View                ${VMS_TAB_TIMECARD}
     Wait Till Element Enabled        ${VMS_TAB_TIMECARD}
@@ -321,7 +326,7 @@ Capture Timecard Work Week Date Details while submitting Timecard
 Capture Rate card Details Details while submitted Timecard
     [Documentation]    Navigates to Ratecard tab, captures Hours and Total Amount, and sets suite variables.
     Wait Till Element Visible               ${VMS_TAB_RATE_CARD}
-    Wait For Page Ready
+    Wait Until Page Ready
     Scroll Element Into View                ${VMS_TAB_RATE_CARD}
     Wait Till Element Visible               ${VMS_TAB_RATE_CARD}
     Wait Till Element Enabled                   ${VMS_TAB_RATE_CARD}
@@ -337,17 +342,17 @@ Capture Rate card Details Details while submitted Timecard
 #Capture Talent Name and validate after submitting Timecard
 #    [Documentation]    Captures Talent and Vendor names and sets them as suite variables.
 #    Wait Till Element Visible        ${VMS_TALENT_NAME_XPATH}
-#    Wait For Page Ready
+#    Wait Until Page Ready
 #    ${talent}=    Get Text           ${VMS_TALENT_NAME_XPATH}
 #    Set Suite Variable               ${TIMECARD_TALENT_NAME_AFTER_SUBMISSION}    ${talent}
-#    Wait For Page Ready
+#    Wait Until Page Ready
 #    Log    Captured Talent After Submitting Timecard: ${TIMECARD_TALENT_NAME_AFTER_SUBMISSION}
 #    Log    Captured Talent Before Submitting Timecard:${TIMECARD_TALENT_NAME_BEFORE_SUBMISSION}
 #    Should Be Equal    ${TIMECARD_TALENT_NAME_AFTER_SUBMISSION}    ${TIMECARD_TALENT_NAME_BEFORE_SUBMISSION}
 
 Capture Talent Name and validate after submitting Timecard
     Wait Till Element Visible        ${VMS_TALENT_NAME_XPATH}
-    Wait For Page Ready
+    Wait Until Page Ready
 
     ${talent}=    Get Text    ${VMS_TALENT_NAME_XPATH}
     Set Suite Variable    ${TIMECARD_TALENT_NAME_AFTER_SUBMISSION}    ${talent}
@@ -368,11 +373,13 @@ Capture Talent Name and validate after submitting Timecard
 Capture Timecard Work Week Date Details and validate after submitting Timecard
     [Documentation]    Captures the date range from the Timecard tab and sets it as a suite variable.
     Wait Till Element Visible        ${VMS_TAB_TIMECARD}    
-    Wait For Page Ready
+    Wait Until Page Ready
     Scroll Element Into View         ${VMS_TAB_TIMECARD}
     Sleep    2s
     Wait Till Element Visible        ${VMS_TAB_TIMECARD}
     Wait Till Element Enabled        ${VMS_TAB_TIMECARD}
+    Scroll Element Into View         ${VMS_TAB_TIMECARD}
+    Sleep    2s
     Scroll Element Into View         ${VMS_TAB_TIMECARD}
     Sleep    2s
     Click Element Safely             ${VMS_TAB_TIMECARD}
@@ -387,7 +394,7 @@ Capture Timecard Work Week Date Details and validate after submitting Timecard
 Capture Rate card Details Details and validate after submitting Timecard
     [Documentation]    Navigates to Ratecard tab, captures Hours and Total Amount, and sets suite variables.
     Wait Till Element Visible               ${VMS_TAB_RATE_CARD}
-    Wait For Page Ready
+    Wait Until Page Ready
     Scroll Element Into View                ${VMS_TAB_RATE_CARD}
     Wait Till Element Visible               ${VMS_TAB_RATE_CARD}
     Wait Till Element Enabled                   ${VMS_TAB_RATE_CARD}
@@ -405,7 +412,7 @@ Capture Rate card Details Details and validate after submitting Timecard
 
 Validate Timecard Status
     [Arguments]    ${expected_status}
-    Wait For Page Ready
+    Wait Until Page Ready
     Scroll Element Into View     ${VMS_TIMECARD_STATUS_DETAILS_PAGE}
     Wait Till Element Visible    ${VMS_TIMECARD_STATUS_DETAILS_PAGE}
     Wait Till Element Enabled    ${VMS_TIMECARD_STATUS_DETAILS_PAGE}
@@ -428,7 +435,7 @@ Validate Timecard Status
 Validate Timecards Line Items Statuses
     [Arguments]    ${expected_line_item_status}
 
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible    ${VMS_LINE_ITEMS_STATUSES_ELEMENTS}
 
     # Normalize expected value once
@@ -457,7 +464,7 @@ Validate Timecards Line Items Statuses
 Capture All Cells From First Row
     [Documentation]    Captures all column values from first row by handling horizontal scroll (Kendo column virtualization)
     Scroll Element Into View         (//tr[@class='k-table-row']//th)[1]
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Until Element Is Visible    //tbody/tr[1]    20s
 
     ${grid_content}=    Set Variable    //div[contains(@class,'k-grid-content')]
@@ -486,7 +493,8 @@ Capture All Cells From First Row
 
     Log    Captured Full Row Values: ${all_values}
     RETURN    ${all_values}
-    
+
+
 Validate Timecard Row Data
     [Arguments]
     ...    ${expected_talent}
@@ -496,17 +504,25 @@ Validate Timecard Row Data
 
     ${actual_list}=    Capture All Cells From First Row
 
-    ${talent}=    Convert To Upper Case        ${expected_talent}
-    ${status}=    Convert To Upper Case        ${expected_status}
+    ${talent}=    Convert To Upper Case    ${expected_talent}
+    ${status}=    Convert To Upper Case    ${expected_status}
 
-    List Should Contain Value    ${actual_list}    ${talent}
-    List Should Contain Value    ${actual_list}    ${expected_amount}
-    List Should Contain Value    ${actual_list}    ${expected_date}
-    List Should Contain Value    ${actual_list}    ${status}
+    # Normalize expected amount
+    ${expected_amount}=    Replace String    ${expected_amount}    $    ${EMPTY}
+    ${expected_amount}=    Replace String    ${expected_amount}    ,    ${EMPTY}
+    ${expected_amount}=    Strip String      ${expected_amount}
 
+    # Normalize UI values
+    ${normalized_list}=    Evaluate    [str(x).replace('$','').replace(',','').strip() for x in $actual_list]
+
+    # Validations
+    List Should Contain Value    ${actual_list}        ${talent}
+    List Should Contain Value    ${normalized_list}    ${expected_amount}
+    List Should Contain Value    ${actual_list}        ${expected_date}
+    List Should Contain Value    ${actual_list}        ${status}
 
 Validate Error Message for Timecards on VMS Page
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible    ${error_msg_locator}
 
     ${actual_text}=    Get Text    ${error_msg_locator}
@@ -541,18 +557,18 @@ Validate Error Message for Timecards on VMS Page
     END
 
 enable toggle Did Not Work and click on continue
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible    ${DID_NOT_WORK_TOGGLE_XPATH}
     Wait Till Element Enabled    ${DID_NOT_WORK_TOGGLE_XPATH}
     Scroll Element Into View     ${DID_NOT_WORK_TOGGLE_XPATH}
     Sleep    2s
     Click Element Safely         ${DID_NOT_WORK_TOGGLE_XPATH}
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible    //button[normalize-space()='Continue']
     Wait Till Element Enabled    //button[normalize-space()='Continue']
     Sleep    2s
     Click Element Safely         //button[normalize-space()='Continue']
-    Wait For Page Ready
+    Wait Until Page Ready
 
 Validate Button State By Text
     [Arguments]    ${button_text}    ${expected_state}
@@ -560,7 +576,7 @@ Validate Button State By Text
 
     ${locator}=    Set Variable    //button[.//span[normalize-space()='${button_text}']]
 
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Until Element Is Visible    ${locator}    20s
 
     ${class}=            Get Element Attribute    ${locator}    class
