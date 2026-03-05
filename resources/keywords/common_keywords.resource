@@ -6,6 +6,10 @@ Library    ../../libs/RuntimeData.py
 Resource    ../variables/global_variables.resource
 Resource    ../errors/common_assertions.resource
 
+*** Variables ***
+${TIMEOUT}            90s
+
+
 *** Keywords ***
 Wait For Page Loader To Disappear
     [Arguments]    ${TIMEOUT}=${LONG_TIMEOUT}
@@ -482,3 +486,44 @@ Search Verify And Click Action In Same Row
 
     Run Keyword If    not ${matched}
     ...    Fail    No row found where '${HEADER_TEXT}' = '${SEARCH_TEXT}'
+
+Wait Until Page Ready
+    Wait Until Page Contains Element    xpath=//body        ${TIMEOUT}
+    Wait Until Any Loaders Disappear
+    Wait Until Network Is Idle
+    Wait Until DOM Is Stable
+
+Wait Until Any Loaders Disappear
+    Run Keyword And Ignore Error    Wait Until Element Is Not Visible    xpath=//div[contains(@class, 'page-loader')]    ${TIMEOUT}
+    Run Keyword And Ignore Error    Wait Until Element Is Not Visible    xpath=//div[contains(@class, 'loading-overlay')]    ${TIMEOUT}
+    Run Keyword And Ignore Error    Wait Until Element Is Not Visible    xpath=//div[contains(@class, 'vm-loading-wrapper')]    ${TIMEOUT}
+    Run Keyword And Ignore Error    Wait Until Element Is Not Visible    xpath=//div[contains(@class, 'modal-backdrop')]    ${TIMEOUT}
+
+Wait Until Network Is Idle
+    [Documentation]    Waits until there are no active network requests (XHR/fetch)
+    Wait Until Keyword Succeeds    10x    1s
+    ...    Execute JavaScript    return window.performance.getEntriesByType('resource').filter(e => e.initiatorType === 'xmlhttprequest' || e.initiatorType === 'fetch').every(e => e.responseEnd > 0);
+
+Wait Until DOM Is Stable
+    ${initial}=    Execute JavaScript    return document.getElementsByTagName('*').length;
+    Sleep    0.5s
+    ${after}=    Execute JavaScript    return document.getElementsByTagName('*').length;
+    WHILE    ${initial} != ${after}
+        ${initial}=    Set Variable    ${after}
+        Sleep    0.5s
+        ${after}=    Execute JavaScript    return document.getElementsByTagName('*').length;
+    END
+
+navigate to feature page
+    [Arguments]        ${feature}
+    Wait Until Page Ready
+    Wait Until Element Is Visible    //button[contains(@class,'ats-bottom')]    ${TIMEOUT}
+    Scroll Element Into View         //button[contains(@class,'ats-bottom')]
+    Mouse Over                       //div[@class='ats-bottom-dropdown']
+    Wait Until Page Ready
+    Click Element                    //div[@class='ats-bottom-dropdown']
+    Mouse Over                       //span[text()='${feature}']
+    Sleep                            2s
+    Wait Until Page Ready
+    Click Element                    //span[text()='${feature}']
+    Wait Until Page Ready

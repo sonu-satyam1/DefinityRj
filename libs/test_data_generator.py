@@ -16,3 +16,6 @@ class TestDataGenerator:
         last_name = ts
         full_name = f"{first_name} {last_name}"
         return first_name, last_name, full_name
+
+    def generate_random_number_1_to_10(self):
+        return random.randint(1, 10)

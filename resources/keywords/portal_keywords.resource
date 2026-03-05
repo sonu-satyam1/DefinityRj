@@ -30,6 +30,10 @@ Open Portal And Login To HCS
     Input Text Safely     ${INPUT_PASSWORD}     ${PORTAL['pass']}
     Wait Till Element Enabled  ${BUTTON_LOGIN}    50s
     Click Element Safely   ${BUTTON_LOGIN}
+    Wait Until Page Ready
+    Sleep    10s
+    navigate to feature page    CORE
+    Wait Until Page Ready
     Sleep    5 sec
 Open Portal And Login To Vms
     [Arguments]    ${PORTAL}

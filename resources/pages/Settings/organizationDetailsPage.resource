@@ -23,12 +23,12 @@ Verify Organization Details Page Title
     Verify Page Title    Organization Details
 
 Switch to Business rules tab in Organization Details Page
-    Wait For Page Ready
+    Wait Until Page Ready
     Click Element Safely        ${BUSINESS_RULES_TAB}
-    Wait For Page Ready
+    Wait Until Page Ready
 
 Verify Or Set Approval Workflow As Sequential
-    Wait For Page Ready
+    Wait Until Page Ready
     ${current}=    Get Current Approval Workflow
     Log    Current approval workflow: ${current}
 
@@ -40,7 +40,7 @@ Verify Or Set Approval Workflow As Sequential
     Log    Approval workflow is not Sequential. Updating...
 
     Click Element Safely    ${EDIT_BUTTON}
-    Wait For Page Ready
+    Wait Until Page Ready
     Switch to Business rules tab in Organization Details Page
 
     Scroll Element Into View    ${SEQUENTIAL_RADIO_EDIT}
@@ -48,7 +48,7 @@ Verify Or Set Approval Workflow As Sequential
     Click Element    ${SEQUENTIAL_RADIO_EDIT}
 
     Click Element Safely    ${SAVE_BUTTON}
-    Wait For Page Ready
+    Wait Until Page Ready
     Verify Administrative Settings Page Title
 
 Get Current Approval Workflow
@@ -58,34 +58,34 @@ Get Current Approval Workflow
     [Return]    ${txt}
 
 edit hospital info on Organization Details page
-    Wait For Page Ready
+    Wait Until Page Ready
     Scroll Element Into View     ${EDIT_BUTTON}
     Wait Till Element Visible    ${EDIT_BUTTON}
     Click Element Safely         ${EDIT_BUTTON}
-    Wait For Page Ready
+    Wait Until Page Ready
 
 update punch timecard punch type
     [Arguments]    ${punch_type}
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible                   ${XPATH_BTN_PUNCH_TYPE_DROPDOWN}
     Scroll Element Into View                    ${XPATH_BTN_PUNCH_TYPE_DROPDOWN}
     From Dropdown Verify or Select an Option    ${XPATH_BTN_PUNCH_TYPE_DROPDOWN}    ${XPATH_BTN_PUNCH_TYPE_DROPDOWN_VALUES}    ${punch_type}    select
-    Wait For Page Ready
+    Wait Until Page Ready
 
 update timecard entry type
     [Arguments]    ${timecard_entry_type}
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible                   ${XPATH_BTN_TIMECARD_ENTRY_DROPDOWN}
     Scroll Element Into View                    ${XPATH_BTN_TIMECARD_ENTRY_DROPDOWN}
     From Dropdown Verify or Select an Option    ${XPATH_BTN_TIMECARD_ENTRY_DROPDOWN}    ${XPATH_BTN_TIMECARD_ENTRY_DROPDOWN_VALUES}    ${timecard_entry_type}    select
-    Wait For Page Ready
+    Wait Until Page Ready
 
 save hospital info on Organization Details page
-    Wait For Page Ready
+    Wait Until Page Ready
     Wait Till Element Visible    ${SAVE_BUTTON}
     Scroll Element Into View     ${SAVE_BUTTON}
     Click Element Safely         ${SAVE_BUTTON}
-    Wait For Page Ready
+    Wait Until Page Ready
 
 
 
