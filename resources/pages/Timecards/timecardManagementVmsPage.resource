@@ -292,10 +292,14 @@ upload document and save
 
 submit timecard
     Wait Until Page Ready
-    Wait Till Element Visible                  ${VMS_BTN_SUBMIT_TIMECARD}
-    Wait Until Page Ready
-    Wait Till Element Enabled                  ${VMS_BTN_SUBMIT_TIMECARD}
-    Click Element Safely                       ${VMS_BTN_SUBMIT_TIMECARD}
+    Wait Till Element Visible          ${VMS_BTN_SUBMIT_TIMECARD}
+    Wait Till Element Enabled          ${VMS_BTN_SUBMIT_TIMECARD}
+    # Retry clicking until success
+    Wait Until Keyword Succeeds    30s    3s
+    ...    Click Element Safely    ${VMS_BTN_SUBMIT_TIMECARD}
+    # Wait until button disappears after successful submission
+    Wait Until Keyword Succeeds    30s    3s
+    ...    Page Should Not Contain Element    ${VMS_BTN_SUBMIT_TIMECARD}
     Wait Until Page Ready
     
 
@@ -393,20 +397,51 @@ Capture Timecard Work Week Date Details and validate after submitting Timecard
 
 Capture Rate card Details Details and validate after submitting Timecard
     [Documentation]    Navigates to Ratecard tab, captures Hours and Total Amount, and sets suite variables.
+
+    Wait Until Page Ready
+
+    # Retry scroll to Schedule & Rate section
+    Wait Till Element Visible               //h3[normalize-space()='Schedule & Rate']
+    Wait Until Keyword Succeeds    5x    2s
+    ...    Scroll Element Into View         //h3[normalize-space()='Schedule & Rate']
+
+    Wait Till Element Visible               //h3[normalize-space()='Schedule & Rate']
+
+    # Try clicking heading safely (ignore if not clickable since it's text)
+    Run Keyword And Ignore Error    Click Element    //h3[normalize-space()='Schedule & Rate']
+
+    Sleep    2s
+
     Wait Till Element Visible               ${VMS_TAB_RATE_CARD}
     Wait Until Page Ready
-    Scroll Element Into View                ${VMS_TAB_RATE_CARD}
+
+    # Retry scroll to Rate Card tab
+    Wait Until Keyword Succeeds    5x    2s
+    ...    Scroll Element Into View          ${VMS_TAB_RATE_CARD}
+
     Wait Till Element Visible               ${VMS_TAB_RATE_CARD}
-    Wait Till Element Enabled                   ${VMS_TAB_RATE_CARD}
-    Click Element Safely                    ${VMS_TAB_RATE_CARD}
+    Wait Till Element Enabled               ${VMS_TAB_RATE_CARD}
+
+    # Retry click until success
+    Wait Until Keyword Succeeds    5x    2s
+    ...    Click Element Safely              ${VMS_TAB_RATE_CARD}
+
+    Wait Until Page Ready
     Sleep    2s
-    Scroll Element Into View                ${VMS_RATECARD_TOTAL_AMOUNT}
+
+    # Retry scroll to total amount
+    Wait Until Keyword Succeeds    5x    2s
+    ...    Scroll Element Into View          ${VMS_RATECARD_TOTAL_AMOUNT}
+
     Wait Till Element Visible               ${VMS_RATECARD_TOTAL_AMOUNT}
-    # RateCard content might take even longer to load
+
     ${amount}=    Get Text                  ${VMS_RATECARD_TOTAL_AMOUNT}
+
     Set Suite Variable    ${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}    ${amount}
+
     Log    Captured Amount Before Submitting Timecard: ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}
-    Log    Captured Amount After Submitting Timecard:${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}
+    Log    Captured Amount After Submitting Timecard: ${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}
+
     Should Be Equal    ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}    ${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}
 
 

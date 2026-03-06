@@ -302,41 +302,76 @@ Capture Rate card Details Details while submitted Timecard from HCS
 
 submit timecard from HCS
     Wait Until Page Ready
-    Wait Till Element Visible                  ${HCS_BTN_SUBMIT_TIMECARD}
-    Wait Until Page Ready
-    Wait Till Element Enabled                  ${HCS_BTN_SUBMIT_TIMECARD}
-    Click Element Safely                       ${HCS_BTN_SUBMIT_TIMECARD}
+    Sleep    2s
+    Wait Till Element Visible          ${HCS_BTN_SUBMIT_TIMECARD}
+    Wait Till Element Enabled          ${HCS_BTN_SUBMIT_TIMECARD}
+    # Retry clicking until successful
+    Wait Until Keyword Succeeds    30s    3s
+    ...    Click Element Safely    ${HCS_BTN_SUBMIT_TIMECARD}
+    Sleep    2s
+    # Wait until button disappears after submission
+    Wait Until Keyword Succeeds    30s    3s
+    ...    Page Should Not Contain Element    ${HCS_BTN_SUBMIT_TIMECARD}
     Wait Until Page Ready
 
 Capture Rate card Details Details and validate after submitting Timecard in HCS
-    [Documentation]    Navigates to Ratecard tab, captures Hours and Total Amount, and sets suite variables.
-    Wait Till Element Visible               ${HCS_TAB_RATE_CARD}
+    [Documentation]    Navigate to Ratecard tab, capture amount and validate.
+
     Wait Until Page Ready
-    Scroll Element Into View                ${HCS_TAB_RATE_CARD}
-    Wait Till Element Visible               ${HCS_TAB_RATE_CARD}
-    Wait Till Element Enabled                   ${HCS_TAB_RATE_CARD}
-    Click Element Safely                    ${HCS_TAB_RATE_CARD}
+
+    # Retry scrolling to Schedule & Rate section
+    Wait Until Keyword Succeeds    5x    2s
+    ...    Scroll Element Into View    //h3[normalize-space()='Schedule & Rate']
+
+    Wait Till Element Visible    //h3[normalize-space()='Schedule & Rate']
+
+    # Try clicking heading (safe attempt since it is just text)
+    Run Keyword And Ignore Error    Click Element    //h3[normalize-space()='Schedule & Rate']
+
     Sleep    2s
-    Scroll Element Into View                ${HCS_RATECARD_TOTAL_AMOUNT}
-    Wait Till Element Visible               ${HCS_RATECARD_TOTAL_AMOUNT}
-    # RateCard content might take even longer to load
-    ${amount}=    Get Text                  ${HCS_RATECARD_TOTAL_AMOUNT}
+
+    # Scroll to Rate Card tab
+    Wait Until Keyword Succeeds    5x    2s
+    ...    Scroll Element Into View    ${HCS_TAB_RATE_CARD}
+
+    Wait Till Element Visible    ${HCS_TAB_RATE_CARD}
+    Wait Till Element Enabled    ${HCS_TAB_RATE_CARD}
+
+    # Retry clicking Rate Card tab until success
+    Wait Until Keyword Succeeds    5x    2s
+    ...    Click Element Safely    ${HCS_TAB_RATE_CARD}
+
+    Wait Until Page Ready
+    Sleep    2s
+
+    # Scroll to total amount
+    Wait Until Keyword Succeeds    5x    2s
+    ...    Scroll Element Into View    ${HCS_RATECARD_TOTAL_AMOUNT}
+
+    Wait Till Element Visible    ${HCS_RATECARD_TOTAL_AMOUNT}
+
+    ${amount}=    Get Text    ${HCS_RATECARD_TOTAL_AMOUNT}
+
     Set Suite Variable    ${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}    ${amount}
+
     Log    Captured Amount Before Submitting Timecard: ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}
-    Log    Captured Amount After Submitting Timecard:${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}
-    Should Be Equal    ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}    ${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}
+    Log    Captured Amount After Submitting Timecard: ${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}
+
+    Should Be Equal
+    ...    ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}
+    ...    ${RATECARD_TOTAL_AMOUNT_AFTER_SUBMISSION}
 
 
 Approve or Reject timecard from HCS
     [Arguments]    ${action}
     Wait Until Page Ready
-
     ${button_xpath}=    Set Variable
     ...    //button[.//span[normalize-space()='${action}']]
-
+    # Retry clicking until successful
     Wait Until Keyword Succeeds    30s    3s
     ...    Click Timecard Action Button    ${button_xpath}
-    Sleep    10s
+    # Wait until button disappears (action completed)
+    Sleep    2s
     Wait Until Page Ready
 
 Click Timecard Action Button
@@ -349,33 +384,33 @@ Click Timecard Action Button
 
 Select reject request reason from dropdown enter text and click on reject timecard
     Wait Until Page Ready
-    Sleep    2s
+
     Wait Till Element Visible         ${reject_request_reason_dropdown_arrow}
     Scroll Element Into View          ${reject_request_reason_dropdown_arrow}
-    Wait Till Element Visible         ${reject_request_reason_dropdown_arrow}
     Wait Till Element Enabled         ${reject_request_reason_dropdown_arrow}
     Click Element Safely              ${reject_request_reason_dropdown_arrow}
-    Wait Until Page Ready
-    Sleep    2s
+
     Wait Till Element Visible         ${first_reject_request_reason}
     Scroll Element Into View          ${first_reject_request_reason}
-    Wait Till Element Visible         ${first_reject_request_reason}
     Wait Till Element Enabled         ${first_reject_request_reason}
     Click Element Safely              ${first_reject_request_reason}
-    Sleep    2s
-    Wait Till Element Visible         ${reject_request_reason_text} 
-    Scroll Element Into View          ${reject_request_reason_text} 
-    Wait Till Element Visible         ${reject_request_reason_text} 
-    Wait Till Element Enabled         ${reject_request_reason_text} 
-    Input Text                        ${reject_request_reason_text}         Document is not valid
-    Sleep    2s
+
+    Wait Till Element Visible         ${reject_request_reason_text}
+    Scroll Element Into View          ${reject_request_reason_text}
+    Wait Till Element Enabled         ${reject_request_reason_text}
+    Input Text                        ${reject_request_reason_text}    Document is not valid
+
     Wait Till Element Visible         ${reject_timecard_on_request_reason_window}
     Scroll Element Into View          ${reject_timecard_on_request_reason_window}
-    Wait Till Element Visible         ${reject_timecard_on_request_reason_window}
     Wait Till Element Enabled         ${reject_timecard_on_request_reason_window}
-    Click Element Safely              ${reject_timecard_on_request_reason_window}
-    Wait Until Page Ready
+
+    # Retry clicking until success
+    Wait Until Keyword Succeeds       20s    2s    Click Element Safely    ${reject_timecard_on_request_reason_window}
+
+    # Wait until reject window/button disappears
+    Wait Until Page Does Not Contain Element    ${reject_timecard_on_request_reason_window}    timeout=60s
     Sleep    2s
+    Wait Until Page Ready
 
     
     
