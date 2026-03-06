@@ -518,12 +518,17 @@ navigate to feature page
     [Arguments]        ${feature}
     Wait Until Page Ready
     Wait Until Element Is Visible    //button[contains(@class,'ats-bottom')]    ${TIMEOUT}
-    Scroll Element Into View         //button[contains(@class,'ats-bottom')]
+    Wait Until Keyword Succeeds    20s    2s
+    ...    Scroll Element Into View    //button[contains(@class,'ats-bottom')]
     Mouse Over                       //div[@class='ats-bottom-dropdown']
     Wait Until Page Ready
-    Click Element                    //div[@class='ats-bottom-dropdown']
+    # Retry clicking dropdown
+    Wait Until Keyword Succeeds    20s    2s
+    ...    Click Element    //div[@class='ats-bottom-dropdown']
     Mouse Over                       //span[text()='${feature}']
     Sleep                            2s
     Wait Until Page Ready
-    Click Element                    //span[text()='${feature}']
+    # Retry clicking feature option
+    Wait Until Keyword Succeeds    20s    2s
+    ...    Click Element    //span[text()='${feature}']
     Wait Until Page Ready

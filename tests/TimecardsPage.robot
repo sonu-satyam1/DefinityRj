@@ -228,9 +228,9 @@ Verify that HCS timecard manager should be able to submit a timecard from HCS si
     Click Talent Name on Listing Page and navigate to Timecards details page
     Capture Talent Name and validate after submitting Timecard
     validate timecard status    Approved
-    Capture Rate card Details Details and validate after submitting Timecard in HCS
     Capture Timecard Work Week Date Details and validate after submitting Timecard
     Validate Timecards Line Items Statuses on HCS    Approved
+    Capture Rate card Details Details and validate after submitting Timecard in HCS
     
 
 
@@ -292,7 +292,7 @@ Verify that for "Timecard punch type" set as Hours Vendor timecard manager shoul
     IF    not ${talent_clicked}
         Pass Execution    No Pending Submission timecards available. Generate Pending submission timecards and execute again.
     END
-    Fill Timecard Hours    1    2
+    Fill Timecard Hours    1
     open add document section
     upload document and save
     Capture Talent Name while submitting Timecard
@@ -441,9 +441,9 @@ Verify that HCS timecard manager should be able to submit a timecard from HCS si
     Click Talent Name on Listing Page and navigate to Timecards details page
     Capture Talent Name and validate after submitting Timecard
     validate timecard status    Approved
-    Capture Rate card Details Details and validate after submitting Timecard in HCS
     Capture Timecard Work Week Date Details and validate after submitting Timecard
     Validate Timecards Line Items Statuses on HCS    Approved
+    Capture Rate card Details Details and validate after submitting Timecard in HCS
 
 
 
@@ -605,7 +605,7 @@ Verify that HCS user should be able to REJECT a timecard in Pending approval and
     Verify Timecard Management Page Title
     navigate to default view
     Filter Timecard By Column by selecting dropdown    Status       Pending Approval
-    Filter Timecard By Column by entering text         Vendor       vendor_testorg1
+    Filter Timecard By Column by entering text         Vendor       COSA vendor
     ${talent_clicked}=    Get First Talent Name And Click
     IF    not ${talent_clicked}
         Pass Execution    No  Pending Approval timecards available. Generate Pending Approval timecards and execute again.
@@ -616,7 +616,6 @@ Verify that HCS user should be able to REJECT a timecard in Pending approval and
     Capture Rate card Details Details while submitted Timecard from HCS
     Approve or Reject timecard from HCS    Reject Timecard
     Select reject request reason from dropdown enter text and click on reject timecard
-    Wait For Page Ready
     Sleep    10s
     Close Browser Safely
     Login To Portal    VMS    ${VMS}
