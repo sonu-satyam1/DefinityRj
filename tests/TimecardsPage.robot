@@ -624,6 +624,7 @@ Verify that HCS user should be able to REJECT a timecard in Pending approval and
     Filter Timecard By Column by selecting dropdown    Status       Rejected
     Filter Timecard By Column by entering text    Talent Name       ${TIMECARD_TALENT_NAME_BEFORE_SUBMISSION}
     Capture All Cells From First Row
+
     #validationmade after approving timecards on pending approval status ON VENDOR SIDE
     Validate Timecard Row Data    ${TIMECARD_TALENT_NAME_BEFORE_SUBMISSION}     ${RATECARD_TOTAL_AMOUNT_BEFORE_SUBMISSION}    ${TIMECARD_DATE_RANGE_BEFORE_SUBMISSION}    Rejected
     Click Talent Name on Listing Page and navigate to Timecards details page
