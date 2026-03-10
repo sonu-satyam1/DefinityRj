@@ -107,7 +107,10 @@ ${first_reject_request_reason}                         //ul[@id='rejectReasonlis
 ${reject_request_reason_text}                          //textarea[@name='reason']
 ${reject_timecard_on_request_reason_window}            //button[@type='submit' and .//span[normalize-space()='Reject Timecard']]
 
-
+#rescind xpaths
+${MORE_BUTTON}         //button[.//span[contains(@class,'k-i-more')]]
+${RESCIND_APPROVAL}    //span[normalize-space()='Rescind Approval' and contains(@class,'k-menu-link')]
+${CONTINUE_BUTTON}     //button[@type='submit']//span[normalize-space()='Continue']
 
 *** Keywords ***
 Verify Timecard Management Page Title
@@ -115,9 +118,22 @@ Verify Timecard Management Page Title
     Verify Page Title    Timecard Management
     
 
+#navigate to default view
+#    Wait Until Page Ready
+#    From Dropdown Verify or Select an Option    ${XPATH_BTN_VIEWS_DROPDOWN}    ${XPATH_BTN_VIEWS_DROPDOWN_VALUES}    Default    select
+#    Wait Until Page Ready
+
+
 navigate to default view
     Wait Until Page Ready
-    From Dropdown Verify or Select an Option    ${XPATH_BTN_VIEWS_DROPDOWN}    ${XPATH_BTN_VIEWS_DROPDOWN_VALUES}    Default    select 
+    ${is_visible}=    Run Keyword And Return Status    Element Should Be Visible    ${XPATH_BTN_VIEWS_DROPDOWN}
+    ${is_enabled}=    Run Keyword And Return Status    Element Should Be Enabled    ${XPATH_BTN_VIEWS_DROPDOWN}
+    Run Keyword If    ${is_visible} and ${is_enabled}
+    ...    From Dropdown Verify or Select an Option
+    ...    ${XPATH_BTN_VIEWS_DROPDOWN}
+    ...    ${XPATH_BTN_VIEWS_DROPDOWN_VALUES}
+    ...    Default
+    ...    select
     Wait Until Page Ready
     
 
@@ -286,11 +302,20 @@ upload document and save on HCS
 
 Capture Rate card Details Details while submitted Timecard from HCS
     [Documentation]    Navigates to Ratecard tab, captures Hours and Total Amount, and sets suite variables.
+
+    Wait Until Page Ready
+    # Retry scrolling to Schedule & Rate section
+    Wait Until Keyword Succeeds    5x    2s
+    ...    Scroll Element Into View    //h3[normalize-space()='Schedule & Rate']
+    Wait Till Element Visible          //h3[normalize-space()='Schedule & Rate']
+    # Try clicking heading (safe attempt since it is just text)
+    Run Keyword And Ignore Error    Click Element    //h3[normalize-space()='Schedule & Rate']
+    Sleep    2s
     Wait Till Element Visible               ${HCS_TAB_RATE_CARD}
     Wait Until Page Ready
     Scroll Element Into View                ${HCS_TAB_RATE_CARD}
     Wait Till Element Visible               ${HCS_TAB_RATE_CARD}
-    Wait Till Element Enabled                   ${HCS_TAB_RATE_CARD}
+    Wait Till Element Enabled               ${HCS_TAB_RATE_CARD}
     Click Element Safely                    ${HCS_TAB_RATE_CARD}
     Sleep    2s
     Scroll Element Into View                ${HCS_RATECARD_TOTAL_AMOUNT}
@@ -412,9 +437,29 @@ Select reject request reason from dropdown enter text and click on reject timeca
     Sleep    2s
     Wait Until Page Ready
 
-    
+
+Click Rescind Approval From Menu
+    Sleep    2s
+    Wait Until Page Ready
+    Wait Until Keyword Succeeds    10s    1s    Click Element    ${MORE_BUTTON}
+    Wait Until Page Ready
+    Wait Till Element Visible  ${RESCIND_APPROVAL}
+    Wait Until Page Ready
+    Sleep    2s
+    Wait Until Keyword Succeeds    10s    1s    Click Element    ${RESCIND_APPROVAL}
+    Wait Until Page Ready
+    Wait Until Element Is Not Visible     ${RESCIND_APPROVAL}     30s
     
 
+Click Continue When Clickable
+    Wait Until Page Ready
+    Wait Till Element Visible     ${CONTINUE_BUTTON}
+    Wait Till Element Enabled     ${CONTINUE_BUTTON}
+    Sleep    2s
+    Wait Until Keyword Succeeds     15s     1s     Click Element     ${CONTINUE_BUTTON}
+    Wait Until Page Ready
+    Wait Until Element Is Not Visible     ${CONTINUE_BUTTON}     30s
+    Wait Until Page Ready
     
     
      
