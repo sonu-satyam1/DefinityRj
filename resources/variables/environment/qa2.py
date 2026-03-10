@@ -7,8 +7,8 @@ APPROVER_USER= ""
 # }
 HCS = {
     "url":  "https://costrategi-security-stage2.internal-definitywfs.com/signin",
-    "user": "satyamsonu31@gmail.com",
-    "pass": "Test@123"
+    "user": "devops@definity.com",
+    "pass": "Password@123!"
 }
 # HCS = {
 #     "url":  "https://tenet-security-preprod.internal-definitywfs.com/signin",

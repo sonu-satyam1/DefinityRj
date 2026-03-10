@@ -635,7 +635,20 @@ Validate Button State By Text
         Fail    Invalid expected_state: ${expected_state}. Use 'enabled' or 'disabled'
     END
 
-    
+Dispute or ConfirmAll timecard and from HCS
+    [Arguments]    ${action}
+    Wait Until Page Ready
+    ${button_xpath}=    Set Variable
+    ...    //button[@type='button'][.//span[normalize-space()='${action}']]
+    # Retry clicking until successful
+    Wait Until Keyword Succeeds    30s    3s
+    ...    Click Timecard Action Button    ${button_xpath}
+    # Wait until button disappears (action completed)
+    Sleep    2s
+    Wait Until Page Ready
+
+
+
     
 
 
