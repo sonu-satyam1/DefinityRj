@@ -842,7 +842,6 @@ Verify that vendor can CONFIRM all line items on an APPROVED TIMECARD at once an
     Validate Timecards Line Items Statuses on HCS    Ready To Invoice
     Capture Rate card Details Details and validate after submitting Timecard in HCS
 
-
 Verify that vendor can CONFIRM all line items on an APPROVED TIMECARD at once and validate on VENDOR side
     [Documentation]    Click on an approved timecard >click on CONFIRM ALL button
                 ...    Timecard status should update to READY TO INVOICE
@@ -877,6 +876,4 @@ Verify that vendor can CONFIRM all line items on an APPROVED TIMECARD at once an
     validate timecard status    Ready To Invoice
     Capture Timecard Work Week Date Details and validate after submitting Timecard
     Validate Timecards Line Items Statuses    Ready To Invoice
-
     Capture Rate card Details Details and validate after submitting Timecard
-
