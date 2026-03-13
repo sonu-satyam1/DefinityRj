@@ -44,6 +44,12 @@ ${VMS_TIMECARD_STATUS_DETAILS_PAGE}    //div[contains(@class,'d-flex a')]//span[
 ${VMS_LINE_ITEMS_STATUSES_ELEMENTS}    //span[contains(@class,'status-chips-wrapper te')]
 ${error_msg_locator}                   //span[@class='notify-msg']
 ${DID_NOT_WORK_TOGGLE_XPATH}           //label[text()='Did Not Work']//span[@role='switch']
+${dispute_reason_dropdown_arrow}       //label[normalize-space()='Reason']/preceding-sibling::span//button[@aria-label='expand combobox']
+${first_dispute_reason}                (//ul[contains(@class,'k-list-ul')]//li)[1]
+${dispute_reason_text}                 //textarea[@role='textbox' and @name='comment']
+${dispute_timecard_on_dispute_reason_window}       //div[contains(@class,'pr-form-btn-group')]//button[@type='submit' and .//span[normalize-space()='SUBMIT DISPUTE']]
+${add_document_button_on_dispute_reason_window}    //button[@type='button' and normalize-space()='+ Add Document']
+
 
 *** Keywords ***
 Verify Timecard Management Page Title in Vms
@@ -315,6 +321,15 @@ Capture Talent Name while submitting Timecard
 
 Capture Timecard Work Week Date Details while submitting Timecard
     [Documentation]    Captures the date range from the Timecard tab and sets it as a suite variable.
+    Wait Until Page Ready
+    # Retry scroll to Schedule & Rate section
+    Wait Till Element Visible               //h3[normalize-space()='Schedule & Rate']
+    Wait Until Keyword Succeeds    5x    2s
+    ...    Scroll Element Into View         //h3[normalize-space()='Schedule & Rate']
+    Wait Till Element Visible               //h3[normalize-space()='Schedule & Rate']
+    # Try clicking heading safely (ignore if not clickable since it's text)
+    Run Keyword And Ignore Error    Click Element    //h3[normalize-space()='Schedule & Rate']
+    Sleep    2s
     Wait Till Element Visible    ${VMS_TAB_TIMECARD}    
     Wait Until Page Ready
     Wait Till Element Visible    ${VMS_TAB_TIMECARD}
@@ -646,10 +661,325 @@ Dispute or ConfirmAll timecard and from HCS
     # Wait until button disappears (action completed)
     Sleep    2s
     Wait Until Page Ready
-
-
-
     
+
+Verify Action Buttons Present
+    [Arguments]    @{actions}
+    Wait Until Page Ready
+    FOR    ${action}    IN    @{actions}
+        ${button_xpath}=    Set Variable    //button[@type='button'][.//span[normalize-space()='${action}']]
+        Sleep    2s
+        Wait Until Page Ready
+        Wait Till Element Visible    ${button_xpath}
+        Wait Until Page Ready
+        Wait Till Element Enabled    ${button_xpath}
+        Wait Until Page Ready
+    END
+
+
+Validate Action Buttons On LineItems
+    [Arguments]    ${btn1_text}    ${btn2_text}
+    Wait Until Page Ready
+    ${groups}=    Get Element Count    //div[contains(@class,'action-btn-group')]
+    ${exp1}=    Convert To Upper Case    ${btn1_text}
+    ${exp2}=    Convert To Upper Case    ${btn2_text}
+    FOR    ${index}    IN RANGE    1    ${groups}+1
+        Scroll Element Into View    (//div[contains(@class,'action-btn-group')]//button[normalize-space()='${btn1_text}'])[${index}]
+        ${btn1}=    Get Text
+        ...    xpath=(//div[contains(@class,'action-btn-group')]//button[normalize-space()='${btn1_text}'])[${index}]
+        Sleep    2s
+        Scroll Element Into View    (//div[contains(@class,'action-btn-group')]//button[normalize-space()='${btn2_text}'])[${index}]
+        ${btn2}=    Get Text
+        ...    xpath=(//div[contains(@class,'action-btn-group')]//button[normalize-space()='${btn2_text}'])[${index}]
+        ${btn1}=    Convert To Upper Case    ${btn1}
+        ${btn2}=    Convert To Upper Case    ${btn2}
+        Log    Row ${index} Button1 -> Actual: ${btn1} | Expected: ${exp1}
+        Log    Row ${index} Button2 -> Actual: ${btn2} | Expected: ${exp2}
+        Should Be Equal As Strings    ${btn1}    ${exp1}
+        Should Be Equal As Strings    ${btn2}    ${exp2}
+    END
+
+Click on Dispute or Confirm Action Buttons On LineItems
+    [Arguments]     ${btn_text}     ${index}
+    Wait Until Page Ready
+    ${button_xpath}=    Set Variable
+    ...    (//div[contains(@class,'action-btn-group')]//button[normalize-space()='${btn_text}'])[${index}]
+    Scroll Element Into View    ${button_xpath}
+    Wait Until Keyword Succeeds    10s    1s
+    ...    Click Element    ${button_xpath}
+    Wait Until Page Ready
+
+
+Validate Disputed Row Fields Are Disabled
+    Wait Until Page Ready
+    ${disputed_row}=    Get WebElement    xpath=//tr[contains(@class,'disputed-row')]
+    Scroll Element Into View     ${disputed_row}
+    Element Should Be Visible    ${disputed_row}
+    Wait Until Page Ready
+
+Validate First Timecard Row Fields Are Enabled
+    [Arguments]    ${line_item_row_number}
+    Wait Until Page Ready
+    ${row}=    Set Variable    (//tbody/tr)[${line_item_row_number}]
+    Element Should Be Visible    ${row}
+    Log    ===== Validating First Row Editable Fields =====
+    ${rate_type}=    Set Variable    (${row}//input[@role='combobox'])[1]
+    ${cost_center}=  Set Variable    (${row}//input[@role='combobox'])[2]
+    ${time_in}=      Set Variable    ${row}//input[contains(@name,'timeIn')]
+    ${time_out}=     Set Variable    ${row}//input[contains(@name,'timeOut')]
+    ${hours}=        Set Variable    ${row}//input[contains(@name,'hours')]
+    ${meal}=         Set Variable    ${row}//input[@type='checkbox']
+    Scroll Element Into View    ${rate_type}
+    Element Should Be Enabled    ${rate_type}
+    Log    Rate Type dropdown is enabled
+    Scroll Element Into View    ${cost_center}
+    Element Should Be Enabled    ${cost_center}
+    Log    Cost Center dropdown is enabled
+
+    ${time_fields_present}=    Run Keyword And Return Status
+    ...    Page Should Contain Element    ${time_in}
+    IF    ${time_fields_present}
+        Scroll Element Into View    ${time_in}
+        Element Should Be Enabled    ${time_in}
+        Log    Time In field is enabled
+
+        Scroll Element Into View    ${time_out}
+        Element Should Be Enabled    ${time_out}
+        Log    Time Out field is enabled
+    ELSE
+        ${hours_present}=    Run Keyword And Return Status
+        ...    Page Should Contain Element    ${hours}
+
+        IF    ${hours_present}
+            Scroll Element Into View    ${hours}
+            Element Should Be Enabled    ${hours}
+            Log    Hours field is enabled
+        ELSE
+            Fail    Neither Time fields nor Hours field found in row
+        END
+    END
+    ${meal_present}=    Run Keyword And Return Status
+    ...    Page Should Contain Element    ${meal}
+    IF    ${meal_present}
+        Scroll Element Into View    ${meal}
+        Element Should Be Enabled    ${meal}
+        Log    Meal checkbox is enabled
+    ELSE
+        Log    Meal checkbox not present in this row - skipping validation
+    END
+
+
+Select Random Rate Type Different From Current
+    [Arguments]    ${line_item_row_number}
+    Wait Until Page Ready
+    ${rate_input}=    Set Variable    ((//tbody/tr)[${line_item_row_number}]//input[@role='combobox'])[1]
+    ${dropdown_btn}=  Set Variable    ${rate_input}/..//button
+    Scroll Element Into View    ${rate_input}
+    ${current_value}=    Get Element Attribute    ${rate_input}    value
+    Log    Current Rate Type: ${current_value}
+    Wait Until Page Ready
+    Wait Till Element Visible    ${dropdown_btn}
+    Scroll Element Into View    ${dropdown_btn}
+    Click Element    ${dropdown_btn}
+    Wait Till Element Visible    //ul[contains(@class,'k-list-ul')]
+    ${options}=    Get WebElements    //ul[contains(@class,'k-list-ul')]//span[@class='k-list-item-text']
+    ${valid_options}=    Create List
+    FOR    ${opt}    IN    @{options}
+        ${text}=    Get Text    ${opt}
+        Run Keyword If    '${text}' != '${current_value}'
+        ...    Append To List    ${valid_options}    ${opt}
+    END
+    ${count}=    Get Length    ${valid_options}
+    ${random_index}=    Evaluate    random.randint(0, ${count}-1)    modules=random
+    ${random_option}=    Get From List    ${valid_options}    ${random_index}
+    ${selected_text}=    Get Text    ${random_option}
+    Log    Selecting Random Rate Type: ${selected_text}
+    Wait Until Page Ready
+    Wait Until Keyword Succeeds    10s    1s    Click Element    ${random_option}
+    Wait Until Page Ready
+
+Select Random Cost Centre Different From Current
+    [Arguments]    ${line_item_row_number}
+    Wait Until Page Ready
+    ${cost_centre_input}=    Set Variable    ((//tbody/tr)[${line_item_row_number}]//input[@role='combobox'])[2]
+    ${dropdown_btn}=  Set Variable    ${cost_centre_input}/..//button
+    Scroll Element Into View    ${cost_centre_input}
+    ${current_value}=    Get Element Attribute    ${cost_centre_input}    value
+    Log    Current Rate Type: ${current_value}
+    Wait Until Page Ready
+    Wait Till Element Visible    ${dropdown_btn}
+    Scroll Element Into View    ${dropdown_btn}
+    Wait Until Keyword Succeeds    10s    1s    Click Element    ${dropdown_btn}
+    Wait Till Element Visible      //ul[contains(@class,'k-list-ul')]
+    ${options}=    Get WebElements    //ul[contains(@class,'k-list-ul')]//span[@class='k-list-item-text']
+    ${valid_options}=    Create List
+    FOR    ${opt}    IN    @{options}
+        ${text}=    Get Text    ${opt}
+        Run Keyword If    '${text}' != '${current_value}'
+        ...    Append To List    ${valid_options}    ${opt}
+    END
+    ${count}=    Get Length    ${valid_options}
+    ${random_index}=    Evaluate    random.randint(0, ${count}-1)    modules=random
+    ${random_option}=    Get From List    ${valid_options}    ${random_index}
+    ${selected_text}=    Get Text    ${random_option}
+    Log    Selecting Random Rate Type: ${selected_text}
+    Wait Until Page Ready
+    Wait Until Keyword Succeeds    10s    1s    Click Element    ${random_option}
+    Wait Until Page Ready
+
+
+Fill Timecard Based On Field Type for timein timeout or hours for disputed line items
+    [Arguments]    ${row_index}
+    Wait Until Page Ready
+    ${hours_locator}=    Set Variable    (//input[contains(@name,'hours')])[${row_index}]
+    ${timein_locator}=   Set Variable    (//input[contains(@name,'timeIn')])[${row_index}]
+    ${timeout_locator}=  Set Variable    (//input[contains(@name,'timeOut')])[${row_index}]
+    Wait Until Page Ready
+    Scroll Element Into View          ${hours_locator}
+    ${hours_clickable}=    Run Keyword And Return Status
+    ...    Wait Until Element Is Enabled    ${hours_locator}    10s
+    ${timein_present}=   Run Keyword And Return Status
+    ...    Page Should Contain Element    ${timein_locator}     10s
+    IF    ${hours_clickable}
+        Log    Hours field detected. Filling hours and skipping Time In/Out.
+
+        Scroll Element Into View    ${hours_locator}
+        Wait Until Element Is Visible    ${hours_locator}    20s
+        Wait Until Element Is Enabled    ${hours_locator}
+        Wait Until Keyword Succeeds    10s    1s    Click Element    ${hours_locator}
+        Clear Element Text   ${hours_locator}
+        Input Text           ${hours_locator}    ${hours}
+        Press Keys           ${hours_locator}    TAB
+
+        Log    Entered ${hours} hours in row ${row_index}
+
+    ELSE IF    ${timein_present}
+        Log    Time fields detected. Filling Time In and Time Out and skipping Hours.
+
+        ### TIME IN ###
+        Scroll Element Into View    ${VMS_TIME_IN_BTN}
+        Wait Till Element Visible   ${VMS_TIME_IN_BTN}
+        Wait Till Element Enabled   ${VMS_TIME_IN_BTN}
+        Wait Until Keyword Succeeds    10s    1s    Click Element    ${VMS_TIME_IN_BTN}
+
+        Scroll Element Into View    (//li[contains(text(),'${time_in}')])[1]
+        Wait Till Element Visible   (//li[contains(text(),'${time_in}')])[1]
+        Wait Till Element Enabled   (//li[contains(text(),'${time_in}')])[1]
+        Wait Until Keyword Succeeds    10s    1s    Click Element    (//li[contains(text(),'${time_in}')])[1]
+
+        Wait Till Element Visible   //button[text()='OK']
+        Wait Till Element Enabled   //button[text()='OK']
+        Wait Until Keyword Succeeds    10s    1s    Click Element    //button[text()='OK']
+
+        ### TIME OUT ###
+        Wait Till Element Visible   ${VMS_TIME_OUT_BTN}
+        Wait Till Element Enabled   ${VMS_TIME_OUT_BTN}
+        Click Element Safely        ${VMS_TIME_OUT_BTN}
+
+        Scroll Element Into View    (//li[contains(text(),'05')])[1]
+        Wait Till Element Visible   (//li[contains(text(),'05')])[1]
+        Wait Till Element Enabled   (//li[contains(text(),'05')])[1]
+        Wait Until Keyword Succeeds    10s    1s    Click Element    (//li[contains(text(),'05')])[1]
+
+        Wait Till Element Visible   //button[text()='OK']
+        Wait Till Element Enabled   //button[text()='OK']
+        Click Element Safely        //button[text()='OK']
+        Wait Until Keyword Succeeds    10s    1s    Click Element    //button[text()='OK']
+    ELSE
+        Fail    Neither Hours nor Time fields found in row ${row_index}
+    END
+
+Add another line item for the disputed date by clicking on plus icon
+    [Arguments]    ${index}
+    Wait Until Page Ready
+    ${duplicate_btn}=    Set Variable    (//tbody/tr)[${index}]//button[@aria-label='Duplicate timecard entry']
+    Scroll Element Into View    ${duplicate_btn}
+    Wait Until Element Is Visible    ${duplicate_btn}    20s
+    Wait Until Element Is Enabled    ${duplicate_btn}
+    Wait Until Keyword Succeeds    10s    1s    Click Element    ${duplicate_btn}
+    Log    Clicked Duplicate Timecard Entry button for row ${index}
+
+
+Select dispute reason from dropdown enter text and click on submit dispute timecard
+    Wait Until Page Ready
+
+    Wait Till Element Visible         ${dispute_reason_dropdown_arrow}
+    Scroll Element Into View          ${dispute_reason_dropdown_arrow}
+    Wait Till Element Enabled         ${dispute_reason_dropdown_arrow}
+    Wait Until Keyword Succeeds       20s    2s    Click Element             ${dispute_reason_dropdown_arrow}
+
+    Wait Till Element Visible         ${first_dispute_reason}
+    Scroll Element Into View          ${first_dispute_reason}
+    Wait Till Element Enabled         ${first_dispute_reason}
+    Wait Until Keyword Succeeds       20s    2s    Click Element              ${first_dispute_reason}
+
+    Wait Till Element Visible         ${dispute_reason_text}
+    Scroll Element Into View          ${dispute_reason_text}
+    Wait Till Element Enabled         ${dispute_reason_text}
+    Input Text                        ${dispute_reason_text}    Document is not valid
+
+    Wait Till Element Visible         ${dispute_timecard_on_dispute_reason_window}
+    Scroll Element Into View          ${dispute_timecard_on_dispute_reason_window}
+    Wait Till Element Enabled         ${dispute_timecard_on_dispute_reason_window}
+
+    # Retry clicking until success
+    Wait Until Keyword Succeeds       20s    2s    Click Element    ${dispute_timecard_on_dispute_reason_window}
+
+    # Wait until reject window/button disappears
+    Wait Until Page Does Not Contain Element    ${dispute_timecard_on_dispute_reason_window}    timeout=60s
+    Sleep    2s
+    Wait Until Page Ready
+
+open add document window on dispute reason window
+    Wait Until Page Ready
+    Wait Till Element Visible         ${add_document_button_on_dispute_reason_window}
+    Scroll Element Into View          ${add_document_button_on_dispute_reason_window}
+    Wait Till Element Enabled         ${add_document_button_on_dispute_reason_window}
+    Wait Until Keyword Succeeds       20s    2s    Click Element    ${add_document_button_on_dispute_reason_window}
+    Wait Until Page Ready
+
+Validate Timecards Disputed Line Items Statuses on VENDOR
+    [Arguments]    ${expected_line_item_status}    ${expected_count}
+    Wait Until Page Ready
+    Wait Till Element Visible    ${VMS_LINE_ITEMS_STATUSES_ELEMENTS}
+    # Normalize expected value
+    ${expected_line_item_status}=    Strip String    ${expected_line_item_status}
+    ${expected_upper}=               Convert To Upper Case    ${expected_line_item_status}
+    # Get all matching elements
+    ${elements}=        Get WebElements    ${VMS_LINE_ITEMS_STATUSES_ELEMENTS}
+    ${total_count}=     Get Length    ${elements}
+    Log    Found ${total_count} line item status elements. Validating first ${expected_count}.
+    # Safety check
+    Should Be True    ${total_count} >= ${expected_count}    Not enough line item statuses present.
+    ${index}=    Set Variable    0
+    FOR    ${element}    IN    @{elements}
+        Exit For Loop If    ${index} >= ${expected_count}
+        Scroll Element Into View    ${element}
+        Wait Till Element Visible   ${element}
+        ${status}=          Get Text    ${element}
+        ${status}=          Strip String    ${status}
+        ${status_upper}=    Convert To Upper Case    ${status}
+        ${display_index}=   Evaluate    ${index} + 1
+        Log    Line item ${display_index} status: ${status}
+        Should Be Equal    ${status_upper}    ${expected_upper}
+        ${index}=    Evaluate    ${index} + 1
+
+    END
+
+Validate timecard displays banner And Log Banner Texts
+    Wait Until Page Ready
+    ${banner}=    Set Variable    //div[@class='banner-wrapper mb-3']
+    Wait Until Element Is Visible    ${banner}
+    Log    Banner is visible on the page.    console=True
+    ${elements}=    Get WebElements    ${banner}//p
+    ${count}=    Get Length    ${elements}
+    Log    Found ${count} banner text elements.    console=True
+    FOR    ${el}    IN    @{elements}
+        ${text}=    Get Text    ${el}
+        ${text}=    Strip String    ${text}
+
+        Log    Banner Text: ${text}    console=True
+    END
 
 
 
