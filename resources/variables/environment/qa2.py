@@ -5,11 +5,18 @@ APPROVER_USER= ""
 #     "user": "sonu.satyam@costrategix.com",
 #     "pass": "Test@123"
 # }
+# HCS = {
+#     "url":  "https://costrategi-security-stage2.internal-definitywfs.com/signin",
+#     "user": "devops@definity.com",
+#     "pass": "Password@123!"
+# }
+
 HCS = {
-    "url":  "https://costrategi-security-stage2.internal-definitywfs.com/signin",
-    "user": "devops@definity.com",
-    "pass": "Password@123!"
+    "url":  "https://tenet-security-preprod.internal-definitywfs.com/signin",
+    "user": "nikhilkumar.waghaye@costrategix.com",
+    "pass": "Nikhil@15"
 }
+
 # HCS = {
 #     "url":  "https://tenet-security-preprod.internal-definitywfs.com/signin",
 #     "user": "nikhilkumar.waghaye@costrategix.com",
@@ -28,8 +35,14 @@ HCS = {
 #     "pass": "Test@123"
 # }
 
+# VMS = {
+#     "url":  "https://security-stage2.internal-definitywfs.com/signin",
+#     "user": "pirlo723@mailinator.com",
+#     "pass": "9916455168@Rj"
+# }
+
 VMS = {
-    "url":  "https://security-stage2.internal-definitywfs.com/signin",
-    "user": "pirlo723@mailinator.com",
-    "pass": "9916455168@Rj"
+    "url":  "https://security-preprod.internal-definitywfs.com/signin",
+    "user": "nikhilkumar.waghaye@gmail.com",
+    "pass": "Nikhil@15"
 }

@@ -279,7 +279,35 @@ Validate Timecards Line Items Statuses on HCS
 
         Should Be Equal    ${status_upper}    ${expected_upper}
     END
-    
+
+Validate Timecards Disputed Line Items Statuses on HCS
+    [Arguments]    ${expected_line_item_status}    ${expected_count}
+    Wait Until Page Ready
+    Wait Till Element Visible    ${HCS_LINE_ITEMS_STATUSES_ELEMENTS}
+    # Normalize expected value
+    ${expected_line_item_status}=    Strip String    ${expected_line_item_status}
+    ${expected_upper}=               Convert To Upper Case    ${expected_line_item_status}
+    # Get all matching elements
+    ${elements}=        Get WebElements    ${HCS_LINE_ITEMS_STATUSES_ELEMENTS}
+    ${total_count}=     Get Length    ${elements}
+    Log    Found ${total_count} line item status elements. Validating first ${expected_count}.
+    # Safety check
+    Should Be True    ${total_count} >= ${expected_count}    Not enough line item statuses present.
+    ${index}=    Set Variable    0
+    FOR    ${element}    IN    @{elements}
+        Exit For Loop If    ${index} >= ${expected_count}
+        Scroll Element Into View    ${element}
+        Wait Till Element Visible   ${element}
+        ${status}=          Get Text    ${element}
+        ${status}=          Strip String    ${status}
+        ${status_upper}=    Convert To Upper Case    ${status}
+        ${display_index}=   Evaluate    ${index} + 1
+        Log    Line item ${display_index} status: ${status}
+        Should Be Equal    ${status_upper}    ${expected_upper}
+        ${index}=    Evaluate    ${index} + 1
+
+    END
+
 upload document and save on HCS
     ${UPLOAD_DIALOG}=    Set Variable
     ...    (//div[contains(@class,'k-window') and not(contains(@style,'display: none')) and .//span[normalize-space()='Upload / Edit']])[last()]
@@ -449,7 +477,16 @@ Click Rescind Approval From Menu
     Wait Until Keyword Succeeds    10s    1s    Click Element    ${RESCIND_APPROVAL}
     Wait Until Page Ready
     Wait Until Element Is Not Visible     ${RESCIND_APPROVAL}     30s
-    
+
+Validate Rescind Approval Not Available
+    Wait Until Page Ready
+    ${more_present}=    Run Keyword And Return Status
+    ...    Page Should Contain Element    ${MORE_BUTTON}
+    IF    ${more_present}
+        Fail    RESCIND button is present. Negative scenario failed.
+    ELSE
+        Log    RESCIND button is not present as expected. Rescind Approval cannot be performed.
+    END
 
 Click Continue When Clickable
     Wait Until Page Ready
@@ -461,5 +498,5 @@ Click Continue When Clickable
     Wait Until Element Is Not Visible     ${CONTINUE_BUTTON}     30s
     Wait Until Page Ready
     
-    
+
      
